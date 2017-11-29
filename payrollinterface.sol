@@ -21,6 +21,13 @@ struct Employee {
 
 mapping (uint256 => Employee)public employees;
 mapping(address => uint256) public depositHistory;
+
+event EURExchangeRateSet(uint256 _rate, uint256 _time);
+event Employees(address _employee, uint256 _time, boolean _state)
+event Deposit(uint256 _amount, uint256 _time);
+event Withdraw(uint256 _amount, uint256 _time);
+event Payday(uint256 _amount, uint256 _rate, uint256 _time);
+
 function addEmployee(address _accountAddress, bytes32 _name, address[] _allowedTokens, uint256 _initialYearlyEURSalary) isOwner{
     uint256 _empId = empId++;
     employees[_empId].account = _accountAddress;
@@ -28,6 +35,7 @@ function addEmployee(address _accountAddress, bytes32 _name, address[] _allowedT
     employees[_empId].salary = _initialYearlyEURSalary;
     employees[_empId].name = _name;
    ++empCount;
+   Employees(employees[_empId].account, now, true);
 
 }
 function setEmployeeSalary(uint256 employeeId, uint256 yearlyEURSalary) isOwner{
@@ -39,12 +47,14 @@ function removeEmployee(uint256 _empId) isOwner{
     delete employees[_empId].name;
     delete employees[_empId].lastPayday;
      --empCount;
+     Employees(employees[_empId].account, now, false);
 }
 function addFunds() payable{
-
+    Deposit(msg.value, now);
 }
 function scapeHatch()isOwner {
     owner.transfer(this.balance);
+    Withdraw(this.balance, now)
 }
 // function addTokenFunds()? // Use approveAndCall or ERC223 tokenFallback
 function getEmployeeCount() constant returns (uint256){
@@ -72,7 +82,7 @@ function payday(uint256 _empId) isEmployee(_empId) balanceCheck onlyAfter(_empId
 
    uint256 converted = employees[_empId].salary * EURrate;
     (employees[_empId].account).transfer(converted);
-
+    Payday(converted, EURrate, now);
 
 } // only callable once a month
 
@@ -80,6 +90,7 @@ function payday(uint256 _empId) isEmployee(_empId) balanceCheck onlyAfter(_empId
 /* ORACLE ONLY */
 function setExchangeRate(uint256 EURExchangeRate)isOracle {
     EURrate = EURExchangeRate;
+    EURExchangeRateSet(EURrate, now);
 } // uses decimals from token
 
 modifier isOwner(){
@@ -92,17 +103,14 @@ modifier isOracle(){
 }
 modifier onlyAfter(uint256 _empId, uint256 _period){
     if(employees[_empId].lastPayday != 0)
-        require((now + employees[_empId].lastPayday) >= (_period * 1 weeks) );
+        require((now - employees[_empId].lastPayday) >= (_period * 1 weeks) );
     _;
 }
 modifier isEmployee(uint256 _empId){
     require(employees[_empId].account != 0x0);
     _;
 }
-modifier isSixMonths(){
 
-    _;
-}
 modifier balanceCheck(){
     require(this.balance >= calculatePayrollBurnrate());
     _;
