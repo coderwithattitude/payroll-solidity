@@ -23,7 +23,7 @@ mapping (uint256 => Employee)public employees;
 mapping(address => uint256) public depositHistory;
 
 event EURExchangeRateSet(uint256 _rate, uint256 _time);
-event Employees(address _employee, uint256 _time, boolean _state)
+event Employees(address _employee, uint256 _time, bool _state);
 event Deposit(uint256 _amount, uint256 _time);
 event Withdraw(uint256 _amount, uint256 _time);
 event Payday(uint256 _amount, uint256 _rate, uint256 _time);
@@ -54,7 +54,7 @@ function addFunds() payable{
 }
 function scapeHatch()isOwner {
     owner.transfer(this.balance);
-    Withdraw(this.balance, now)
+    Withdraw(this.balance, now);
 }
 // function addTokenFunds()? // Use approveAndCall or ERC223 tokenFallback
 function getEmployeeCount() constant returns (uint256){
