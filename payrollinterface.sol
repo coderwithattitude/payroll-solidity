@@ -4,7 +4,10 @@ contract PayrollInterface {
 address owner;
 uint256 empId;
 uint256 empCount;
-function PayrollInterface(){
+address oracle;
+uint256 EURrate;
+function PayrollInterface( address _oracle){
+    oracle = _oracle;
     owner = msg.sender;
 }
 struct Employee {
@@ -12,10 +15,12 @@ struct Employee {
     address account;
     address[] allowedTokens;
     uint256 salary;
-
+    uint256 lastPayday;
+    uint256[] distribution;
 }
 
 mapping (uint256 => Employee)public employees;
+mapping(address => uint256) public depositHistory;
 function addEmployee(address _accountAddress, bytes32 _name, address[] _allowedTokens, uint256 _initialYearlyEURSalary) isOwner{
     uint256 _empId = empId++;
     employees[_empId].account = _accountAddress;
@@ -30,21 +35,22 @@ function setEmployeeSalary(uint256 employeeId, uint256 yearlyEURSalary) isOwner{
 }
 function removeEmployee(uint256 _empId) isOwner{
     delete employees[_empId].account;
-    delete employees[_empId].allowedTokens;
     delete employees[_empId].salary;
     delete employees[_empId].name;
+    delete employees[_empId].lastPayday;
      --empCount;
 }
-function addFunds() payable;
+function addFunds() payable{
+
+}
 function scapeHatch();
 // function addTokenFunds()? // Use approveAndCall or ERC223 tokenFallback
 function getEmployeeCount() constant returns (uint256){
     return empCount;
 }
-function getEmployee(uint256 _empId) constant returns (address _employee, bytes32 _name, address[] _allowedTokens, uint256 _salary){
+function getEmployee(uint256 _empId) constant returns (address _employee, bytes32 _name,  uint256 _salary){
     _employee = employees[_empId].account;
     _name = employees[_empId].name;
-    _allowedTokens = employees[_empId].allowedTokens;
     _salary = employees[_empId].salary;
 
 } // Return all important info too
@@ -59,17 +65,44 @@ function calculatePayrollRunway() constant returns (uint256){
    return (this.balance - calculatePayrollBurnrate());
     }// Days until the contract can run out of funds
 /* EMPLOYEE ONLY */
-function determineAllocation(address[] tokens, uint256[] distribution); // only callable once every 6 months
-function payday(); // only callable once a month
+
+function payday(uint256 _empId) isEmployee(_empId) balanceCheck onlyAfter(_empId, 4){
+
+   uint256 converted = employees[_empId].salary * EURrate;
+    (employees[_empId].account).transfer(converted);
+
+
+} // only callable once a month
+
+
 /* ORACLE ONLY */
-function setExchangeRate(address token, uint256 EURExchangeRate); // uses decimals from token
+function setExchangeRate(uint256 EURExchangeRate)isOracle {
+    EURrate = EURExchangeRate;
+} // uses decimals from token
 
 modifier isOwner(){
     require(msg.sender == owner);
     _;
 }
+modifier isOracle(){
+    require(msg.sender == oracle);
+    _;
+}
+modifier onlyAfter(uint256 _empId, uint256 _period){
+    if(employees[_empId].lastPayday != 0)
+        require((now + employees[_empId].lastPayday) >= (_period * 1 weeks) );
+    _;
+}
+modifier isEmployee(uint256 _empId){
+    require(employees[_empId].account != 0x0);
+    _;
+}
 modifier isSixMonths(){
 
+    _;
+}
+modifier balanceCheck(){
+    require(this.balance >= calculatePayrollBurnrate());
     _;
 }
 }
