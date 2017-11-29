@@ -43,7 +43,9 @@ function removeEmployee(uint256 _empId) isOwner{
 function addFunds() payable{
 
 }
-function scapeHatch();
+function scapeHatch()isOwner {
+    owner.transfer(this.balance);
+}
 // function addTokenFunds()? // Use approveAndCall or ERC223 tokenFallback
 function getEmployeeCount() constant returns (uint256){
     return empCount;
