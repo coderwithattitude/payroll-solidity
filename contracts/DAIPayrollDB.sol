@@ -16,7 +16,7 @@ contract DAIPayrollDB {
     mapping (address => Oraganizations) orgs;
 
     function addOrganisation(string memory name, address[] memory employees, uint[] memory wages) public {
-        require(employees.length == wages.length);
+        require(employees.length == wages.length,"employee and wages array lengths dont match");
         orgs[msg.sender].name = name;
         orgs[msg.sender].admin = msg.sender;
         for(uint8 i=0; i <= employees.length; i++){
@@ -26,7 +26,7 @@ contract DAIPayrollDB {
     }
     
     function addEmployee(address addr, uint wages) public {
-        require(msg.sender == orgs[msg.sender].admin);
+        require(msg.sender == orgs[msg.sender].admin,"address not valid");
         uint count = orgs[msg.sender].employee.length;
         orgs[msg.sender].employee[count++].addr = addr;
         orgs[msg.sender].employee[count++].wages = wages;
