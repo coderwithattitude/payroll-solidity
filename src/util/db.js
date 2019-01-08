@@ -8,8 +8,10 @@ const docstore = await orbitdb.docstore('payroll-db');
 export async function addOrganization(name, admin, employees=1, email,) {
     try {
         await docstore.put({ _id: admin, orgname: name, noofemps:employees, email: email });
+        return true;
     } catch(e) {
         console.log('error adding org name',e)
+        return false;
     } 
 
 }
