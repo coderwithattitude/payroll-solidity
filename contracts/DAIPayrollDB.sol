@@ -19,7 +19,7 @@ contract DAIPayrollDB {
         require(employees.length == wages.length,"employee and wages array lengths dont match");
         orgs[msg.sender].name = name;
         orgs[msg.sender].admin = msg.sender;
-        for(uint8 i=0; i <= employees.length; i++){
+        for(uint8 i = 0; i <= employees.length ; i++){
             orgs[msg.sender].employee[i].addr = employees[i];
             orgs[msg.sender].employee[i].wages = wages[i];
         }
