@@ -8,13 +8,12 @@ const orbitdb = new OrbitDB(ipfs); // connect orbitdb to ipfs instance
 const docstore = orbitdb.docs('payroll-db'); // create new orbitdb document database
 
 // 
-export async function addOrganization(name, admin, employeeCount=1, email, employees={}) {
+export async function addOrganization(name, admin, email, employees={}) {
     
     try {
         // Add organisation to payrolldb in orbitdb
         await docstore.put({ _id: admin,
                              orgname: name, 
-                             noofemps:employeeCount, 
                              email: email, 
                              employees: employees });
         return true;
@@ -80,5 +79,12 @@ export async function getEmployees(admin) {
     }
 }
 
+// delete employee from organisation
+export async function deleteEmployee(admin,employee) {
+    let employee_;
+    employee_ = await docstore.get(admin).employees;
+    delete employee_[employee];
+    await docstore.put({_id:admin,employees:employee_});
 
+}
 
