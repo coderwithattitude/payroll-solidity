@@ -35,7 +35,18 @@ export async function getOrganisation(addr) {
     }
     
     return org;
-} 
+}
+
+// Delete Organisation from PayrollDb
+export async function deleteOrganisation(addr) {
+    try {
+        return await docstore.del(addr);
+    } catch(e) {
+        console.log('Error deleting org:', e);
+    }
+}
+
+
 
 // Add employee into organisation in payrolldb
 export async function addEmployee(admin,name,addr,rate,minHours,position,organisation) {
@@ -60,8 +71,13 @@ export async function addEmployee(admin,name,addr,rate,minHours,position,organis
     }
 }
 
+// Get all employees for an organisation in payrollDB
 export async function getEmployees(admin) {
-    return await docstore.get(admin).employees;
+    try {
+        return await docstore.get(admin).employees;
+    } catch(e) {
+        console.log('error fetching employees',e);
+    }
 }
 
 
