@@ -1,3 +1,5 @@
+// @TODO implement class
+
 import {IPFS} from 'ipfs';
 import {OrbitDB} from 'orbit-db';
 
@@ -56,6 +58,10 @@ export async function addEmployee(admin,name,addr,rate,minHours,position,organis
         console.log('Error adding employee',e);
         return false;
     }
+}
+
+export async function getEmployees(admin) {
+    return await docstore.get(admin).employees;
 }
 
 
