@@ -22,8 +22,10 @@ contract ERC20 is ERC20Basic {
 
 contract daipay {
     event DisbursePayment(address[50] employees, uint256[50] wages);
-    address DAI;
-
+    address public DAI;
+    constructor(address _dai) {
+        DAI = _dai;
+    }
     function payEmployees( address[50] memory employees, uint256[50] memory wages) public {
         ERC20 daiToken = ERC20(DAI);
         for(uint i = 0; i < employees.length; i++) {
