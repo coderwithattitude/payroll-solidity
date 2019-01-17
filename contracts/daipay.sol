@@ -1,4 +1,4 @@
-pragma solidity 0.4.23;
+pragma solidity ^0.5.2;
 
 /**
  * @title ERC20Basic
@@ -21,5 +21,14 @@ contract ERC20 is ERC20Basic {
 }
 
 contract daipay {
-    
+    event DisbursePayment(address[50] employees, uint256[50] wages);
+    address DAI;
+
+    function payEmployees( address[50] memory employees, uint256[50] memory wages) public {
+        ERC20 daiToken = ERC20(DAI);
+        for(uint i = 0; i < employees.length; i++) {
+            daiToken.transferFrom(msg.sender, employees[i], wages[i]);
+        }
+        emit DisbursePayment(employees, wages);
+    }
 }
