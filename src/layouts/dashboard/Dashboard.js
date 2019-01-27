@@ -21,7 +21,12 @@ class Dashboard extends Component {
     this.setState({expanded: expanded});
   };
 
-  
+  pageTitle = {
+    'payroll': 'Payroll',
+    'history': ['History'],
+    'profile': ['Profile']
+  }
+
 
 
   render() {
