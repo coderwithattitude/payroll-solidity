@@ -8,6 +8,7 @@
     "truffle-hdwallet-provider": "^0.0.5"
   },
   "dependencies": {
+    "@trendmicro/react-breadcrumbs": "^0.5.5",
     "@trendmicro/react-sidenav": "^0.4.5",
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",
@@ -24,6 +25,7 @@
     "drizzle": "^1.2.5",
     "drizzle-react": "^1.1.1",
     "drizzle-react-components": "^1.2.0",
+    "ensure-array": "^1.0.0",
     "eslint": "4.10.0",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "1.9.0",

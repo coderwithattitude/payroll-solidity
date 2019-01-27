@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText} from '@trendmicro/react-sidenav';
-
+import ensureArray from 'ensure-array';
+import Breadcrumbs from '@trendmicro/react-breadcrumbs';
 class Dashboard extends Component {
   constructor(props, { authData }) {
     super(props)
@@ -25,6 +26,24 @@ class Dashboard extends Component {
     'payroll': 'Payroll',
     'history': ['History'],
     'profile': ['Profile']
+  }
+
+  renderBreadcrumbs() {
+    const { selected } = this.state;
+    const list = ensureArray(this.pageTitle[selected]);
+
+    return(
+      <Breadcrumbs>
+        {list.map((item, index) => (
+          <Breadcrumbs.item
+              active = {index === list.length -1}
+              key = {`${selected}_${index}`}
+          >
+          {item}
+          </Breadcrumbs.item> 
+        ))}
+      </Breadcrumbs>
+    );
   }
 
 
