@@ -46,6 +46,10 @@ class Dashboard extends Component {
     );
   }
 
+  navigate = (pathname) => () => {
+    this.setState({ selected: pathname });
+  };
+
 
 
   render() {
