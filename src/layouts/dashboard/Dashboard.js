@@ -1,10 +1,28 @@
 import React, { Component } from 'react'
+import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText} from '@trendmicro/react-sidenav';
 
 class Dashboard extends Component {
   constructor(props, { authData }) {
     super(props)
     authData = this.props
   }
+
+  state = {
+    selected: 'payroll',
+    expanded: true
+  };
+
+  
+  onSelect = (selected) => {
+    this.setState({ selected: selected});
+  };
+
+  onToggle = (expanded) => {
+    this.setState({expanded: expanded});
+  };
+
+  
+
 
   render() {
     return(
