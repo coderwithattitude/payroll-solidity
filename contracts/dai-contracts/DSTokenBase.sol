@@ -18,7 +18,7 @@
 
 pragma solidity ^0.4.13;
 
-import "./ERC20.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/StandardToken.sol";
 import "./DSMath.sol";
 
 contract DSTokenBase is ERC20, DSMath {
