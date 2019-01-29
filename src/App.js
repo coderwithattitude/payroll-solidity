@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router'
 import HomeContainer from './layouts/home/HomeContainer'
+import DashboardContainer from './layouts/dashboard/Dashboard';
 
 
 // Styles
@@ -13,7 +14,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route exact path="/" component={HomeContainer}/>
+        <Route exact path="/" component={DashboardContainer}/>
       </div>
     );
   }
