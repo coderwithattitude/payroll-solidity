@@ -1,97 +1,187 @@
-import React, { Component } from 'react'
-import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText} from '@trendmicro/react-sidenav';
-import ensureArray from 'ensure-array';
-import Breadcrumbs from '@trendmicro/react-breadcrumbs';
+import React, { Component } from 'react';
+import { Sidenav,Sidebar,Nav,Icon,Dropdown,Container,Content,DOMHelper } from 'rsuite';
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+
+import 'rsuite/dist/styles/rsuite.min.css';
+
+const { getHeight, on} = DOMHelper;
+
+const navs = [
+  {
+    key: '1',
+    icon: <Icon icon="dashboard" />,
+    text: 'Dashboard',
+    link: '/dashboard'
+  },
+  {
+    key: '2',
+    icon: <Icon icon="group" />,
+    text: 'Members',
+    link: '/list/members'
+  },
+  {
+    key: '3',
+    text: 'Errors',
+    icon: <Icon icon="exclamation-triangle" />,
+    children: [
+      {
+        key: '3-1',
+        text: '404',
+        link: '/error/404'
+      },
+      {
+        key: '3-1',
+        text: '500',
+        link: '/error/500'
+      }
+    ]
+  }
+];
+
+
 class Dashboard extends Component {
+
   constructor(props, { authData }) {
     super(props)
     authData = this.props
+    this.state = {
+      windowHeight: getHeight(window),
+      expand: true
+    };
+    this.resizeListener = on(window, 'resize', this.updateHeight);
   }
 
-  state = {
-    selected: 'payroll',
-    expanded: true
+  updateHeight = () => {
+    this.setState({
+      windowHeight: getHeight(window)
+    });
   };
 
-  
-  onSelect = (selected) => {
-    this.setState({ selected: selected});
+  handleToggle = () => {
+    this.setState({
+      expand: !this.state.expand
+    });
   };
 
-  onToggle = (expanded) => {
-    this.setState({expanded: expanded});
-  };
-
-  pageTitle = {
-    'payroll': 'Payroll',
-    'history': ['History'],
-    'profile': ['Profile']
-  }
-
-  renderBreadcrumbs() {
-    const { selected } = this.state;
-    const list = ensureArray(this.pageTitle[selected]);
-
-    return(
-      <Breadcrumbs>
-        {list.map((item, index) => (
-          <Breadcrumbs.item
-              active = {index === list.length -1}
-              key = {`${selected}_${index}`}
+  renderNavs() {
+    return navs.map(item => {
+      if (item.children) {
+        return (
+          <Dropdown
+            key={item.key}
+            eventKey={item.key}
+            placement="rightTop"
+            trigger="hover"
+            title="Errors"
+            icon={item.icon}
           >
-          {item}
-          </Breadcrumbs.item> 
-        ))}
-      </Breadcrumbs>
-    );
+            {item.children.map(child => {
+              return (
+                <Dropdown.Item
+                  key={child.key}
+                  eventKey={child.key}
+                  componentClass={Link}
+                  to={child.link}
+                  activeClassName="nav-item-active"
+                >
+                  {child.text}
+                </Dropdown.Item>
+              );
+            })}
+          </Dropdown>
+        );
+      }
+
+      return (
+        <Nav.Item
+          key={item.key}
+          eventKey={item.key}
+          icon={item.icon}
+          componentClass={Link}
+          to={item.link}
+          activeClassName="nav-item-active"
+        >
+          {item.text}
+        </Nav.Item>
+      );
+    });
   }
 
-  navigate = (pathname) => () => {
-    this.setState({ selected: pathname });
-  };
+ 
+  
+  
 
+
+
+
+ 
 
 
   render() {
-    const { expanded, selected } = this.state;
-    return(
-      <SideNav onSelect={this.onSelect} onToggle={this.onToggle}>
-      <SideNav.Nav selected={selected}>
-        <NavItem eventKey="payroll">
-          <NavIcon>
-              <svg width="3" height="8" viewBox="0 0 3 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1.01297 0.538452V1.13335C0.443654 1.34282 0.0346824 1.90717 0.0346824 2.56911C0.0346824 3.40878 0.692859 4.09215 1.50201 4.09215C1.77167 4.09215 1.99106 4.31987 1.99106 4.59976C1.99106 4.87966 1.77167 5.10738 1.50201 5.10738C1.29313 5.10738 1.06743 4.9711 0.866959 4.72334C0.69305 4.50871 0.384602 4.48114 0.177822 4.66146C-0.0289566 4.84197 -0.0557117 5.16213 0.118197 5.37676C0.379633 5.6995 0.687126 5.92444 1.01297 6.03791V6.63042C1.01297 6.91091 1.23198 7.13803 1.50201 7.13803C1.77205 7.13803 1.99106 6.91091 1.99106 6.63042V6.03552C2.56037 5.82585 2.96934 5.26151 2.96934 4.59976C2.96934 3.75989 2.31116 3.07672 1.50201 3.07672C1.23236 3.07672 1.01297 2.849 1.01297 2.56911C1.01297 2.28922 1.23236 2.0613 1.50201 2.0613C1.67535 2.0613 1.85824 2.15314 2.031 2.32671C2.22516 2.5217 2.53476 2.51634 2.72262 2.315C2.91048 2.11347 2.90532 1.79211 2.71134 1.59712C2.46309 1.34778 2.21465 1.20674 1.99106 1.12978V0.538452C1.99106 0.257965 1.77205 0.0306396 1.50201 0.0306396C1.23198 0.0306396 1.01297 0.257965 1.01297 0.538452Z" fill="white" />
-              </svg>
-          <NavText style={{ paddingRight: 32 }} title="Payroll">
-          Payroll
-          </NavText>
-          </NavIcon>
-        </NavItem>
-          <NavItem eventKey="history">
-            <NavIcon>
-              <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11.924 0.139587C6.46287 0.139587 2.0199 4.58221 2.02059 10.0152C2.01647 10.1015 1.96662 11.5397 2.37603 13.0886L1.04193 12.3111C0.710559 12.1186 0.288434 12.2303 0.0938717 12.561C-0.0979408 12.891 0.0134342 13.3155 0.343778 13.508L3.47018 15.3306C3.47672 15.334 3.48325 15.3351 3.48943 15.3381C3.52278 15.356 3.55681 15.3691 3.5929 15.3815C3.61731 15.3901 3.64103 15.399 3.66543 15.4048C3.69534 15.4114 3.7249 15.4134 3.7555 15.4162C3.77681 15.4182 3.79812 15.4248 3.81943 15.4248C3.83147 15.4248 3.84281 15.4206 3.85518 15.42C3.86687 15.4196 3.87684 15.4224 3.88853 15.4213C3.90572 15.4196 3.92118 15.4124 3.93803 15.4096C3.97137 15.4038 4.003 15.3966 4.03497 15.3863C4.06178 15.3773 4.08825 15.3667 4.11403 15.3543C4.1429 15.3406 4.17006 15.3254 4.19687 15.3076C4.22128 15.2917 4.24465 15.2746 4.26665 15.256C4.29106 15.2354 4.31272 15.213 4.33437 15.189C4.35465 15.1666 4.37218 15.1432 4.38903 15.1185C4.39831 15.1047 4.41068 15.0948 4.41893 15.0807C4.42512 15.07 4.42512 15.0576 4.43028 15.047C4.43956 15.0281 4.454 15.0116 4.46225 14.9913L5.70593 11.912C5.84928 11.5572 5.67809 11.1533 5.32368 11.01C4.96859 10.8677 4.56503 11.0382 4.42168 11.3929L3.783 12.9742C3.35675 11.5486 3.40522 10.0839 3.40659 10.0437C3.40659 5.34671 7.22806 1.52559 11.9244 1.52559C16.621 1.52559 20.4422 5.34671 20.4422 10.0437C20.4422 14.74 16.621 18.5611 11.9244 18.5611C11.5414 18.5611 11.2314 18.8716 11.2314 19.2541C11.2314 19.6367 11.5411 19.9471 11.9244 19.9471C17.3859 19.9471 21.8285 15.5045 21.8285 10.0437C21.8278 4.58221 17.3852 0.139587 11.924 0.139587Z" fill="white" fill-opacity="0.7" />
-              </svg>
-              <NavText style={{ paddingRight: 32 }} title="History">
-                History
-          </NavText>
-            </NavIcon>
-          </NavItem>
-          <NavItem eventKey="profile">
-            <NavIcon>
-              <svg width="20" height="11" viewBox="0 0 20 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19.2435 5.8604C19.2435 5.85572 19.2435 5.85103 19.2435 5.84635C19.2435 5.80886 19.2388 5.77138 19.2388 5.72922C19.2107 4.80154 19.1498 2.63229 17.1164 1.93887C17.1023 1.93419 17.0836 1.9295 17.0695 1.92482C14.9565 1.38602 13.1995 0.167861 13.1808 0.153805C12.895 -0.047659 12.5014 0.0226202 12.3 0.308419C12.0985 0.594217 12.1688 0.987775 12.4546 1.18924C12.5342 1.24546 14.399 2.54327 16.7322 3.14298C17.8238 3.53185 17.9457 4.69847 17.9785 5.7667C17.9785 5.80887 17.9785 5.84635 17.9831 5.88383C17.9878 6.3055 17.9597 6.95674 17.8848 7.33156C17.1257 7.7626 14.1506 9.2525 9.62471 9.2525C5.11753 9.2525 2.12368 7.75792 1.35999 7.32688C1.28503 6.95206 1.25223 6.30081 1.2616 5.87914C1.2616 5.84166 1.26628 5.80418 1.26628 5.76201C1.29908 4.69378 1.4209 3.52716 2.51255 3.13829C4.84579 2.53858 6.71051 1.23609 6.79016 1.18455C7.07596 0.983089 7.14623 0.589531 6.94477 0.303733C6.74331 0.0179347 6.34975 -0.052343 6.06395 0.149121C6.04521 0.163177 4.29762 1.38133 2.17522 1.92013C2.15648 1.92482 2.14242 1.9295 2.12836 1.93419C0.0949796 2.63229 0.0340718 4.80154 0.00596048 5.72453C0.00596048 5.7667 0.00596037 5.80418 0.00127515 5.84166C0.00127515 5.84635 0.00127515 5.85103 0.00127515 5.85572C-0.00341007 6.09935 -0.00809519 7.3503 0.240221 7.97812C0.287074 8.09994 0.371408 8.20301 0.483853 8.27329C0.624409 8.36699 3.99308 10.5128 9.6294 10.5128C15.2657 10.5128 18.6344 8.36231 18.7749 8.27329C18.8827 8.20301 18.9717 8.09994 19.0186 7.97812C19.2528 7.35499 19.2482 6.10403 19.2435 5.8604Z" fill="white" fill-opacity="0.7" />
-              </svg>
+    const { children } = this.props;
+    const { expand, windowHeight } = this.state;
 
-              <NavText style={{ paddingRight: 32 }} title="Profile">
-                Profile
-          </NavText>
-            </NavIcon>
-            </NavItem>
-      </SideNav.Nav>
-      </SideNav>
-    )
+    const containerClasses = classNames('page-container', {
+      'container-full': !expand
+    });
+
+    let navBodyStyle = null;
+    if (expand) {
+      navBodyStyle = {
+        height: windowHeight - 112,
+        overflow: 'auto'
+      };
+    }
+    
+    return(
+      <Container className="frame">
+        <Sidebar
+          style={{ display: 'flex', flexDirection: 'column' }}
+          width={expand ? 260 : 56}
+          collapsible
+        >
+          <Sidenav.Header>
+            <div className="header-hrand">
+              <Link to="/">
+                <Icon icon="logo-analytics" size="lg" style={{ verticalAlign: 0 }} />
+                <span style={{ marginLeft: 12 }}> RSUITE ANALYTICS</span>
+              </Link>
+            </div>
+          </Sidenav.Header>
+          <Sidenav expanded={expand} defaultOpenKeys={['3']} activeKey={[]} appearance="subtle">
+            <Sidenav.Body style={navBodyStyle}>
+              <Nav>
+                {this.renderNavs()}
+                <Nav.Item
+                  href="https://github.com/rsuite/rsuite-management-system"
+                  icon={<Icon icon="github" />}
+                  target="_blank"
+                >
+                  Github
+                </Nav.Item>
+              </Nav>
+            </Sidenav.Body>
+          </Sidenav>
+          
+        </Sidebar>
+
+        <Container className={containerClasses}>
+          
+          <Content>{children}</Content>
+        </Container>
+      </Container>
+    );
   }
 }
+ type State = {
+    windowHeight: number,
+    expand: boolean
+  };
+
+  type Props = {
+    children: React.Node
+  };
 
 export default Dashboard
