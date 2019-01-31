@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
-import { Sidenav,Sidebar,Nav,Icon,Dropdown,Container,Content,DOMHelper } from 'rsuite';
+import {
+  Container,
+  Sidebar,
+  Sidenav,
+  Icon,
+  Header,
+  Content,
+  Dropdown,
+  Nav,
+  DOMHelper
+} from 'rsuite';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
+import HeaderAvatar from '../HeaderAvatar';
+//import { pageview } from '../../tracker';
+import NavToggle from './NavToggle';
+
 import 'rsuite/dist/styles/rsuite.min.css';
 
-const { getHeight, on} = DOMHelper;
-
+const { getHeight, on } = DOMHelper;
 const navs = [
   {
     key: '1',
@@ -40,30 +53,46 @@ const navs = [
   }
 ];
 
+type State = {
+  windowHeight: number,
+  expand: boolean
+};
 
-class Dashboard extends Component {
+type Props = {
+  children: React.Node
+};
 
-  constructor(props, { authData }) {
-    super(props)
-    authData = this.props
+
+class Dashboard extends Component<Props, State> {
+
+resizeListenner = null;
+  static contextTypes = {
+    router: PropTypes.object
+  };
+  constructor(props: Props) {
+    super(props);
     this.state = {
       windowHeight: getHeight(window),
       expand: true
     };
-    this.resizeListener = on(window, 'resize', this.updateHeight);
+    this.resizeListenner = on(window, 'resize', this.updateHeight);
   }
-
   updateHeight = () => {
     this.setState({
       windowHeight: getHeight(window)
     });
   };
-
   handleToggle = () => {
     this.setState({
       expand: !this.state.expand
     });
   };
+
+  componentWillUnmount() {
+    if (this.resizeListenner) {
+      this.resizeListenner.off();
+    }
+  }
 
   renderNavs() {
     return navs.map(item => {
@@ -108,17 +137,7 @@ class Dashboard extends Component {
       );
     });
   }
-
- 
   
-  
-
-
-
-
- 
-
-
   render() {
     const { children } = this.props;
     const { expand, windowHeight } = this.state;
@@ -134,8 +153,8 @@ class Dashboard extends Component {
         overflow: 'auto'
       };
     }
-    
-    return(
+
+    return (
       <Container className="frame">
         <Sidebar
           style={{ display: 'flex', flexDirection: 'column' }}
@@ -164,24 +183,16 @@ class Dashboard extends Component {
               </Nav>
             </Sidenav.Body>
           </Sidenav>
-          
+          <NavToggle expand={expand} onChange={this.handleToggle} />
         </Sidebar>
 
         <Container className={containerClasses}>
-          
+          <HeaderAvatar />
           <Content>{children}</Content>
         </Container>
       </Container>
     );
   }
 }
- type State = {
-    windowHeight: number,
-    expand: boolean
-  };
-
-  type Props = {
-    children: React.Node
-  };
 
 export default Dashboard

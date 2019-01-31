@@ -11,6 +11,14 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 
+//rsuite updates
+const { NODE_ENV, STYLE_DEBUG, ENV_LOCALE } = process.env;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const extractLess = new ExtractTextPlugin('style.[hash].css');
+const rsuiteStylePath = path.resolve(__dirname, './node_modules/rsuite/styles');
+
+
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
 const publicPath = '/';
@@ -204,6 +212,8 @@ module.exports = {
     ],
   },
   plugins: [
+    extractLess,
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn|en-gb/),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -212,6 +222,7 @@ module.exports = {
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
+      chunks: ['polyfills', 'commons', 'app'],
       template: paths.appHtml,
     }),
     // Add module names to factory functions so they appear in browser profiler.
