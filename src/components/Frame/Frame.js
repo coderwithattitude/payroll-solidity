@@ -21,6 +21,9 @@ import HeaderAvatar from '../HeaderAvatar';
 import { pageview } from '../../tracker';
 
 const { getHeight, on } = DOMHelper;
+const sideNavHeaderClass = { background: 'linear-gradient(77.17deg, #559FF7 -20.36%, #105FC7 114.13%)' };
+const sideNavIconClass = { margin: '68px 36px 96px', padding: '12px', minHeight: '72px', background: '#106ADE' };
+
 const navs = [
   {
     key: '1',
@@ -37,7 +40,7 @@ const navs = [
   {
     key: '3',
     text: 'Profile',
-    icon: <Icon icon="profile" />,
+    icon: <Icon icon="user-o" />,
     link: '/error/404'
   }
 ];
@@ -150,14 +153,17 @@ class Frame extends React.Component<Props, State> {
       <Container className="frame">
         <Sidebar
           style={{ display: 'flex', flexDirection: 'column' }}
-          width={expand ? 260 : 56}
+          width={expand ? 360 : 56}
           collapsible
         >
-          <Sidenav.Header>
-            <div className="header-hrand">
+          <Sidenav.Header style={sideNavHeaderClass}>
+            <div className="header-hrand" style={sideNavIconClass}>
               <Link to="/">
-                <Icon icon="logo-analytics" size="lg" style={{ verticalAlign: 0 }} />
-                <span style={{ marginLeft: 12 }}> Daipay</span>
+                <Icon icon="logo-analytics" size="lg" style={{ verticalAlign: 0, fontSize: '48px' }} />
+                <p style={{ marginLeft: 12, display: 'inline-block' }}>
+                  <h4 style={{ margin: 0 }}> Daipay</h4>
+                  <small  style={{ margin: 0 }}> Next-gen payroll</small>
+                </p>
               </Link>
             </div>
           </Sidenav.Header>

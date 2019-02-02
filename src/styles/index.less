@@ -15,13 +15,41 @@ body {
   background: #f7f7fa;
 }
 
+.header-hrand a h5, .header-hrand a h4, .header-hrand a h3, .header-hrand a h2 {
+  font-weight: 600;
+}
+
 .rs-sidebar {
   position: fixed;
   height: 100vh;
   z-index: 3;
 }
+
+.rs-nav-item > .rs-nav-item-content {
+  color: #ffffff;
+  font-weight: 300;
+}
+
+.rs-nav-item > .nav-item-active {
+  font-weight: 600;
+}
+
+.rs-sidenav .rs-nav-item .rs-nav-item-content, .rs-sidenav .rs-dropdown .rs-dropdown-toggle {
+  padding-left: 64px;
+}
+.rs-sidenav .rs-nav-item .rs-nav-item-content > .rs-icon, .rs-sidenav .rs-dropdown .rs-dropdown-toggle > .rs-icon {
+  position: relative;
+  left: -12px;
+  top: 0;
+}
+
+.rs-nav-default .rs-nav-item:not(.rs-nav-item-active):not(.rs-nav-item-disabled) > .rs-nav-item-content:hover, .rs-nav-default .rs-nav-item:not(.rs-nav-item-active):not(.rs-nav-item-disabled) > .rs-nav-item-content:focus {
+  background: #428de9;
+  color: #ffffff;
+}
+
 .page-container {
-  padding-left: 260px;
+  padding-left: 360px;
   transition: padding 0.5s;
   &.container-full {
     padding-left: 60px;
