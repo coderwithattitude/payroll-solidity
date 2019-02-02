@@ -32,6 +32,14 @@ body {
 
 .rs-nav-item > .nav-item-active {
   font-weight: 600;
+  &:after {
+      position: absolute;
+      right: 0;
+      content: '';
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent; 
+      border-right:10px solid #e8e8eb; 
+  }
 }
 
 .rs-sidenav .rs-nav-item .rs-nav-item-content, .rs-sidenav .rs-dropdown .rs-dropdown-toggle {
