@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import {
+  Button,
   Container,
   Sidebar,
   Sidenav,
@@ -21,6 +22,10 @@ import HeaderAvatar from '../HeaderAvatar';
 import { pageview } from '../../tracker';
 
 const { getHeight, on } = DOMHelper;
+const siderBarStyle = { display: 'flex', flexDirection: 'column', background: 'linear-gradient(77.17deg, #559FF7 -20.36%, #105FC7 114.13%)' };
+const sideNavHeaderClass = { background: 'transparent' };
+const sideNavIconClass = { margin: '68px 36px 96px', padding: '12px', minHeight: '72px', background: '#106ADE' };
+
 const navs = [
   {
     key: '1',
@@ -37,7 +42,7 @@ const navs = [
   {
     key: '3',
     text: 'Profile',
-    icon: <Icon icon="profile" />,
+    icon: <Icon icon="user-o" />,
     link: '/error/404'
   }
 ];
@@ -141,23 +146,24 @@ class Frame extends React.Component<Props, State> {
     if (expand) {
       navBodyStyle = {
         height: windowHeight - 112,
-        overflow: 'auto',
-        background: 'linear-gradient(77.17deg, #559FF7 -20.36%, #105FC7 114.13%)'
+        overflow: 'auto'
       };
     }
 
     return (
       <Container className="frame">
-        <Sidebar
-          style={{ display: 'flex', flexDirection: 'column' }}
-          width={expand ? 260 : 56}
+        <Sidebar style={siderBarStyle}
+          width={expand ? 360 : 56}
           collapsible
         >
-          <Sidenav.Header>
-            <div className="header-hrand">
+          <Sidenav.Header style={sideNavHeaderClass}>
+            <div className="header-hrand" style={sideNavIconClass}>
               <Link to="/">
-                <Icon icon="logo-analytics" size="lg" style={{ verticalAlign: 0 }} />
-                <span style={{ marginLeft: 12 }}> Daipay</span>
+                <Icon icon="logo-analytics" size="lg" style={{ verticalAlign: 0, fontSize: '48px' }} />
+                <div style={{ marginLeft: 12, display: 'inline-block' }}>
+                  <h4 style={{ margin: 0 }}> Daipay</h4>
+                  <small  style={{ margin: 0 }}> Next-gen payroll</small>
+                </div>
               </Link>
             </div>
           </Sidenav.Header>
@@ -166,6 +172,11 @@ class Frame extends React.Component<Props, State> {
               <Nav>
                 {this.renderNavs()}
               </Nav>
+              <div>
+                <Button appearance={'primary'} className='signout' >
+                  <Icon icon="sign-out"  /> Sign Out
+                </Button>
+              </div>
             </Sidenav.Body>
           </Sidenav>
           <NavToggle expand={expand} onChange={this.handleToggle} />

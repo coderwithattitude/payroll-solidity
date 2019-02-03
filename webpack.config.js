@@ -71,7 +71,7 @@ module.exports = {
       },
       {
         test: /\.(woff|woff2|eot|ttf|svg)($|\?)/,
-        include: [rsuiteStylePath],
+        include: [rsuiteStylePath, path.resolve(__dirname, 'src')],
         use: [
           {
             loader: 'url-loader',
