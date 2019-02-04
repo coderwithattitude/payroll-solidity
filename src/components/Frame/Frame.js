@@ -43,7 +43,7 @@ const navs = [
     key: '3',
     text: 'Profile',
     icon: <Icon icon="user-o" />,
-    link: '/error/404'
+    link: '/noemps'
   }
 ];
 
