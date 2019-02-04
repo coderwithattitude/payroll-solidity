@@ -4,5 +4,5 @@ export default {
     console.log('router  main');
   },
   component: Frame,
-  childRoutes: [require('./list'), require('./dashboard'), require('./error')]
+  childRoutes: [require('./list'), require('./dashboard'), require('./error'),require('./noemps')]
 };
