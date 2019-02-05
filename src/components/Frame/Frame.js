@@ -172,11 +172,11 @@ class Frame extends React.Component<Props, State> {
               <Nav>
                 {this.renderNavs()}
               </Nav>
-              <div>
+              {/* <div>
                 <Button appearance={'primary'} className='signout' >
                   <Icon icon="sign-out"  /> Sign Out
                 </Button>
-              </div>
+              </div> */}
             </Sidenav.Body>
           </Sidenav>
           <NavToggle expand={expand} onChange={this.handleToggle} />
