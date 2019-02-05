@@ -183,7 +183,9 @@ class Frame extends React.Component<Props, State> {
         </Sidebar>
 
         <Container className={containerClasses}>
-          <HeaderAvatar />
+          <div className='header-bar'>
+            <HeaderAvatar />
+          </div>
           <Content>{children}</Content>
         </Container>
       </Container>

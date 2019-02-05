@@ -19,6 +19,7 @@ import {
     DOMHelper,
     Notification
 } from 'rsuite';
+import SearchBar from '../SearchBar';
 
 
 const { Column, HeaderCell, Cell } = Table;
@@ -52,27 +53,18 @@ class NoEmployees extends React.Component<Props, State> {
         
         return (
             <div>
-                <Panel header={<h1>Payroll</h1>}>
-                    <div className="table-toolbar">
-                        <ButtonToolbar className="inner-left">
-                            <Button appearance="primary" placement="left" onClick={this.handleShowDrawer}>
-                                Add Employee
-              </Button>
-                            <Button appearance="primary" color="green" placement="left" onClick={this.handleShowDrawer}>
-                                Pay Employees
-              </Button>
-                        </ButtonToolbar>
-
-                        <div className="inner-right">
-                            <InputGroup inside>
-                                <Input placeholder="Search" />
-                                <InputGroup.Addon>
-                                    <Icon icon="search" />
-                                </InputGroup.Addon>
-                            </InputGroup>
-                        </div>
-                    </div>
-                    <div className="error-page">
+                <Panel header={
+                    <div>
+                        <span style= {{ display: 'inline-block', marginRight: '30px'}}>
+                            <h1>Payroll</h1>
+                        </span>
+                        <Button appearance="primary" className="tight-border spread-button bold-font" color="green" placement="left" style={{ verticalAlign: '6px', fontSize: '12px' }} onClick={this.handleShowDrawer}>
+                            PAY EMPLOYEES
+                        </Button>
+                    </div>}
+                >
+                    <SearchBar addAction={()=>{}}/>
+                    <div className="error-page" style={{ textAlign: 'center' }}>
                         <div className="item">
                             <svg width="132" height="106" viewBox="0 0 132 106" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M128.341 49.8774C143.961 99.9575 108.07 79.0874 49.2483 99.9575C-9.57319 120.828 4.71696 83.1542 0.72895 51.8543C-3.25906 20.5544 10.0341 39.3341 18.3421 14.771C26.6502 -9.79221 49.2483 3.75101 49.2483 3.75101C72.8433 33.0743 112.722 -0.202619 128.341 49.8774Z" fill="#1875F0" fill-opacity="0.05" />
