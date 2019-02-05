@@ -19,6 +19,7 @@ import {
 
 import data from './users';
 import DrawerView from './DrawerView';
+import SearchBar from '../../../components/SearchBar';
 
 const { Column, HeaderCell, Cell } = Table;
 const { getHeight } = DOMHelper;
@@ -48,26 +49,17 @@ class DataList extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        <Panel header={<h1>Payroll</h1>}>
-          <div className="table-toolbar">
-            <ButtonToolbar className="inner-left">
-              <Button appearance="primary" placement="left" onClick={this.handleShowDrawer}>
-                Add Employee
+        <Panel header={
+          <div>
+              <span style= {{ display: 'inline-block', marginRight: '30px'}}>
+                  <h1>Payroll</h1>
+              </span>
+              <Button appearance="primary" className="tight-border spread-button bold-font" color="green" placement="left" style={{ verticalAlign: '6px', fontSize: '12px' }} onClick={this.handleShowDrawer}>
+                  PAY EMPLOYEES
               </Button>
-              <Button appearance="primary" color="green" placement="left" onClick={this.handleShowDrawer}>
-                Pay Employees
-              </Button>
-            </ButtonToolbar>
-
-            <div className="inner-right">
-              <InputGroup inside>
-                <Input placeholder="Search" />
-                <InputGroup.Addon>
-                  <Icon icon="search" />
-                </InputGroup.Addon>
-              </InputGroup>
-            </div>
-          </div>
+          </div>}
+        >
+          <SearchBar addAction={()=>{}}/>
 
           <Table
             height={getHeight(window) - 216}
