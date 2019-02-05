@@ -134,7 +134,7 @@ class DataList extends React.Component<Props, State> {
           >
             <Column width={70} align="center" fixed>
               <HeaderCell>Id</HeaderCell>
-              <EditCell onChange={this.handleChange} dataKey="id" />
+              <Cell dataKey="id" />
             </Column>
 
             <Column width={200} fixed>
