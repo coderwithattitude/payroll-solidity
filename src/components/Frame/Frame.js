@@ -18,7 +18,6 @@ import {
 } from 'rsuite';
 
 import NavToggle from './NavToggle';
-import HeaderAvatar from '../HeaderAvatar';
 import { pageview } from '../../tracker';
 
 const { getHeight, on } = DOMHelper;
@@ -183,9 +182,7 @@ class Frame extends React.Component<Props, State> {
         </Sidebar>
 
         <Container className={containerClasses}>
-          <div className='header-bar'>
-            <HeaderAvatar />
-          </div>
+          
           <Content>{children}</Content>
         </Container>
       </Container>
