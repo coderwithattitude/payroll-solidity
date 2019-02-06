@@ -18,7 +18,6 @@ import {
 } from 'rsuite';
 
 import NavToggle from './NavToggle';
-import HeaderAvatar from '../HeaderAvatar';
 import { pageview } from '../../tracker';
 
 const { getHeight, on } = DOMHelper;
