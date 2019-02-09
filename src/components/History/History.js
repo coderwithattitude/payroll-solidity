@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link } from 'react-router';
-import SearchBar from '../SearchBar';
 import { 
     DatePicker,
     Table,
@@ -8,9 +7,11 @@ import {
     DOMHelper,
     IconButton,
     Divider,
-    Button
+    Button,
+    Icon
 } from 'rsuite';
 
+//import data from '../../routes/list/members/users';
 import SearchBar from '../SearchBar';
 
 const { Column, HeaderCell, Cell} = Table;
@@ -73,10 +74,10 @@ class History extends React.Component<Props, State> {
 
                     <Table
                         height={getHeight(window) - 216}
-                        data={data}
-                        onRowClick={data => {
-                            console.log(data);
-                        }}
+                      //  data={data}
+                      //  onRowClick={data => {
+                      //      console.log(data);
+                      //  }} 
                     >
                         <Column width={200} fixed>
                             <HeaderCell>Date</HeaderCell>
@@ -95,10 +96,12 @@ class History extends React.Component<Props, State> {
                         </Column>
 
                         <Column width={300}>
+                            <HeaderCell></HeaderCell>
                             <ActionCell dataKey="View" />
                         </Column>
 
                         <Column width={300}>
+                            <HeaderCell></HeaderCell>
                             <DeleteCell dataKey="delete" />
                         </Column>
                        
@@ -107,3 +110,6 @@ class History extends React.Component<Props, State> {
             </div>
         );
 }
+}
+
+export default History;
