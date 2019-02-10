@@ -9,21 +9,17 @@ import {
     Container,
     Header,
     Content,
-    Table,
     Panel,
     Icon,
     ButtonToolbar,
     Button,
     IconButton,
     Navbar,
-    DOMHelper,
     Notification
 } from 'rsuite';
 import SearchBar from '../SearchBar';
 
 
-const { Column, HeaderCell, Cell } = Table;
-const { getHeight } = DOMHelper;
 
 type Props = {};
 type State = {

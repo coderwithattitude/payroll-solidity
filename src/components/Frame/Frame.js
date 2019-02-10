@@ -36,7 +36,7 @@ const navs = [
     key: '2',
     icon: <Icon icon="history" />,
     text: 'History',
-    link: '/dashboard'
+    link: '/history'
   },
   {
     key: '3',
