@@ -13,7 +13,8 @@ import {
     IconButton,
     Navbar,
     DOMHelper,
-    Notification
+    Notification,
+    PanelGroup,
 } from 'rsuite';
 
 import data from '../members/users';
@@ -118,6 +119,11 @@ class Payroll extends React.Component<Props, State> {
     }
 
     render() {
+        let total = 0;
+        //data.forEach(item => {
+        //    total += item.amount;
+        //});
+        
         return (
             <div>
                 <Panel header={
@@ -133,7 +139,7 @@ class Payroll extends React.Component<Props, State> {
                     
 
                     <Table
-                        height={getHeight(window) - 216}
+                        height={getHeight(window) - 316}
                         data={data}
                         onRowClick={data => {
                             console.log(data);
@@ -160,26 +166,28 @@ class Payroll extends React.Component<Props, State> {
                             <EditCell onChange={this.handleChange} dataKey="street" />
                         </Column>
 
-                        <Column width={300}>
+                        <Column width={100}>
                             <HeaderCell>Hourly rate</HeaderCell>
                             <EditCell onChange={this.handleChange} dataKey="companyName" />
                         </Column>
 
-                        <Column width={300}>
+                        <Column width={100}>
                             <HeaderCell>Hours</HeaderCell>
                             <EditCell onChange={this.handleChange} dataKey="email" />
                         </Column>
-                        <Column width={300}>
+                        <Column width={100}>
                             <HeaderCell>Total</HeaderCell>
                             <Cell dataKey="total" />
                         </Column>
                         <Column flexGrow={1}>
                             <HeaderCell>Edit</HeaderCell>
                             <ActionCell dataKey="id" onClick={this.handleEditState} />
+                            
                         </Column>
                     </Table>
                 </Panel>
-                <DrawerView show={this.state.showDrawer} onClose={this.handleCloseDrawer} />
+                
+                    <DrawerView show={this.state.showDrawer} onClose={this.handleCloseDrawer} />
             </div>
         );
     }
