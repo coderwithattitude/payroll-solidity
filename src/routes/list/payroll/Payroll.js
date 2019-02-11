@@ -28,6 +28,26 @@ type State = {
     showDrawer: boolean
 };
 
+const thousands = value => `${value}`.replace(/(?=(?!(\b))(\d{3})+$)/g, '$1,');
+
+const NumberCell = ({ rowData, dataKey, ...props }) => (
+    <Cell {...props}>{thousands(rowData[dataKey])}</Cell>
+);
+
+const FooterSummary = ({ title, summary }) => (
+    <div>
+        <label>{title}</label>
+        <div
+            style={{
+                fontSize: 18,
+                color: '#2eabdf'
+            }}
+        >
+            {thousands(summary)}
+        </div>
+    </div>
+);
+
 export const EditCell = ({ rowData, dataKey, onChange, ...props }) => {
     const editing = rowData.status === 'EDIT';
     return (
@@ -148,6 +168,10 @@ class Payroll extends React.Component<Props, State> {
                         <Column width={300}>
                             <HeaderCell>Hours</HeaderCell>
                             <EditCell onChange={this.handleChange} dataKey="email" />
+                        </Column>
+                        <Column width={300}>
+                            <HeaderCell>Total</HeaderCell>
+                            <Cell dataKey="total" />
                         </Column>
                         <Column flexGrow={1}>
                             <HeaderCell>Edit</HeaderCell>
