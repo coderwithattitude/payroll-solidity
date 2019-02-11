@@ -1,4 +1,4 @@
 export default {
   path: '/list',
-  childRoutes: [require('./members')]
+  childRoutes: [require('./members'),require('./payroll')]
 };
