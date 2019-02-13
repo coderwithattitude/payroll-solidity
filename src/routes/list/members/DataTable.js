@@ -15,7 +15,8 @@ import {
   IconButton,
   Navbar,
   DOMHelper,
-  Notification
+  Notification,
+  Modal
 } from 'rsuite';
 
 import data from './users';
@@ -36,11 +37,11 @@ class DataList extends React.Component<Props, State> {
   constructor() {
     super();
     this.state = {
-      showDrawer: false,
+      show: false,
       
     };
-    //this.handleEditState = this.handleEditState.bind(this);
   }
+
 
   handleChange = (id, key, value) => {
     const { data } = this.state;
@@ -49,15 +50,15 @@ class DataList extends React.Component<Props, State> {
     this.setState({ data: nextData });
   }
 
-  handleShowDrawer = () => {
+  handleShowModal = () => {
     this.setState({
-      showDrawer: true
+      show: true
     });
   };
 
-  handleCloseDrawer = () => {
+  handleCloseModal = () => {
     this.setState({
-      showDrawer: false
+      show: false
     });
   };
 
@@ -78,11 +79,28 @@ class DataList extends React.Component<Props, State> {
               <span style= {{ display: 'inline-block', marginRight: '30px'}}>
                   <h1>Payroll</h1>
               </span>
-              <Button appearance="primary" className="tight-border spread-button bold-font" color="green" placement="left" style={{ verticalAlign: '6px', fontSize: '12px' }} onClick={this.handleShowDrawer}>
+              <Button appearance="primary" className="tight-border spread-button bold-font" color="green" placement="left" style={{ verticalAlign: '6px', fontSize: '12px' }} onClick={this.handleShowModal}>
                   PAY EMPLOYEES
               </Button>
           </div>}
         >
+          <Modal show={this.state.show} onHide={this.handleCloseModal} backdrop={'static'}>
+            <Modal.Header>
+              <Modal.Title>Add Employee</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.handleCloseModal} appearance="primary">
+                Ok
+            </Button>
+              <Button onClick={this.handleCloseModal} appearance="subtle">
+                Cancel
+            </Button>
+            </Modal.Footer>
+          </Modal>
+
           <SearchBar addAction={()=>{}}/>
 
           <Table
