@@ -16,7 +16,12 @@ import {
   Navbar,
   DOMHelper,
   Notification,
-  Modal
+  Modal,
+  Form,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  HelpBlock
 } from 'rsuite';
 
 import data from './users';
@@ -26,6 +31,7 @@ import EditCell from '../../../components/EditCell';
 import ActionCell from '../../../components/ActionCell';
 
 const { Column, HeaderCell, Cell } = Table;
+const { Header, Body, Title, Footer } = Modal;
 const { getHeight } = DOMHelper;
 
 type Props = {};
@@ -84,21 +90,50 @@ class DataList extends React.Component<Props, State> {
               </Button>
           </div>}
         >
-          <Modal show={this.state.show} onHide={this.handleCloseModal} backdrop={'static'}>
-            <Modal.Header>
-              <Modal.Title>Add Employee</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-            
-            </Modal.Body>
-            <Modal.Footer>
+          
+          <Modal size={'lg'} show={this.state.show} onHide={this.handleCloseModal} backdrop={'static'}>
+            <Header>
+              <Title>Add Employee</Title>
+            </Header>
+            <Body>
+              <Form layout="inline">
+                <FormGroup>
+                  <ControlLabel>Full Name</ControlLabel>
+                  <FormControl name="fullname" />
+                  <HelpBlock>Required</HelpBlock>
+                </FormGroup>
+                <FormGroup>
+                  <ControlLabel>Last Name</ControlLabel>
+                  <FormControl name="lastname" />
+                  <HelpBlock>Required</HelpBlock>
+                </FormGroup>
+                <FormGroup>
+                  <ControlLabel>Email</ControlLabel>
+                  <FormControl name="email" type="email" />
+                  <HelpBlock>Required</HelpBlock>
+                </FormGroup>
+                <FormGroup>
+                  <ControlLabel>Password</ControlLabel>
+                  <FormControl name="password" type="password" />
+                </FormGroup>
+                <FormGroup>
+                  <ControlLabel>City</ControlLabel>
+                  <FormControl name="city" />
+                </FormGroup>
+                <FormGroup>
+                  <ControlLabel>Street</ControlLabel>
+                  <FormControl name="street" />
+                </FormGroup>
+              </Form>
+            </Body>
+            <Footer>
               <Button onClick={this.handleCloseModal} appearance="primary">
                 Ok
             </Button>
               <Button onClick={this.handleCloseModal} appearance="subtle">
                 Cancel
             </Button>
-            </Modal.Footer>
+            </Footer>
           </Modal>
 
           <SearchBar addAction={()=>{}}/>
