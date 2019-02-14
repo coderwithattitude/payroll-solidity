@@ -15,13 +15,15 @@ import {
   IconButton,
   Navbar,
   DOMHelper,
+  Divider,
   Notification,
   Modal,
   Form,
   FormGroup,
   FormControl,
   ControlLabel,
-  HelpBlock
+  HelpBlock,
+  Dropdown
 } from 'rsuite';
 
 import data from './users';
@@ -91,47 +93,47 @@ class DataList extends React.Component<Props, State> {
           </div>}
         >
           
-          <Modal size={'lg'} show={this.state.show} onHide={this.handleCloseModal} backdrop={'static'}>
+          <Modal size={'xs'} show={this.state.show} onHide={this.handleCloseModal} backdrop={'static'}>
             <Header>
               <Title>Add Employee</Title>
+              <Divider />
             </Header>
             <Body>
-              <Form layout="inline">
+              <Form fluid>
                 <FormGroup>
-                  <ControlLabel>Full Name</ControlLabel>
-                  <FormControl name="fullname" />
-                  <HelpBlock>Required</HelpBlock>
+                  <ControlLabel>First Name</ControlLabel>
+                  <FormControl placeholder="Enter first name" name="firstname" />
                 </FormGroup>
+
                 <FormGroup>
-                  <ControlLabel>Last Name</ControlLabel>
-                  <FormControl name="lastname" />
-                  <HelpBlock>Required</HelpBlock>
+                  <ControlLabel>Last name</ControlLabel>
+                  <FormControl placeholder="Enter last name" name="lastname"/>
                 </FormGroup>
+               
+                  
+                  
                 <FormGroup>
-                  <ControlLabel>Email</ControlLabel>
-                  <FormControl name="email" type="email" />
-                  <HelpBlock>Required</HelpBlock>
-                </FormGroup>
+                  <Dropdown title="Department" appearance="default">
+                  <Dropdown.Item>Software Engineering</Dropdown.Item>
+                  <Dropdown.Item>Marketing</Dropdown.Item>
+                  <Dropdown.Item>admin</Dropdown.Item>
+                  <Dropdown.Item>management</Dropdown.Item>
+                </Dropdown></FormGroup>
                 <FormGroup>
-                  <ControlLabel>Password</ControlLabel>
-                  <FormControl name="password" type="password" />
+                  <ControlLabel>Wallet Address</ControlLabel>
+                  <FormControl placeholder="enter your ethereum wallet address" name="wallet" />
                 </FormGroup>
-                <FormGroup>
-                  <ControlLabel>City</ControlLabel>
-                  <FormControl name="city" />
+                  <FormGroup>
+                  <ControlLabel>Hourly Rate($)</ControlLabel>
+                  <FormControl placeholder="enter hourly rate" name="hourlyrate"/>
                 </FormGroup>
-                <FormGroup>
-                  <ControlLabel>Street</ControlLabel>
-                  <FormControl name="street" />
-                </FormGroup>
+               
+                
               </Form>
             </Body>
             <Footer>
-              <Button onClick={this.handleCloseModal} appearance="primary">
+              <Button onClick={this.handleCloseModal} color="green" appearance="primary" style={{ background: 'linear-gradient(180deg, #1FC164 0%, #12A551 100%)', width: '127px', height: '42px' }}>
                 Ok
-            </Button>
-              <Button onClick={this.handleCloseModal} appearance="subtle">
-                Cancel
             </Button>
             </Footer>
           </Modal>
