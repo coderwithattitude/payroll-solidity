@@ -154,6 +154,17 @@ class Payroll extends React.Component<Props, State> {
                             
                         </Column>
                     </Table>
+                    <div className='rs-table rs-table-hover'>
+                        <div className='rs-table-header-row-wrapper'>
+                            <div className='rs-table-row rs-table-row-header'>
+                                <div className='rs-table-cell-group rs-table-cell-group-scroll'>
+                                    <Column flexGrow={1}>
+                                        Totls
+                                    </Column>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </Panel>
                 
                     <DrawerView show={this.state.showDrawer} onClose={this.handleCloseDrawer} />
