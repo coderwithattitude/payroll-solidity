@@ -141,25 +141,49 @@ class Payroll extends React.Component<Props, State> {
 
                         <Column width={200}>
                             <HeaderCell>Wallet</HeaderCell>
-                            <FooterEditCell onChange={this.handleChange} dataKey="street" dataLength={dataWithFooter.length} />
+                            <FooterEditCell onChange={this.handleChange} dataKey="street" dataLength={dataWithFooter.length} footerComponent={
+                                <div>
+                                    <small>Total to Pay</small><br/>
+                                    <h3> { '$ 1000' } </h3>
+                                </div>
+                            } />
                         </Column>
 
                         <Column width={100}>
                             <HeaderCell>Hourly rate</HeaderCell>
-                            <FooterEditCell onChange={this.handleChange} dataKey="companyName" dataLength={dataWithFooter.length} />
+                            <FooterEditCell onChange={this.handleChange} dataKey="companyName" dataLength={dataWithFooter.length} footerComponent={
+                                <div>
+                                    <small>Total to Pay</small><br/>
+                                    <h3> { '999.5 Dai' } </h3>
+                                </div>
+                            } />
                         </Column>
 
                         <Column width={100}>
                             <HeaderCell>Hours</HeaderCell>
                             <FooterEditCell onChange={this.handleChange} dataKey="email" dataLength={dataWithFooter.length} />
                         </Column>
+
                         <Column width={100}>
                             <HeaderCell>Total</HeaderCell>
                             <FooterCell dataKey="total" dataLength={dataWithFooter.length} />
                         </Column>
+
                         <Column flexGrow={1}>
                             <HeaderCell>Edit</HeaderCell>
-                            <FooterActionCell dataKey="id" onClick={this.handleEditState} dataLength={dataWithFooter.length} />
+                            <FooterActionCell dataKey="id" onClick={this.handleEditState} dataLength={dataWithFooter.length} footerComponent={
+                                <Button
+                                    appearance="primary"
+                                    className="tight-border spread-button bold-font"
+                                    color="green"
+                                    style= {{ fontSize: '1em', marginTop: '13px'}}
+                                    onClick={() => {
+                                        onClick && onClick(rowData.id);
+                                    }}
+                                >
+                                    PAY
+                                </Button>
+                            } />
                         </Column>
                     </Table>
                 </Panel>

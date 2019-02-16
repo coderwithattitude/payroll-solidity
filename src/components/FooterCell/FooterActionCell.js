@@ -3,12 +3,16 @@ import { Table, Button } from 'rsuite';
 import ActionCell from '../ActionCell';
 const { Cell } = Table;
 
-const FooterActionCell = ({ rowIndex, dataLength, ...props }) => {
+const FooterActionCell = ({ rowIndex, dataLength, footerComponent, ...props }) => {
     if (rowIndex === dataLength-1 ) {
         return (
             <Cell {...props} className='footerCell'>
-                Footer
-                
+                { footerComponent &&
+                    footerComponent
+                }
+                { !footerComponent &&
+                    ''
+                }
             </Cell>
         );
     } else {

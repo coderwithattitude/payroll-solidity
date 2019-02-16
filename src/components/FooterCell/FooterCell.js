@@ -2,12 +2,16 @@ import React from 'react';
 import { Table, Button } from 'rsuite';
 const { Cell } = Table;
 
-const FooterCell = ({ rowIndex, dataLength, ...props }) => {
+const FooterCell = ({ rowIndex, dataLength, footerComponent, ...props }) => {
     if (rowIndex === dataLength-1 ) {
         return (
             <Cell {...props} className='footerCell'>
-                Footer
-                
+                { footerComponent &&
+                    footerComponent
+                }
+                { !footerComponent &&
+                    ''
+                }
             </Cell>
         );
     } else {
