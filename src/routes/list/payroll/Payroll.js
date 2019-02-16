@@ -20,8 +20,8 @@ import {
 import data from '../members/users';
 import DrawerView from '../members/DrawerView';
 import SearchBar from '../../../components/SearchBar';
-import EditCell from '../../../components/EditCell';
-import ActionCell from '../../../components/ActionCell';
+import FooterCell from '../../../components/FooterCell';
+import { FooterActionCell, FooterEditCell } from '../../../components/FooterCell';
 
 const { Column, HeaderCell, Cell } = Table;
 const { getHeight } = DOMHelper;
@@ -60,6 +60,14 @@ class Payroll extends React.Component<Props, State> {
         };
     }
 
+    padDataForFooter (data) {
+        const paddedData = data || [];
+        if (paddedData.length < 1 || paddedData[paddedData.length-1].type !== 'footer') {
+            paddedData.push({ type: 'footer' });
+        }
+        return paddedData;
+    }
+
     handleChange = (id, key, value) => {
         const { data } = this.state;
         const nextData = _.clone(data);
@@ -92,6 +100,7 @@ class Payroll extends React.Component<Props, State> {
         //data.forEach(item => {
         //    total += item.amount;
         //});
+        const dataWithFooter = this.padDataForFooter(data);
         
         return (
             <div>
@@ -109,62 +118,50 @@ class Payroll extends React.Component<Props, State> {
 
                     <Table
                         height={getHeight(window) - 316}
-                        data={data}
+                        data={dataWithFooter}
                         onRowClick={data => {
                             console.log(data);
                         }}
                     >
                         <Column width={70} align="center" fixed>
                             <HeaderCell>Id</HeaderCell>
-                            <Cell dataKey="id" />
+                            <FooterCell dataKey="id" dataLength={dataWithFooter.length} />
                         </Column>
 
                         <Column width={200} fixed>
                             <HeaderCell>Full Name</HeaderCell>
-                            <EditCell onChange={this.handleChange} dataKey="firstName" />
+                            <FooterEditCell onChange={this.handleChange} dataKey="firstName" dataLength={dataWithFooter.length} />
                         </Column>
 
 
                         <Column width={200}>
                             <HeaderCell>Department</HeaderCell>
-                            <EditCell onChange={this.handleChange} dataKey="city" />
+                            <FooterEditCell onChange={this.handleChange} dataKey="city" dataLength={dataWithFooter.length} />
                         </Column>
 
                         <Column width={200}>
                             <HeaderCell>Wallet</HeaderCell>
-                            <EditCell onChange={this.handleChange} dataKey="street" />
+                            <FooterEditCell onChange={this.handleChange} dataKey="street" dataLength={dataWithFooter.length} />
                         </Column>
 
                         <Column width={100}>
                             <HeaderCell>Hourly rate</HeaderCell>
-                            <EditCell onChange={this.handleChange} dataKey="companyName" />
+                            <FooterEditCell onChange={this.handleChange} dataKey="companyName" dataLength={dataWithFooter.length} />
                         </Column>
 
                         <Column width={100}>
                             <HeaderCell>Hours</HeaderCell>
-                            <EditCell onChange={this.handleChange} dataKey="email" />
+                            <FooterEditCell onChange={this.handleChange} dataKey="email" dataLength={dataWithFooter.length} />
                         </Column>
                         <Column width={100}>
                             <HeaderCell>Total</HeaderCell>
-                            <Cell dataKey="total" />
+                            <FooterCell dataKey="total" dataLength={dataWithFooter.length} />
                         </Column>
                         <Column flexGrow={1}>
                             <HeaderCell>Edit</HeaderCell>
-                            <ActionCell dataKey="id" onClick={this.handleEditState} />
-                            
+                            <FooterActionCell dataKey="id" onClick={this.handleEditState} dataLength={dataWithFooter.length} />
                         </Column>
                     </Table>
-                    <div className='rs-table rs-table-hover'>
-                        <div className='rs-table-header-row-wrapper'>
-                            <div className='rs-table-row rs-table-row-header'>
-                                <div className='rs-table-cell-group rs-table-cell-group-scroll'>
-                                    <Column flexGrow={1}>
-                                        Totls
-                                    </Column>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </Panel>
                 
                     <DrawerView show={this.state.showDrawer} onClose={this.handleCloseDrawer} />
