@@ -122,6 +122,7 @@ class Payroll extends React.Component<Props, State> {
                         onRowClick={data => {
                             console.log(data);
                         }}
+                        setRowHeight={rowData => (rowData.type==='footer') ? 92 : 46}
                     >
                         <Column width={70} align="center" fixed>
                             <HeaderCell>Id</HeaderCell>
