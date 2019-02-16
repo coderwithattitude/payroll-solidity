@@ -35,7 +35,7 @@ class SearchBar extends React.Component {
                         </InputGroup>
                     </div>
 
-                    <Button appearance="primary" placement="left" onClick={this.handleShowDrawer} className="tight-border spread-button deep-blue bold-font" onClick={this.state.addActon}>
+                    <Button appearance="primary" placement="left" onClick={this.handleShowModal} className="tight-border spread-button deep-blue bold-font" onClick={this.state.addActon}>
                         <Icon icon="plus" style={{ marginRight: '12px' }}  />
                         ADD EMPLOYEE
                     </Button>

@@ -38,7 +38,7 @@ const { getHeight } = DOMHelper;
 
 type Props = {};
 type State = {
-  showDrawer: boolean
+  show: boolean
 };
 
 class DataList extends React.Component<Props, State> {
@@ -87,7 +87,7 @@ class DataList extends React.Component<Props, State> {
               <span style= {{ display: 'inline-block', marginRight: '30px'}}>
                   <h1>Payroll</h1>
               </span>
-              <Button appearance="primary" className="tight-border spread-button bold-font" color="green" placement="left" style={{ verticalAlign: '6px', fontSize: '12px' }} onClick={this.handleShowModal}>
+              <Button appearance="primary" className="tight-border spread-button bold-font" color="green" placement="left" style={{ verticalAlign: '6px', fontSize: '12px' }}>
                   PAY EMPLOYEES
               </Button>
           </div>}
@@ -138,7 +138,7 @@ class DataList extends React.Component<Props, State> {
             </Footer>
           </Modal>
 
-          <SearchBar addAction={()=>{}}/>
+          <SearchBar addAction={this.handleShowModal}/>
 
           <Table
             height={getHeight(window) - 216}
