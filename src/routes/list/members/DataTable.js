@@ -15,64 +15,41 @@ import {
   IconButton,
   Navbar,
   DOMHelper,
-  Notification
+  Divider,
+  Notification,
+  Modal,
+  Form,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  HelpBlock,
+  Dropdown
 } from 'rsuite';
 
 import data from './users';
 import DrawerView from './DrawerView';
 import SearchBar from '../../../components/SearchBar';
+import EditCell from '../../../components/EditCell';
+import ActionCell from '../../../components/ActionCell';
 
 const { Column, HeaderCell, Cell } = Table;
+const { Header, Body, Title, Footer } = Modal;
 const { getHeight } = DOMHelper;
 
 type Props = {};
 type State = {
-  showDrawer: boolean
-};
-
-export const EditCell = ({ rowData, dataKey, onChange, ...props }) => {
-  const editing = rowData.status === 'EDIT';
-  return (
-    <Cell {...props} className={editing ? 'table-content-editing' : ''}>
-      {editing ? (
-        <input
-          className="rs-input"
-          defaultValue={rowData[dataKey]}
-          onChange={event => {
-            onChange && onChange(rowData.id, dataKey, event.target.value);
-          }}
-        />
-      ) : (
-          <span className="table-content-edit-span">{rowData[dataKey]}</span>
-        )}
-    </Cell>
-  );
-};
-
-const ActionCell = ({ rowData, dataKey, onClick, ...props }) => {
-  return (
-    <Cell {...props} style={{ padding: '6px 0' }}>
-      <Button
-        appearance="link"
-        onClick={() => {
-          onClick && onClick(rowData.id);
-        }}
-      >
-        {rowData.status === 'EDIT' ? 'Save' : 'Edit'}
-      </Button>
-    </Cell>
-  );
+  show: boolean
 };
 
 class DataList extends React.Component<Props, State> {
   constructor() {
     super();
     this.state = {
-      showDrawer: false,
+      show: false,
       
     };
-    //this.handleEditState = this.handleEditState.bind(this);
   }
+
 
   handleChange = (id, key, value) => {
     const { data } = this.state;
@@ -81,15 +58,15 @@ class DataList extends React.Component<Props, State> {
     this.setState({ data: nextData });
   }
 
-  handleShowDrawer = () => {
+  handleShowModal = () => {
     this.setState({
-      showDrawer: true
+      show: true
     });
   };
 
-  handleCloseDrawer = () => {
+  handleCloseModal = () => {
     this.setState({
-      showDrawer: false
+      show: false
     });
   };
 
@@ -110,12 +87,58 @@ class DataList extends React.Component<Props, State> {
               <span style= {{ display: 'inline-block', marginRight: '30px'}}>
                   <h1>Payroll</h1>
               </span>
-              <Button appearance="primary" className="tight-border spread-button bold-font" color="green" placement="left" style={{ verticalAlign: '6px', fontSize: '12px' }} onClick={this.handleShowDrawer}>
+              <Button appearance="primary" className="tight-border spread-button bold-font" color="green" placement="left" style={{ verticalAlign: '6px', fontSize: '12px' }}>
                   PAY EMPLOYEES
               </Button>
           </div>}
         >
-          <SearchBar addAction={()=>{}}/>
+          
+          <Modal size={'xs'} show={this.state.show} onHide={this.handleCloseModal} backdrop={'static'}>
+            <Header>
+              <Title>Add Employee</Title>
+              <Divider />
+            </Header>
+            <Body>
+              <Form fluid>
+                <FormGroup>
+                  <ControlLabel>First Name</ControlLabel>
+                  <FormControl placeholder="Enter first name" name="firstname" />
+                </FormGroup>
+
+                <FormGroup>
+                  <ControlLabel>Last name</ControlLabel>
+                  <FormControl placeholder="Enter last name" name="lastname"/>
+                </FormGroup>
+               
+                  
+                  
+                <FormGroup>
+                  <Dropdown title="Department" appearance="default">
+                  <Dropdown.Item>Software Engineering</Dropdown.Item>
+                  <Dropdown.Item>Marketing</Dropdown.Item>
+                  <Dropdown.Item>admin</Dropdown.Item>
+                  <Dropdown.Item>management</Dropdown.Item>
+                </Dropdown></FormGroup>
+                <FormGroup>
+                  <ControlLabel>Wallet Address</ControlLabel>
+                  <FormControl placeholder="enter your ethereum wallet address" name="wallet" />
+                </FormGroup>
+                  <FormGroup>
+                  <ControlLabel>Hourly Rate($)</ControlLabel>
+                  <FormControl placeholder="enter hourly rate" name="hourlyrate"/>
+                </FormGroup>
+               
+                
+              </Form>
+            </Body>
+            <Footer>
+              <Button onClick={this.handleCloseModal} color="green" appearance="primary" style={{ background: 'linear-gradient(180deg, #1FC164 0%, #12A551 100%)', width: '127px', height: '42px' }}>
+                Ok
+            </Button>
+            </Footer>
+          </Modal>
+
+          <SearchBar addAction={this.handleShowModal}/>
 
           <Table
             height={getHeight(window) - 216}
