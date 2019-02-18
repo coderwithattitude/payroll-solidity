@@ -1,22 +1,26 @@
-import React, { Component } from 'react'
-import { Route } from 'react-router'
-import HomeContainer from './layouts/home/HomeContainer'
+// @flow
 
+import * as React from 'react';
+import { Router, browserHistory } from 'react-router';
+import { IntlProvider } from 'react-intl';
+import { IntlProvider as RSIntlProvider } from 'rsuite';
 
-// Styles
-import './css/oswald.css'
-import './css/open-sans.css'
-import './css/pure-min.css'
-import './App.css'
+import enGB from 'rsuite/lib/IntlProvider/locales/en_GB';
+import locales from './locales';
+import routes from './routes';
 
-class App extends Component {
+type Props = {};
+
+class App extends React.Component<Props> {
   render() {
     return (
-      <div className="App">
-        <Route exact path="/" component={HomeContainer}/>
-      </div>
+      <IntlProvider locale="en" messages={locales.en}>
+        <RSIntlProvider locale={enGB}>
+          <Router history={browserHistory} routes={routes} />
+        </RSIntlProvider>
+      </IntlProvider>
     );
   }
 }
 
-export default App
+export default App;
