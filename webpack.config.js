@@ -26,7 +26,7 @@ module.exports = {
   output: {
     filename: '[name].bundle.js?[hash]',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: './'
   },
   optimization: {
     splitChunks: {
