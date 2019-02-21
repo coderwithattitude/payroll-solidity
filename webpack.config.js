@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const { NODE_ENV, STYLE_DEBUG, ENV_LOCALE } = process.env;
 const __PRO__ = NODE_ENV === 'production';
@@ -97,7 +98,11 @@ module.exports = {
       chunks: ['polyfills', 'commons', 'app'],
       template: 'src/index.html',
       inject: true
+    }),
+    new UglifyJSPlugin({
+      sourceMap: true
     })
     // new BundleAnalyzerPlugin({ openAnalyzer: false })
   ]
 };
+

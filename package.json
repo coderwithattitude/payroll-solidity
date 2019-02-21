@@ -113,6 +113,7 @@
     "style-loader": "^0.20.3",
     "svg-sprite-loader": "^3.7.1",
     "transform-loader": "^0.2.3",
+    "uglifyjs-webpack-plugin": "^2.0.1",
     "url-loader": "^0.5.7",
     "webpack": "^4.8.1",
     "webpack-bundle-analyzer": "^2.11.1",
