@@ -44,3 +44,21 @@ export function handleDelEmployee(employee) {
             .then(() => dispatch(hideLoading()));
     }
 }
+
+function getEmployees(employees) {
+    return {
+        type: GET_EMPLOYEES,
+        employees
+    }
+}
+
+export function handleGetEmployees() {
+  return (dispatch, getState) => {
+      const { authedUser } = getState();
+      dispatch(showLoading());
+      return getEmployees({
+          admin: authedUser
+      }).then((employees) => dispatch(getEmployees(employees)))
+        .then(() => dispatch(hideLoading()));
+  }
+}
