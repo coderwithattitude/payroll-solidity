@@ -30,6 +30,12 @@ const navs = [
     key: '1',
     icon: <Icon icon="money" />,
     text: 'Payroll',
+    link: '/list/payroll'
+  },
+  {
+    key: '1',
+    icon: <Icon icon="group" />,
+    text: 'Members',
     link: '/list/members'
   },
   {
