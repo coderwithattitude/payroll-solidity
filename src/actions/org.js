@@ -38,10 +38,30 @@ export function handleDelOrg(org) {
         const { authedUser } = getState();
 
         dispatch(showLoading());
-        return delOrg({
+        return deleteOrganisation({
             ...org,
             author: authedUser
         }).then((org) => dispatch(delOrg(org)))
           .then(() => dispatch(hideLoading()));
+    }
+}
+
+function getOrg(org) {
+    return {
+        type: GET_ORGANISATION,
+        org,
+    }
+}
+
+function handleGetOrg(org) {
+    return (dispatch, getState) {
+        const { authedUser } = getState();
+
+        dispatch(showLoading());
+        return getOrganisation({
+            ...org,
+            author: authedUser
+        }).then((org) => dispatch(getOrg(org)))
+          .then(() => dispatch(hideLoading)));
     }
 }
