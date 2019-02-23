@@ -25,3 +25,23 @@ export function handleAddOrg(org) {
 
     }
 }
+
+function delOrg(org) {
+    return {
+        type: DELETE_ORGANISATION,
+        org,
+    }
+}
+
+export function handleDelOrg(org) {
+    return (dispatch, getState) {
+        const { authedUser } = getState();
+
+        dispatch(showLoading());
+        return delOrg({
+            ...org,
+            author: authedUser
+        }).then((org) => dispatch(delOrg(org)))
+          .then(() => dispatch(hideLoading()));
+    }
+}
