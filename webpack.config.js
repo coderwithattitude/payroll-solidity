@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -10,15 +11,7 @@ const __PRO__ = NODE_ENV === 'production';
 const extractLess = new ExtractTextPlugin('style.[hash].css');
 const rsuiteStylePath = path.resolve(__dirname, './node_modules/rsuite/styles');
 
-module.exports = {
-  devServer: {
-    contentBase: path.join(__dirname, 'public'),
-    disableHostCheck: true,
-    historyApiFallback: true,
-    compress: true,
-    host: '0.0.0.0',
-    port: 3000
-  },
+const BASE_CONFIG = {
   entry: {
     polyfills: './src/polyfills.js',
     app: './src/index.js'
@@ -95,12 +88,33 @@ module.exports = {
       title: 'Daipay | Pay all your employees with DAI',
       chunks: ['polyfills', 'commons', 'app'],
       template: 'src/index.html',
-      inject: true
     }),
-    new UglifyJSPlugin({
-      sourceMap: true
-    })
     // new BundleAnalyzerPlugin({ openAnalyzer: false })
   ]
-};
+
+}
+
+const PROD_CONFIG = {
+  plugins: [
+    new UglifyJSPlugin({
+      sourceMap: true
+    }),
+  ]
+
+}
+
+const DEV_CONFIG = {
+  devServer: {
+    contentBase: path.join(__dirname, 'public'),
+    disableHostCheck: true,
+    historyApiFallback: true,
+    compress: true,
+    host: '0.0.0.0',
+    port: 3000
+  }
+}
+
+module.exports = __PRO__ ?
+  webpackMerge(PROD_CONFIG, BASE_CONFIG) :
+  webpackMerge(DEV_CONFIG, BASE_CONFIG);
 
