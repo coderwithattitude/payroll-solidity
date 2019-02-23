@@ -65,7 +65,6 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 8192,
-              publicPath: '/'
             }
           }
         ]
@@ -82,7 +81,6 @@ module.exports = {
               hash: 'sha512',
               digest: 'hex',
               name: 'resources/[hash].[ext]',
-              publicPath: '/'
             }
           }
         ]
