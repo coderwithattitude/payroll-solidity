@@ -22,7 +22,7 @@ export function handleAddEmployee(employee) {
             ...employee,
             author: authedUser
         }).then((employee) => dispatch(addEmployee(employee)))
-            .then(() => dispatch(hideLoading()));
+          .then(() => dispatch(hideLoading()));
     }
 }
 
@@ -41,7 +41,7 @@ export function handleDelEmployee(employee) {
             ...employee,
             author: authedUser
         }).then((employee) => dispatch(delEmployee(employee)))
-            .then(() => dispatch(hideLoading()));
+          .then(() => dispatch(hideLoading()));
     }
 }
 
