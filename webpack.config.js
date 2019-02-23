@@ -6,20 +6,16 @@ const HtmlwebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-const { NODE_ENV, STYLE_DEBUG, ENV_LOCALE } = process.env;
+const { NODE_ENV, DEPLOY_BUILD, STYLE_DEBUG, ENV_LOCALE } = process.env;
 const __PRO__ = NODE_ENV === 'production';
 const extractLess = new ExtractTextPlugin('style.[hash].css');
 const rsuiteStylePath = path.resolve(__dirname, './node_modules/rsuite/styles');
+const PROD_BASE_URL = 'https://renown-fruit.github.io/dai-payroll/'
 
 const BASE_CONFIG = {
   entry: {
     polyfills: './src/polyfills.js',
     app: './src/index.js'
-  },
-  output: {
-    filename: '[name].bundle.js?[hash]',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: './'
   },
   optimization: {
     splitChunks: {
@@ -95,6 +91,11 @@ const BASE_CONFIG = {
 }
 
 const PROD_CONFIG = {
+  output: {
+    filename: '[name].bundle.js?[hash]',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: DEPLOY_BUILD ? PROD_BASE_URL : './'
+  },
   plugins: [
     new UglifyJSPlugin({
       sourceMap: true
@@ -104,6 +105,11 @@ const PROD_CONFIG = {
 }
 
 const DEV_CONFIG = {
+  output: {
+    filename: '[name].bundle.js?[hash]',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/'
+  },
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     disableHostCheck: true,
