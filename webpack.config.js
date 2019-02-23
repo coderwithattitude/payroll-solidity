@@ -97,9 +97,12 @@ const PROD_CONFIG = {
     publicPath: DEPLOY_BUILD ? PROD_BASE_URL : './'
   },
   plugins: [
+    new webpack.DefinePlugin({
+      "HOT_PATCH_REQUIRED": false
+    }),
     new UglifyJSPlugin({
       sourceMap: true
-    }),
+    })
   ]
 
 }
@@ -110,6 +113,7 @@ const DEV_CONFIG = {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
+  devtool: 'eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, 'public'),
     disableHostCheck: true,
@@ -117,7 +121,12 @@ const DEV_CONFIG = {
     compress: true,
     host: '0.0.0.0',
     port: 3000
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      "HOT_PATCH_REQUIRED": true
+    })
+  ]
 }
 
 module.exports = __PRO__ ?

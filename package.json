@@ -2,14 +2,14 @@
   "name": "daipay",
   "version": "1.0.0",
   "description": "Daipay",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "directories": {
     "lib": "lib/"
   },
   "scripts": {
     "dev": "webpack-dev-server --mode development --hot",
     "clear-dist": "rm -rf dist",
-    "build-webpack": "NODE_ENV=production webpack --mode production && cp -R public/* ./dist/ ",
+    "build-webpack": "NODE_ENV=production webpack --mode production --progress && cp -R public/* ./dist/ ",
     "build": "npm run clear-dist && npm run build-webpack",
     "build-deploy": "npm run clear-dist && DEPLOY_BUILD=true npm run build-webpack",
     "publish-github": "node gh-pages.js",

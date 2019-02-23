@@ -6,10 +6,17 @@ import App from './App';
 
 import './styles/index.less';
 
-const hotRender = Component => {
+const render = Component => {
   ReactDOM.render(<Component />, document.getElementById('root'));
 };
 
-ready(() => {
-  hotRender(hot(module)(App));
-});
+if (HOT_PATCH_REQUIRED) {
+  ready(() => {
+    render(hot(module)(App));
+  });
+} else {
+  ready(() => {
+    render(App);
+  });  
+}
+
