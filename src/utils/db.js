@@ -1,9 +1,15 @@
 // @TODO implement class
 
-import {IPFS} from 'ipfs';
-import {OrbitDB} from 'orbit-db';
+const IPFS = require('ipfs');
+const OrbitDB = require('orbit-db');
 
-const ipfs = new IPFS(); // new ipfs instance
+const ipfsOptions = {
+  EXPERIMENTAL: {
+    pubsub: true
+  }
+}
+
+const ipfs = new IPFS(ipfsOptions); // new ipfs instance
 const orbitdb = new OrbitDB(ipfs); // connect orbitdb to ipfs instance
 const docstore = orbitdb.docs('payroll-db'); // create new orbitdb document database
 

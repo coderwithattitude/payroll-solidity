@@ -35,8 +35,10 @@
   "dependencies": {
     "chartist": "^0.11.0",
     "classnames": ">=2.0.0",
+    "ipfs": "^0.33.0",
     "moment": "^2.20.1",
     "npm": "^6.2.0",
+    "orbit-db": "^0.19.9",
     "prop-types": "^15.6.0",
     "react": "^16.6.0",
     "react-chartist": "^0.13.1",
