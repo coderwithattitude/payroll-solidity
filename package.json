@@ -26,12 +26,8 @@
     "lib",
     "src"
   ],
-  "author": "HYPERS Team",
+  "author": "Renown Fruit ltd",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:rsuite/rsuite-management-system.git"
-  },
   "dependencies": {
     "chartist": "^0.11.0",
     "classnames": ">=2.0.0",
