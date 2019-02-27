@@ -2,6 +2,8 @@
 
 import * as React from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { handleAddEmployee } from '.../actions/employee';
 import {
     Input,
     InputGroup,
@@ -23,7 +25,12 @@ import {
 const { Header, Body, Title, Footer } = Modal;
 
 type State = {
-  show: boolean
+  show: boolean,
+  firstName: '',
+  lastName: '',
+  wallet: '',
+  department: '',
+  hourlyRate: 0,
 };
 
 class SearchBar extends React.Component {
@@ -48,7 +55,23 @@ class SearchBar extends React.Component {
         });
     };
 
+    handleInputChange = (e) => {
+      const { value, name} = e.target;
 
+      this.setState(() => ({
+        [name] : value
+      }));
+    }
+
+    isDisabled = () => {
+      const { firstName, lastName, department, hourlyRate, wallet } = this.state;
+
+      return firstName === ''
+        || lastName === ''
+        || department === ''
+        || hourlyRate === 0
+        || wallet === '';
+    }
     render () {
         return (
 
