@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { handleAddEmployee } from '.../actions/employee';
+import { handleAddEmployee } from '../../actions/employee';
 import {
     Input,
     InputGroup,
@@ -24,24 +24,20 @@ import {
 
 const { Header, Body, Title, Footer } = Modal;
 
-type State = {
-  show: boolean,
-  firstName: '',
-  lastName: '',
-  wallet: '',
-  department: '',
-  hourlyRate: 0,
-};
 
 class SearchBar extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            addActon: this.props.addActon || function () {},
-            show: false
+            show: false,
+            firstName: '',
+            lastName: '',
+            wallet: '',
+            department: '',
+            hourlyRate: 0,
         };
+      console.log('state', this.state);
     }
-
 
     handleShowModal = () => {
         this.setState({
@@ -65,14 +61,22 @@ class SearchBar extends React.Component {
 
     isDisabled = () => {
       const { firstName, lastName, department, hourlyRate, wallet } = this.state;
+      return (firstName === '' ||
+              lastName === '' ||
+              department === '' ||
+              hourlyRate === '' ||
+              wallet === '' 
+              );
+    }
 
-      return firstName === ''
-        || lastName === ''
-        || department === ''
-        || hourlyRate === 0
-        || wallet === '';
+    handleSubmit = (e) => {
+      e.preventDefault();
+
+      this.props.dispatch(handleAddEmployee(this.state));
     }
     render () {
+      const { firstName, lastName, department, hourlyRate, wallet } = this.state;
+      console.log('disabled',this.isDisabled);
         return (
 
             <div className="table-toolbar search-bar">
@@ -85,12 +89,12 @@ class SearchBar extends React.Component {
               <Form fluid>
                 <FormGroup>
                   <ControlLabel>First Name</ControlLabel>
-                  <FormControl placeholder="Enter first name" name="firstname" />
+                  <Input onChange={this.handleInputChange} value={ firstName } placeholder="Enter first name" name="firstName" />
                 </FormGroup>
 
                 <FormGroup>
                   <ControlLabel>Last name</ControlLabel>
-                  <FormControl placeholder="Enter last name" name="lastname"/>
+                  <Input onChange={this.handleInputChange} value={ lastName } placeholder="Enter last name" name="lastName"/>
                 </FormGroup>
                
                   
@@ -104,19 +108,19 @@ class SearchBar extends React.Component {
                 </Dropdown></FormGroup>
                 <FormGroup>
                   <ControlLabel>Wallet Address</ControlLabel>
-                  <FormControl placeholder="enter your ethereum wallet address" name="wallet" />
+                  <Input onChange={this.handleInputChange} value={ wallet } placeholder="enter your ethereum wallet address" name="wallet" />
                 </FormGroup>
                   <FormGroup>
                   <ControlLabel>Hourly Rate($)</ControlLabel>
-                  <FormControl placeholder="enter hourly rate" name="hourlyrate"/>
+                  <Input onChange={this.handleInputChange} placeholder="enter hourly rate" name="hourlyrate"/>
                 </FormGroup>
                
                 
               </Form>
             </Body>
             <Footer>
-              <Button onClick={this.handleCloseModal} color="green" appearance="primary" style={{ background: 'linear-gradient(180deg, #1FC164 0%, #12A551 100%)', width: '127px', height: '42px' }}>
-                Ok
+              <Button type="submit" disabled={this.isDisabled} color="green" appearance="primary" style={{ background: 'linear-gradient(180deg, #1FC164 0%, #12A551 100%)', width: '127px', height: '42px' }}>
+                OK
             </Button>
             </Footer>
           </Modal>
