@@ -129,7 +129,8 @@ const DEV_CONFIG = {
   ]
 }
 
-module.exports = __PRO__ ?
+const config = __PRO__ ?
   webpackMerge(PROD_CONFIG, BASE_CONFIG) :
   webpackMerge(DEV_CONFIG, BASE_CONFIG);
 
+module.exports = config;

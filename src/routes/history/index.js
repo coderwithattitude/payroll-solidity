@@ -1,6 +1,6 @@
 import History from '../../components/History/History';
 
 export default {
-    path: 'history',
+    path: '/history',
     component: History
 };
