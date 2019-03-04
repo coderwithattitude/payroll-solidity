@@ -56,18 +56,15 @@ class App extends React.Component<Props> {
               <HashRouter>
                 <Frame>
                   <div>
-                    <Switch>
-                      <Redirect exact from='/' to='/list/members' />
-                    </Switch>
-                  </div>
-                  {
-                    // <Route routes={routes} history={history} />
-                  }
-                  {
-                    <AdvancedRoutes routes={extractedRoute} />
-                  }
-                </Frame>
-              </HashRouter>
+                      <Switch>
+                        <Redirect exact from='/' to='/list/members' />
+                      </Switch>
+                      {
+                        <AdvancedRoutes routes={extractedRoute} />
+                      }
+                    </div>
+                  </Frame>
+                </HashRouter>
           </RSIntlProvider>
         </IntlProvider>
     );

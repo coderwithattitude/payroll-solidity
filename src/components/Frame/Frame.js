@@ -1,9 +1,10 @@
 // @flow
 
-import * as React from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Container,
@@ -57,9 +58,11 @@ type Props = {
 
 class Frame extends React.Component<Props, State> {
   resizeListenner = null;
-  static contextTypes = {
-    router: PropTypes.object
+
+  static propTypes = {
+    location: PropTypes.object.isRequired
   };
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -128,11 +131,13 @@ class Frame extends React.Component<Props, State> {
       );
     });
   }
-  componentDidMount() {
-    this.context.router.listen(() => {
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
       pageview();
-    });
+    }
   }
+
   render() {
     const { children } = this.props;
     const { expand, windowHeight } = this.state;
@@ -190,4 +195,4 @@ class Frame extends React.Component<Props, State> {
   }
 }
 
-export default Frame;
+export default withRouter(Frame);
