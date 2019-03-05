@@ -1,4 +1,4 @@
-import createHistory from 'history/createBrowserHistory';
+//import createHistory from 'history/createBrowserHistory';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux'
@@ -11,11 +11,11 @@ import drizzleOptions from './drizzleOptions';
 // instantiate redux devtools to visualize state
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const history = createHistory();
+//const history = createHistory();
 
-// instantiate middleware objects
+// instantiate middleware objects "react-router": "3.2.0",
 const routingMiddleware = routerMiddleware(history);
-const sagaMiddleware = createSagaMiddleware();
+//const sagaMiddleware = createSagaMiddleware();
 
 const initialState = {
   contracts: generateContractsInitialState(drizzleOptions)
@@ -27,15 +27,15 @@ const store = createStore(
     composeEnhancers(
       applyMiddleware(
         thunkMiddleware,
-        routingMiddleware,
-        sagaMiddleware
+        routingMiddleware
+       // sagaMiddleware
     )
   )
 );
 
-sagaMiddleware.run(rootSaga)
+//sagaMiddleware.run(rootSaga)
 
-export { history };
+//export { history };
 export { store };
 
 export default store;

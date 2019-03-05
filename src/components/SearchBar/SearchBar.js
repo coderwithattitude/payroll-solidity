@@ -7,19 +7,14 @@ import { handleAddEmployee } from '../../actions/employee';
 import {
     Input,
     InputGroup,
-    Table,
     Icon,
-    ButtonToolbar,
     Button,
     ControlLabel,
-    IconButton,
-    DOMHelper,
     Divider,
     Dropdown,
     Modal,
     Form,
     FormGroup,
-    FormControl,
 } from 'rsuite';
 
 const { Header, Body, Title, Footer } = Modal;
@@ -33,10 +28,9 @@ class SearchBar extends React.Component {
             firstName: '',
             lastName: '',
             wallet: '',
-            department: '',
+            department: 'Software Engineering',
             hourlyRate: 0,
         };
-      console.log('state', this.state);
     }
 
     handleShowModal = () => {
@@ -59,12 +53,19 @@ class SearchBar extends React.Component {
       }));
     }
 
+    handleSelectMenu = (eventKey, event) => {
+      console.log('ek',eventKey);
+      this.setState(() => ({
+        department: eventKey
+      }));
+    }
+
     isDisabled = () => {
       const { firstName, lastName, department, hourlyRate, wallet } = this.state;
       return (firstName === '' ||
               lastName === '' ||
               department === '' ||
-              hourlyRate === '' ||
+              hourlyRate === 0 ||
               wallet === '' 
               );
     }
@@ -76,7 +77,6 @@ class SearchBar extends React.Component {
     }
     render () {
       const { firstName, lastName, department, hourlyRate, wallet } = this.state;
-      console.log('disabled',this.isDisabled);
         return (
 
             <div className="table-toolbar search-bar">
@@ -89,37 +89,38 @@ class SearchBar extends React.Component {
               <Form fluid>
                 <FormGroup>
                   <ControlLabel>First Name</ControlLabel>
-                  <Input onChange={this.handleInputChange} value={ firstName } placeholder="Enter first name" name="firstName" />
+                  <input onChange={this.handleInputChange} value={ firstName } placeholder="Enter first name" name="firstName" />
                 </FormGroup>
 
                 <FormGroup>
                   <ControlLabel>Last name</ControlLabel>
-                  <Input onChange={this.handleInputChange} value={ lastName } placeholder="Enter last name" name="lastName"/>
+                  <input onChange={this.handleInputChange} value={ lastName } placeholder="Enter last name" name="lastName"/>
                 </FormGroup>
                
                   
                   
                 <FormGroup>
-                  <Dropdown title="Department" appearance="default">
-                  <Dropdown.Item>Software Engineering</Dropdown.Item>
-                  <Dropdown.Item>Marketing</Dropdown.Item>
-                  <Dropdown.Item>admin</Dropdown.Item>
-                  <Dropdown.Item>management</Dropdown.Item>
+                    <ControlLabel>Department</ControlLabel>
+                  <Dropdown trigger='click' activeKey={department} title={department} appearance="default" onSelect={this.handleSelectMenu}>
+                  <Dropdown.Item eventKey = 'Software Engineering'>Software Engineering</Dropdown.Item>
+                  <Dropdown.Item eventKey = 'Marketing'>Marketing</Dropdown.Item>
+                  <Dropdown.Item eventKey = 'Admin'>Admin</Dropdown.Item>
+                  <Dropdown.Item eventKey = 'Management'>Management</Dropdown.Item>
                 </Dropdown></FormGroup>
                 <FormGroup>
                   <ControlLabel>Wallet Address</ControlLabel>
-                  <Input onChange={this.handleInputChange} value={ wallet } placeholder="enter your ethereum wallet address" name="wallet" />
+                  <input onChange={this.handleInputChange} value={ wallet } placeholder="enter your ethereum wallet address" name="wallet" />
                 </FormGroup>
                   <FormGroup>
                   <ControlLabel>Hourly Rate($)</ControlLabel>
-                  <Input onChange={this.handleInputChange} placeholder="enter hourly rate" name="hourlyrate"/>
+                  <input onChange={this.handleInputChange} value={ hourlyRate } placeholder="enter hourly rate" name="hourlyRate"/>
                 </FormGroup>
                
                 
               </Form>
             </Body>
             <Footer>
-              <Button type="submit" disabled={this.isDisabled} color="green" appearance="primary" style={{ background: 'linear-gradient(180deg, #1FC164 0%, #12A551 100%)', width: '127px', height: '42px' }}>
+              <Button type="submit" onClick={this.handleAddEmployee} disabled={this.isDisabled()} color="green" appearance="primary" style={{ background: 'linear-gradient(180deg, #1FC164 0%, #12A551 100%)', width: '127px', height: '42px' }}>
                 OK
             </Button>
             </Footer>
@@ -143,5 +144,5 @@ class SearchBar extends React.Component {
         );
     }
 }
-
-export default SearchBar;
+//export default SearchBar;
+export default connect()(SearchBar);
