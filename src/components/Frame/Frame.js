@@ -94,7 +94,6 @@ class Frame extends React.Component<Props, State> {
         return (
           <Dropdown
             key={item.key}
-            eventKey={item.key}
             placement="rightTop"
             trigger="hover"
             title="Errors"
@@ -104,10 +103,9 @@ class Frame extends React.Component<Props, State> {
               return (
                 <Dropdown.Item
                   key={child.key}
-                  eventKey={child.key}
+                  eventKey={child.link}
                   componentClass={Link}
                   to={child.link}
-                  activeClassName="nav-item-active"
                 >
                   {child.text}
                 </Dropdown.Item>
@@ -120,11 +118,10 @@ class Frame extends React.Component<Props, State> {
       return (
         <Nav.Item
           key={item.key}
-          eventKey={item.key}
+          eventKey={item.link}
           icon={item.icon}
           componentClass={Link}
           to={item.link}
-          activeClassName="nav-item-active"
         >
           {item.text}
         </Nav.Item>
@@ -171,7 +168,7 @@ class Frame extends React.Component<Props, State> {
               </Link>
             </div>
           </Sidenav.Header>
-          <Sidenav expanded={expand} defaultOpenKeys={['3']} activeKey={[]} appearance="subtle">
+          <Sidenav expanded={expand} activeKey={this.props.location.pathname} appearance="subtle">
             <Sidenav.Body style={navBodyStyle}>
               <Nav>
                 {this.renderNavs()}
