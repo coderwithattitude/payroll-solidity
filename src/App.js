@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { Router, browserHistory, Redirect, Switch } from 'react-router';
 import { HashRouter, BrowserRouter /*, Router*/, Route } from 'react-router-dom';
-import createBrowserHistory from "history/createBrowserHistory";
 
 import { IntlProvider } from 'react-intl';
 import { IntlProvider as RSIntlProvider } from 'rsuite';
@@ -15,9 +14,6 @@ import routes from './routes';
 import Frame from './components/Frame';
 
 type Props = {};
-
-const history = createBrowserHistory();
-// const history = browserHistory;
 
 const extractRoute = (route, parent) => {
   let routes = [];
