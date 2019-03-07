@@ -19464,14 +19464,15 @@ body {
 .rs-sidenav-subtle {
   background-color: transparent;
 }
-.rs-nav-item > .rs-nav-item-content {
-  color: #ffffff;
-  font-weight: 300;
+.rs-sidenav .rs-nav-item > .rs-nav-item-content {
+  color: #ffffff ;
+  font-weight: 300 ;
 }
-.rs-nav-item > .nav-item-active {
+.rs-sidenav .rs-nav-item.rs-nav-item-active > .rs-nav-item-content {
+  color: #ffffff ;
   font-weight: 600;
 }
-.rs-nav-item > .nav-item-active:after {
+.rs-sidenav .rs-nav-item.rs-nav-item-active > .rs-nav-item-content:after {
   position: absolute;
   right: 0;
   content: '';
