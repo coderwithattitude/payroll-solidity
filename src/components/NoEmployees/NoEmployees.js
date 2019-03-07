@@ -18,9 +18,6 @@ import {
     Notification
 } from 'rsuite';
 import SearchBar from '../SearchBar';
-// import './styles.less';
-
-
 
 type Props = {};
 type State = {
