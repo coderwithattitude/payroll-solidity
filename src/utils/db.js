@@ -2,7 +2,7 @@
 
 const IPFS = require('ipfs');
 const OrbitDB = require('orbit-db');
-
+let orbitdb, docstore;
 const ipfsOptions = {
   EXPERIMENTAL: {
     pubsub: true
@@ -10,10 +10,20 @@ const ipfsOptions = {
 }
 
 const ipfs = new IPFS(ipfsOptions); // new ipfs instance
-const orbitdb = new OrbitDB(ipfs); // connect orbitdb to ipfs instance
-const docstore = orbitdb.docs('payroll-db'); // create new orbitdb document database
 
-// 
+ipfs.on('ready', () => {
+  // Create OrbitDB instance
+  orbitdb = new OrbitDB(ipfs)
+  docstore = orbitdb.docs('payroll-db');
+  console.log('orbit: ',orbitdb);
+  console.log('orbit db: ',docstore);
+
+})
+
+//const orbitdb = new OrbitDB(ipfs); // connect orbitdb to ipfs instance
+//const docstore = orbitdb.docs('payroll-db'); // create new orbitdb document database
+
+
 export async function addOrganization(name, admin, email, employees={}) {
     
     try {
@@ -55,10 +65,10 @@ export async function deleteOrganisation(addr) {
 
 // Add employee into organisation in payrolldb
 export async function addEmployee(admin,name,addr,rate,minHours,position,organisation) {
-    let _id = Object.keys(docstore.get(admin).employees).length;
+    
+    //let _id = Object.keys(docstore.get(admin).employees).length;
     let empObj = {
         [addr]: {
-            id: _id++,
             address: addr,
             name: name,
             rate: rate,
@@ -68,9 +78,13 @@ export async function addEmployee(admin,name,addr,rate,minHours,position,organis
         }
     }
     try {
-        let payrolldb = docstore.get(admin); // retrieve existing employee object
-        await docstore.put({_id: addr, employees: Object.assign(payrolldb.employees, empObj)});
-        console.log('paydb',payrolldb);
+        //let payrolldb = await docstore.get(admin); // retrieve existing employee object
+        orbitdb.docstore('payroll-db').then((docstore) => {
+                let payrolldb = docstore.get(admin); // retrieve existing employee object
+                docstore.put({_id:admin ,employees: empObj}).then((hash)=>console.log('hash',hash));
+            })
+        
+        //console.log('paydb',payrolldb);
         return true;
     } catch(e) {
         console.log('Error adding employee',e);

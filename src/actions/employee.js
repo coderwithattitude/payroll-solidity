@@ -19,8 +19,7 @@ export function handleAddEmployee(employee) {
         
         dispatch(showLoading());
         return addEmployee({
-            ...employee,
-            author: authedUser
+            ...employee
         }).then((employee) => dispatch(addEmp(employee)))
           .then(() => dispatch(hideLoading()));
     }

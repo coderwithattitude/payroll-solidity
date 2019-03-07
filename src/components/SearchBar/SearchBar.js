@@ -119,7 +119,7 @@ class SearchBar extends React.Component {
               </Form>
             </Body>
             <Footer>
-              <Button type="submit" onClick={this.handleAddEmployee} disabled={this.isDisabled()} color="green" appearance="primary" style={{ background: 'linear-gradient(180deg, #1FC164 0%, #12A551 100%)', width: '127px', height: '42px' }}>
+              <Button type="submit" onClick={this.handleSubmit} disabled={this.isDisabled()} color="green" appearance="primary" style={{ background: 'linear-gradient(180deg, #1FC164 0%, #12A551 100%)', width: '127px', height: '42px' }}>
                 OK
             </Button>
             </Footer>
