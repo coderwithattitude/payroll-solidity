@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Link } from 'react-router';
 import * as _ from 'lodash';
+
 import {
   Input,
   InputGroup,
@@ -118,7 +119,7 @@ class DataList extends React.Component<Props, State> {
             </Column>
           </Table>
         </Panel>
-        <DrawerView show={this.state.showDrawer} onClose={this.handleCloseDrawer} />
+       
       </div>
     );
   }

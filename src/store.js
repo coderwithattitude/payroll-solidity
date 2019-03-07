@@ -3,8 +3,8 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux'
 import reducer from './reducer';
-import rootSaga from './rootSaga';
-import createSagaMiddleware from 'redux-saga';
+//import rootSaga from './rootSaga';
+//import createSagaMiddleware from 'redux-saga';
 import { generateContractsInitialState } from 'drizzle';
 import drizzleOptions from './drizzleOptions';
 
@@ -28,12 +28,11 @@ const store = createStore(
       applyMiddleware(
         thunkMiddleware,
         routingMiddleware
-       // sagaMiddleware
+      // sagaMiddleware
     )
   )
 );
-
-//sagaMiddleware.run(rootSaga)
+//sagaMiddleware.run(rootSaga);
 
 //export { history };
 export { store };

@@ -75,10 +75,11 @@ class SearchBar extends React.Component {
 
       this.props.dispatch(handleAddEmployee(this.state));
     }
+
     render () {
       const { firstName, lastName, department, hourlyRate, wallet } = this.state;
-        return (
-
+        
+      return (
             <div className="table-toolbar search-bar">
     <Modal size={'xs'} show={this.state.show} onHide={this.handleCloseModal} backdrop={'static'}>
             <Header>
@@ -95,9 +96,7 @@ class SearchBar extends React.Component {
                 <FormGroup>
                   <ControlLabel>Last name</ControlLabel>
                   <input onChange={this.handleInputChange} value={ lastName } placeholder="Enter last name" name="lastName"/>
-                </FormGroup>
-               
-                  
+                </FormGroup>    
                   
                 <FormGroup>
                     <ControlLabel>Department</ControlLabel>
@@ -144,5 +143,9 @@ class SearchBar extends React.Component {
         );
     }
 }
+
+function mapStateToProps(state, ownProps) {
+  return {};
+}
 //export default SearchBar;
-export default connect()(SearchBar);
+export default connect(mapStateToProps)(SearchBar);
