@@ -3,6 +3,7 @@
 
 @import '../components/Frame/styles.less';
 @import '../components/ErrorPage/styles.less';
+@import '../components/NoEmployees/styles.less';
 
 @import '../routes/list/members/styles.less';
 
@@ -133,7 +134,13 @@ body {
 
 .deep-blue {
   color: #ffffff;
-  background: #1a4a85;
+  background-color: #1a4a85;
+  &:active {
+    background-color: #1875f0 !important;
+  }
+  &:hover {
+    background-color: #1875f0 !important;
+  }
 }
 
 .deep-blue-font {
