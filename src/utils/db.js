@@ -58,7 +58,7 @@ export async function addEmployee(admin,name,addr,rate,minHours,position,organis
     let _id = Object.keys(docstore.get(admin).employees).length;
     let empObj = {
         [addr]: {
-            id: _id++
+            id: _id++,
             address: addr,
             name: name,
             rate: rate,
