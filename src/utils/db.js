@@ -55,9 +55,10 @@ export async function deleteOrganisation(addr) {
 
 // Add employee into organisation in payrolldb
 export async function addEmployee(admin,name,addr,rate,minHours,position,organisation) {
-
+    let _id = Object.keys(docstore.get(admin).employees).length;
     let empObj = {
         [addr]: {
+            id: _id++
             address: addr,
             name: name,
             rate: rate,
@@ -69,6 +70,7 @@ export async function addEmployee(admin,name,addr,rate,minHours,position,organis
     try {
         let payrolldb = docstore.get(admin); // retrieve existing employee object
         await docstore.put({_id: addr, employees: Object.assign(payrolldb.employees, empObj)});
+        console.log('paydb',payrolldb);
         return true;
     } catch(e) {
         console.log('Error adding employee',e);
