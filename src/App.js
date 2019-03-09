@@ -7,9 +7,13 @@ import { HashRouter, BrowserRouter /*, Router*/, Route } from 'react-router-dom'
 import { IntlProvider } from 'react-intl';
 import { IntlProvider as RSIntlProvider } from 'rsuite';
 
+import { DrizzleProvider } from 'drizzle-react';
+import { Provider } from 'react-redux';
 import enGB from 'rsuite/lib/IntlProvider/locales/en_GB';
 import locales from './locales';
 import routes from './routes';
+import { store } from './store';
+import drizzleOptions from './drizzleOptions';
 
 import Frame from './components/Frame';
 
@@ -47,22 +51,24 @@ const extractedRoute = extractRoute(routes);
 class App extends React.Component<Props> {
   render() {
     return (
-        <IntlProvider locale="en" messages={locales.en}>
-          <RSIntlProvider locale={enGB}>
-              <HashRouter>
-                <Frame>
-                  <div>
-                      <Switch>
-                        <Redirect exact from='/' to='/list/members' />
-                      </Switch>
-                      {
-                        <AdvancedRoutes routes={extractedRoute} />
-                      }
-                    </div>
-                  </Frame>
-                </HashRouter>
-          </RSIntlProvider>
-        </IntlProvider>
+      <DrizzleProvider  options={drizzleOptions}>
+        <Provider store={store}>
+
+          <HashRouter>
+            <Frame>
+              <div>
+                <Switch>
+                  <Redirect exact from='/' to='/list/members' />
+                </Switch>
+                {
+                  <AdvancedRoutes routes={extractedRoute} store={store} />
+                }
+              </div>
+            </Frame>
+          </HashRouter>
+        </Provider>
+      </DrizzleProvider>
+
     );
   }
 }

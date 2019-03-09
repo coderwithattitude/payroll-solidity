@@ -3,6 +3,8 @@
 import * as React from 'react';
 import { Link } from 'react-router';
 import * as _ from 'lodash';
+import { connect } from 'react-redux';
+import { handleGetEmployees } from '../../../actions/employee';
 import {
   Input,
   InputGroup,
@@ -19,8 +21,8 @@ import {
   HelpBlock
 } from 'rsuite';
 
-import data from './users';
-import DrawerView from './DrawerView';
+//import data from './users';
+
 import SearchBar from '../../../components/SearchBar';
 import EditCell from '../../../components/EditCell';
 import ActionCell from '../../../components/ActionCell';
@@ -38,7 +40,7 @@ class DataList extends React.Component<Props, State> {
     super();
     this.state = {
       show: false,
-      
+      employees: null
     };
   }
 
@@ -56,6 +58,12 @@ class DataList extends React.Component<Props, State> {
     const activeItem = nextData.find(item => item.id === id);
     activeItem.status = activeItem.status ? null : 'EDIT';
     this.setState({ data: nextData });
+  }
+
+  componentDidMount() {
+    this.setState({
+      employees: this.handleEditState
+    });
   }
 
   
@@ -77,10 +85,11 @@ class DataList extends React.Component<Props, State> {
 
           <Table
             height={getHeight(window) - 216}
-            data={data}
+            data={this.state.data}
             onRowClick={data => {
               console.log(data);
             }}
+            
           >
             <Column width={70} align="center" fixed>
               <HeaderCell>Id</HeaderCell>
@@ -89,13 +98,7 @@ class DataList extends React.Component<Props, State> {
 
             <Column width={200} fixed>
               <HeaderCell>Full Name</HeaderCell>
-              <EditCell onChange={this.handleChange} dataKey="firstName" />
-            </Column>
-
-        
-            <Column width={200}>
-              <HeaderCell>City</HeaderCell>
-              <EditCell onChange={this.handleChange} dataKey="city" />
+              <EditCell onChange={this.handleChange} dataKey="name" />
             </Column>
 
             <Column width={200}>
@@ -118,10 +121,14 @@ class DataList extends React.Component<Props, State> {
             </Column>
           </Table>
         </Panel>
-        <DrawerView show={this.state.showDrawer} onClose={this.handleCloseDrawer} />
+       
       </div>
     );
   }
 }
-
-export default DataList;
+function mapStateToProps(state, ownProps) {
+  return {
+    employees: state.employees
+  };
+}
+export default connect(mapStateToProps)(DataList);

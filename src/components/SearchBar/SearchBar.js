@@ -2,39 +2,36 @@
 
 import * as React from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { handleAddEmployee } from '../../actions/employee';
 import {
     Input,
     InputGroup,
-    Table,
     Icon,
-    ButtonToolbar,
     Button,
     ControlLabel,
-    IconButton,
-    DOMHelper,
     Divider,
     Dropdown,
     Modal,
     Form,
     FormGroup,
-    FormControl,
 } from 'rsuite';
 
 const { Header, Body, Title, Footer } = Modal;
 
-type State = {
-  show: boolean
-};
 
 class SearchBar extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            addActon: this.props.addActon || function () {},
-            show: false
+            show: false,
+            firstName: '',
+            lastName: '',
+            wallet: '',
+            department: 'Software Engineering',
+            hourlyRate: 0,
         };
     }
-
 
     handleShowModal = () => {
         this.setState({
@@ -48,10 +45,41 @@ class SearchBar extends React.Component {
         });
     };
 
+    handleInputChange = (e) => {
+      const { value, name} = e.target;
+
+      this.setState(() => ({
+        [name] : value
+      }));
+    }
+
+    handleSelectMenu = (eventKey, event) => {
+      console.log('ek',eventKey);
+      this.setState(() => ({
+        department: eventKey
+      }));
+    }
+
+    isDisabled = () => {
+      const { firstName, lastName, department, hourlyRate, wallet } = this.state;
+      return (firstName === '' ||
+              lastName === '' ||
+              department === '' ||
+              hourlyRate === 0 ||
+              wallet === '' 
+              );
+    }
+
+    handleSubmit = (e) => {
+      e.preventDefault();
+
+      this.props.dispatch(handleAddEmployee(this.state));
+    }
 
     render () {
-        return (
-
+      const { firstName, lastName, department, hourlyRate, wallet } = this.state;
+        
+      return (
             <div className="table-toolbar search-bar">
     <Modal size={'xs'} show={this.state.show} onHide={this.handleCloseModal} backdrop={'static'}>
             <Header>
@@ -62,38 +90,37 @@ class SearchBar extends React.Component {
               <Form fluid>
                 <FormGroup>
                   <ControlLabel>First Name</ControlLabel>
-                  <FormControl placeholder="Enter first name" name="firstname" />
+                  <input onChange={this.handleInputChange} value={ firstName } placeholder="Enter first name" name="firstName" />
                 </FormGroup>
 
                 <FormGroup>
                   <ControlLabel>Last name</ControlLabel>
-                  <FormControl placeholder="Enter last name" name="lastname"/>
-                </FormGroup>
-               
-                  
+                  <input onChange={this.handleInputChange} value={ lastName } placeholder="Enter last name" name="lastName"/>
+                </FormGroup>    
                   
                 <FormGroup>
-                  <Dropdown title="Department" appearance="default">
-                  <Dropdown.Item>Software Engineering</Dropdown.Item>
-                  <Dropdown.Item>Marketing</Dropdown.Item>
-                  <Dropdown.Item>admin</Dropdown.Item>
-                  <Dropdown.Item>management</Dropdown.Item>
+                    <ControlLabel>Department</ControlLabel>
+                  <Dropdown trigger='click' activeKey={department} title={department} appearance="default" onSelect={this.handleSelectMenu}>
+                  <Dropdown.Item eventKey = 'Software Engineering'>Software Engineering</Dropdown.Item>
+                  <Dropdown.Item eventKey = 'Marketing'>Marketing</Dropdown.Item>
+                  <Dropdown.Item eventKey = 'Admin'>Admin</Dropdown.Item>
+                  <Dropdown.Item eventKey = 'Management'>Management</Dropdown.Item>
                 </Dropdown></FormGroup>
                 <FormGroup>
                   <ControlLabel>Wallet Address</ControlLabel>
-                  <FormControl placeholder="enter your ethereum wallet address" name="wallet" />
+                  <input onChange={this.handleInputChange} value={ wallet } placeholder="enter your ethereum wallet address" name="wallet" />
                 </FormGroup>
                   <FormGroup>
                   <ControlLabel>Hourly Rate($)</ControlLabel>
-                  <FormControl placeholder="enter hourly rate" name="hourlyrate"/>
+                  <input onChange={this.handleInputChange} value={ hourlyRate } placeholder="enter hourly rate" name="hourlyRate"/>
                 </FormGroup>
                
                 
               </Form>
             </Body>
             <Footer>
-              <Button onClick={this.handleCloseModal} color="green" appearance="primary" style={{ background: 'linear-gradient(180deg, #1FC164 0%, #12A551 100%)', width: '127px', height: '42px' }}>
-                Ok
+              <Button type="submit" onClick={this.handleSubmit} disabled={this.isDisabled()} color="green" appearance="primary" style={{ background: 'linear-gradient(180deg, #1FC164 0%, #12A551 100%)', width: '127px', height: '42px' }}>
+                OK
             </Button>
             </Footer>
           </Modal>
@@ -117,4 +144,8 @@ class SearchBar extends React.Component {
     }
 }
 
-export default SearchBar;
+function mapStateToProps(state, ownProps) {
+  return {};
+}
+//export default SearchBar;
+export default connect(mapStateToProps)(SearchBar);

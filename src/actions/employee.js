@@ -1,4 +1,4 @@
-import { addEmployess, getEmployees, deleteEmployee } from '../utils';
+import { addEmployee, getEmployees, deleteEmployee } from '../utils';
 import { showLoading, hideLoading } from 'react-redux-loading';
 
 export const ADD_EMPLOYEE = 'ADD_EMPLOYEE';
@@ -6,7 +6,7 @@ export const GET_EMPLOYEES = 'GET_EMPLOYEES';
 export const DELETE_EMPLOYEE = 'DELETE_EMPLOYEE';
 
 
-function addEmployee(employee) {
+function addEmp(employee) {
     return {
         type: ADD_EMPLOYEE,
         employee,
@@ -19,9 +19,8 @@ export function handleAddEmployee(employee) {
         
         dispatch(showLoading());
         return addEmployee({
-            ...employee,
-            author: authedUser
-        }).then((employee) => dispatch(addEmployee(employee)))
+            ...employee
+        }).then((employee) => dispatch(addEmp(employee)))
           .then(() => dispatch(hideLoading()));
     }
 }
@@ -45,7 +44,7 @@ export function handleDelEmployee(employee) {
     }
 }
 
-function getEmployees(employees) {
+function getAllEmployees(employees) {
     return {
         type: GET_EMPLOYEES,
         employees
@@ -58,7 +57,7 @@ export function handleGetEmployees() {
       dispatch(showLoading());
       return getEmployees({
           admin: authedUser
-      }).then((employees) => dispatch(getEmployees(employees)))
+      }).then((employees) => dispatch(getAllEmployees(employees)))
         .then(() => dispatch(hideLoading()));
   }
 }
