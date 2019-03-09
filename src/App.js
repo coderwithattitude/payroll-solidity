@@ -1,7 +1,9 @@
 // @flow
 
 import * as React from 'react';
-import { Router, browserHistory } from 'react-router';
+import { Router, browserHistory, Redirect, Switch } from 'react-router';
+import { HashRouter, BrowserRouter /*, Router*/, Route } from 'react-router-dom';
+
 import { IntlProvider } from 'react-intl';
 import { IntlProvider as RSIntlProvider } from 'rsuite';
 
@@ -13,7 +15,38 @@ import routes from './routes';
 import { store } from './store';
 import drizzleOptions from './drizzleOptions';
 
+import Frame from './components/Frame';
+
 type Props = {};
+
+const extractRoute = (route, parent) => {
+  let routes = [];
+
+  const one = {};
+  let path = route.path;
+  path =path && path[0] !== '/' ? '/'+path : path;
+  
+  if (path && path !== '/') {
+    one.path = parent ? parent+path :path
+  }
+  route.component? one.component = route.component : '';
+
+  if (one.path && one.component) {
+    routes.push(one);
+  }
+  let children = [];
+  if (route.childRoutes) {
+    children = Object.keys(route.childRoutes).map ( childKey => extractRoute(route.childRoutes[childKey], path));
+  }
+  routes = routes.concat(children).flat();
+  return routes;
+}
+
+const AdvancedRoutes = props => {
+  return props.routes.map( route => <Route exact={route.exact} key={route.path} path={route.path} component={route.component} />) || <div></div>;
+}
+
+const extractedRoute = extractRoute(routes);
 
 class App extends React.Component<Props> {
   render() {
@@ -21,11 +54,21 @@ class App extends React.Component<Props> {
       <DrizzleProvider  options={drizzleOptions}>
         <Provider store={store}>
 
-          <Router history={browserHistory} store={store} routes={routes} />
-
+          <HashRouter>
+            <Frame>
+              <div>
+                <Switch>
+                  <Redirect exact from='/' to='/list/members' />
+                </Switch>
+                {
+                  <AdvancedRoutes routes={extractedRoute} store={store} />
+                }
+              </div>
+            </Frame>
+          </HashRouter>
         </Provider>
       </DrizzleProvider>
-   
+
     );
   }
 }

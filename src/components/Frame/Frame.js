@@ -1,9 +1,10 @@
 // @flow
 
-import * as React from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Container,
@@ -57,9 +58,11 @@ type Props = {
 
 class Frame extends React.Component<Props, State> {
   resizeListenner = null;
-  static contextTypes = {
-    router: PropTypes.object
+
+  static propTypes = {
+    location: PropTypes.object.isRequired
   };
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -91,7 +94,6 @@ class Frame extends React.Component<Props, State> {
         return (
           <Dropdown
             key={item.key}
-            eventKey={item.key}
             placement="rightTop"
             trigger="hover"
             title="Errors"
@@ -101,10 +103,9 @@ class Frame extends React.Component<Props, State> {
               return (
                 <Dropdown.Item
                   key={child.key}
-                  eventKey={child.key}
+                  eventKey={child.link}
                   componentClass={Link}
                   to={child.link}
-                  activeClassName="nav-item-active"
                 >
                   {child.text}
                 </Dropdown.Item>
@@ -117,22 +118,23 @@ class Frame extends React.Component<Props, State> {
       return (
         <Nav.Item
           key={item.key}
-          eventKey={item.key}
+          eventKey={item.link}
           icon={item.icon}
           componentClass={Link}
           to={item.link}
-          activeClassName="nav-item-active"
         >
           {item.text}
         </Nav.Item>
       );
     });
   }
-  componentDidMount() {
-    this.context.router.listen(() => {
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
       pageview();
-    });
+    }
   }
+
   render() {
     const { children } = this.props;
     const { expand, windowHeight } = this.state;
@@ -166,7 +168,7 @@ class Frame extends React.Component<Props, State> {
               </Link>
             </div>
           </Sidenav.Header>
-          <Sidenav expanded={expand} defaultOpenKeys={['3']} activeKey={[]} appearance="subtle">
+          <Sidenav expanded={expand} activeKey={this.props.location.pathname} appearance="subtle">
             <Sidenav.Body style={navBodyStyle}>
               <Nav>
                 {this.renderNavs()}
@@ -190,4 +192,4 @@ class Frame extends React.Component<Props, State> {
   }
 }
 
-export default Frame;
+export default withRouter(Frame);
