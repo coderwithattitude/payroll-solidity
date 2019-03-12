@@ -19,7 +19,7 @@ import Frame from './components/Frame';
 
 type Props = {};
 
-const extractRoute = (route, parent) => {
+const extractAppRoute = (route, parent) => {
   let routes = [];
 
   const one = {};
@@ -27,7 +27,8 @@ const extractRoute = (route, parent) => {
   path =path && path[0] !== '/' ? '/'+path : path;
   
   if (path && path !== '/') {
-    one.path = parent ? parent+path :path
+    one.path = parent ? parent+path : path;
+    one.path = '/app'+one.path;
   }
   route.component? one.component = route.component : '';
 
@@ -36,7 +37,7 @@ const extractRoute = (route, parent) => {
   }
   let children = [];
   if (route.childRoutes) {
-    children = Object.keys(route.childRoutes).map ( childKey => extractRoute(route.childRoutes[childKey], path));
+    children = Object.keys(route.childRoutes).map ( childKey => extractAppRoute(route.childRoutes[childKey], path));
   }
   routes = routes.concat(children).flat();
   return routes;
@@ -46,7 +47,7 @@ const AdvancedRoutes = props => {
   return props.routes.map( route => <Route exact={route.exact} key={route.path} path={route.path} component={route.component} />) || <div></div>;
 }
 
-const extractedRoute = extractRoute(routes);
+const extractedRoute = extractAppRoute(routes);
 
 class App extends React.Component<Props> {
   render() {
@@ -55,16 +56,19 @@ class App extends React.Component<Props> {
         <Provider store={store}>
 
           <HashRouter>
-            <Frame>
               <div>
                 <Switch>
-                  <Redirect exact from='/' to='/list/members' />
+                  <Redirect exact from='/' to='/app/list/members' />
+                  <Redirect exact from='/app' to='/app/list/members' />
                 </Switch>
-                {
-                  <AdvancedRoutes routes={extractedRoute} store={store} />
-                }
+                <Route path='/app' render= { props =>
+                  <Frame {...props} >
+                    {
+                      <AdvancedRoutes routes={extractedRoute} store={store} />
+                    }
+                  </Frame>
+                } />
               </div>
-            </Frame>
           </HashRouter>
         </Provider>
       </DrizzleProvider>
