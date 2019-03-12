@@ -1,56 +1,104 @@
 .home {
-  padding: 24px 10%;
-  height: 100vh;
+  min-height: 100vh;
   color: #ffffff !important;
   background-color: #1875f0;
-  .navbar-brand.logo {
+  a {
+    color: #ffffff !important;
   }
-  .rs-navbar.navbar {
-    background: transparent !important;
-    a {
-      color: #ffffff !important;
+  .top {
+    max-width: 2052px;
+    padding: 24px 7% 0px;
+    margin: 0 auto;
+    .navbar-brand.logo {
     }
-    .rs-navbar-body {
-      .rs-navbar-nav {
-        width: 30%;
+    .rs-navbar.navbar {
+      background: transparent !important;
+      .rs-navbar-body {
+        .rs-navbar-nav {
+          width: 30%;
+        }
+      }
+      .call2action {
+        float: right;
+        .rs-nav-item-content[role="button"] {
+        padding-top:8px;
+        }
       }
     }
-    .call2action {
-      float: right;
-      .rs-nav-item-content[role="button"] {
-       padding-top:8px;
+    .topInfo {
+      margin-top: 12em;
+      h1 {
+        font-size: 42px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      button {
+        font-size: 18px;
+        margin-top: 36px;
+      }
+    }
+    .features {
+      margin-top: 12em;
+      .box {
+        padding: 48px 24px;
+        background-color: #ffffff;
+        margin-bottom: 12px;
+        height: 18em;
+        i {
+          color: #589c9c;
+        }
+        h3 {
+          color: #1875f0;
+        }
+        p {
+          color: #000000;
+          font-size: 12px;
+        }
+      }
+    }
+    .screenshot {
+      margin-top: 6em;
+      height: 72em;
+      .rs-row {
+        height: 100%;
+        & > div {
+          height: 100%;
+        }
+        .rs-flex-box-grid {
+          height: 100%;
+        }
       }
     }
   }
-  .topInfo {
-    margin-top: 18em;
-    h1 {
-      font-size: 56px;
-    }
-    h3 {
-      font-size: 24px;
-    }
-    button {
-      font-size: 18px;
-      margin-top: 36px;
-    }
-  }
-  .features {
-    margin-top: 12em;
-    .box {
-      padding: 48px !important;
-      background-color: #eeeeee;
-      border-radius: 8px;
-      i {
-        color: #589c9c;
-      }
-      h2 {
-        color: #1875f0;
-      }
-      p {
-        color: #000000;
+  .bottom {
+    background-color: #1a4885;
+    margin-top: 3em;
+    .callout {
+      padding: 6em 24px;
+      button {
+        margin-top: 24px;
         font-size: 18px;
       }
+    }
+    .footer{
+      background-color: #2874d8;
+      .details {
+        max-width: 1848px;
+        padding: 0 24px;
+        & > div {
+          margin-bottom: 12px;
+        }
+        .social {
+          i {
+            margin-right: 12px;
+          }
+        }
+      }
+    }
+    .copyright {
+      padding: 12px 0;
+      text-align: center;
     }
   }
 }
