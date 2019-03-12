@@ -57,16 +57,14 @@ class App extends React.Component<Props> {
 
           <HashRouter>
             <div>
+              <Switch>
+                <Redirect exact from='/' to='/home' />
+              </Switch>
               <Route path='/home' component={Home} />
               <Frame>
-                <div>
-                  <Switch>
-                    <Redirect exact from='/' to='/home' />
-                  </Switch>
-                  {
-                    <AdvancedRoutes routes={extractedRoute} store={store} />
-                  }
-                </div>
+              {
+                <AdvancedRoutes routes={extractedRoute} store={store} />
+              }
               </Frame>
             </div>
           </HashRouter>
