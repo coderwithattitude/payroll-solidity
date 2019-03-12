@@ -106,12 +106,13 @@ class Frame extends React.Component<Props, State> {
             icon={item.icon}
           >
             {item.children.map(child => {
+              const childLink = '/app'+child.link;
               return (
                 <Dropdown.Item
                   key={child.key}
-                  eventKey={child.link}
+                  eventKey={childLink}
                   componentClass={Link}
-                  to={child.link}
+                  to={childLink}
                 >
                   {child.text}
                 </Dropdown.Item>
@@ -121,13 +122,14 @@ class Frame extends React.Component<Props, State> {
         );
       }
 
+      const itemLink = '/app'+item.link;
       return (
         <Nav.Item
           key={item.key}
-          eventKey={item.link}
+          eventKey={itemLink}
           icon={item.icon}
           componentClass={Link}
-          to={item.link}
+          to={itemLink}
         >
           {item.text}
         </Nav.Item>
