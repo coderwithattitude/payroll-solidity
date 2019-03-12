@@ -7,15 +7,19 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import {
   Button,
+  Col,
   Container,
+  Content,
   Sidebar,
   Sidenav,
   Icon,
   Header,
-  Content,
   Dropdown,
+  Grid,
   Nav,
-  DOMHelper
+  Navbar,
+  DOMHelper,
+  Row,
 } from 'rsuite';
 
 import { pageview } from '../../tracker';
@@ -65,7 +69,67 @@ class Home extends React.Component<Props, State> {
 
     return (
       <Container className="home">
-        Home
+        <Navbar className="navbar">
+          <Navbar.Header>
+            <a href="/" className="navbar-brand logo">
+              <h2>Daipay</h2>
+            </a>
+          </Navbar.Header>
+          <Navbar.Body>
+            <Nav pullRight>
+              <Nav.Item >Contact Us</Nav.Item>
+              <Nav.Item className="call2action">
+                <Button appearance="primary" color="green" className="spread-button tight-border">
+                  Create a free account
+                </Button>
+              </Nav.Item>
+            </Nav>
+          </Navbar.Body>
+        </Navbar>
+        <Content>
+          <Grid fluid className="topInfo">
+            <Row>
+              <Col xs={24} sm={24} md={8}>
+                <h1>Smart & Stable</h1>
+                <h3>
+                  way to pay workers of blockchain development teams.
+                </h3>
+                <Button appearance="primary" color="green" className="spread-button tight-border">
+                  Create free account
+                </Button>
+              </Col>
+            </Row>
+          </Grid>
+          <Grid fluid className="features">
+            <Row gutter={36}>
+              <Col xs={24} sm={24} md={8} className="box">
+                <Icon icon="clock-o" size="5x"/>
+                <h2>Save Time</h2>
+                <p>
+                  Pay multiple addresses at once with no hassle.
+                </p>
+              </Col>
+              <Col xs={24} sm={24} md={8}>
+                <h1>Smart & Stable</h1>
+                <h3>
+                  way to pay workers of blockchain development teams.
+                </h3>
+                <Button appearance="primary" color="green" className="spread-button tight-border">
+                  Create free account
+                </Button>
+              </Col>
+              <Col xs={24} sm={24} md={8}>
+                <h1>Smart & Stable</h1>
+                <h3>
+                  way to pay workers of blockchain development teams.
+                </h3>
+                <Button appearance="primary" color="green" className="spread-button tight-border">
+                  Create free account
+                </Button>
+              </Col>
+            </Row>
+          </Grid>
+        </Content>
       </Container>
     );
   }
