@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { handleAddOrg } from '../../actions/org';
+//import { handleAddOrg } from '../../actions/org';
 
 class SignUp extends React.Component<Props, State> {
 
@@ -27,15 +27,17 @@ class SignUp extends React.Component<Props, State> {
 
         this.props.dispatch(handleAddOrg(this.state));
     }
-}
+
 
 render () {
     return(
         <div className="split-container">
+        <p>Hello!!</p>
             <div className="split-item split-left"></div>
             <div className="split-item split-right"></div>
         </div>
     );
+}
 }
 
 export default SignUp;

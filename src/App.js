@@ -16,6 +16,7 @@ import { store } from './store';
 import drizzleOptions from './drizzleOptions';
 
 import Frame from './components/Frame';
+import SignUp from './components/SignUp';
 
 type Props = {};
 
@@ -52,19 +53,21 @@ class App extends React.Component<Props> {
   render() {
     return (
       <DrizzleProvider  options={drizzleOptions}>
-        <Provider store={store}>
-
+       <Provider store={store}>
           <HashRouter>
+            
+          <div>
+              <Switch>
+                <Redirect exact from='/' to='/list/members' />
+              </Switch>
+              <Route path='/signup' component={SignUp}/>
             <Frame>
-              <div>
-                <Switch>
-                  <Redirect exact from='/' to='/list/members' />
-                </Switch>
                 {
                   <AdvancedRoutes routes={extractedRoute} store={store} />
                 }
-              </div>
+             
             </Frame>
+            </div>
           </HashRouter>
         </Provider>
       </DrizzleProvider>
