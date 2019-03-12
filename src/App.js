@@ -16,6 +16,7 @@ import { store } from './store';
 import drizzleOptions from './drizzleOptions';
 
 import Frame from './components/Frame';
+import Home from './components/Home';
 
 type Props = {};
 
@@ -55,16 +56,19 @@ class App extends React.Component<Props> {
         <Provider store={store}>
 
           <HashRouter>
-            <Frame>
-              <div>
-                <Switch>
-                  <Redirect exact from='/' to='/list/members' />
-                </Switch>
-                {
-                  <AdvancedRoutes routes={extractedRoute} store={store} />
-                }
-              </div>
-            </Frame>
+            <div>
+              <Route path='/home' component={Home} />
+              <Frame>
+                <div>
+                  <Switch>
+                    <Redirect exact from='/' to='/home' />
+                  </Switch>
+                  {
+                    <AdvancedRoutes routes={extractedRoute} store={store} />
+                  }
+                </div>
+              </Frame>
+            </div>
           </HashRouter>
         </Provider>
       </DrizzleProvider>
