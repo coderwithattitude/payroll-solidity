@@ -20,6 +20,7 @@ import {
 
 import NavToggle from './NavToggle';
 import { pageview } from '../../tracker';
+import DrizzleComponent from '../DrizzleComponent';
 
 const { getHeight, on } = DOMHelper;
 const siderBarStyle = { display: 'flex', flexDirection: 'column', background: 'linear-gradient(77.17deg, #559FF7 -20.36%, #105FC7 114.13%)' };
@@ -66,7 +67,8 @@ class Frame extends React.Component<Props, State> {
   resizeListenner = null;
 
   static propTypes = {
-    location: PropTypes.object.isRequired
+    location: PropTypes.object.isRequired,
+    store: PropTypes.object
   };
 
   constructor(props: Props) {
@@ -193,11 +195,13 @@ class Frame extends React.Component<Props, State> {
 
         <Container className={containerClasses}>
           
-          <Content>{children}</Content>
+          <Content>
+            { children }
+          </Content>
         </Container>
       </Container>
     );
   }
 }
 
-export default withRouter(Frame);
+export default DrizzleComponent(withRouter(Frame));

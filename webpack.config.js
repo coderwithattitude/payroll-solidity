@@ -22,7 +22,7 @@ const BASE_CONFIG = {
         commons: {
           name: 'commons',
           chunks: 'initial',
-          minChunks: 2
+          minChunks: 1
         }
       }
     }
