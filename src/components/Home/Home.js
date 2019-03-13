@@ -105,7 +105,7 @@ class Home extends React.Component<Props, State> {
                     way to pay workers of blockchain development teams.
                   </h3>
                   <Link to="/signup">
-                    <Button appearance="primary" color="green" className="spread-button tight-border">
+                    <Button appearance="primary" color="green" className="spread-button-2x tight-border">
                       Create a free account
                     </Button>
                   </Link>
@@ -142,7 +142,6 @@ class Home extends React.Component<Props, State> {
                 <Col xs={24} sm={24} md={12} >
                   <FlexboxGrid align="middle">
                     <FlexboxGrid.Item colspan={24}>
-                      <Icon icon="clock-o" size="5x"/>
                       <h2>Built for small and large crypto teams around the world</h2>
                       <p>
                         Daipay is built to cater for paying workers of both small and large teams around the world.
@@ -160,12 +159,12 @@ class Home extends React.Component<Props, State> {
               <Row>
                 <Col md={12} mdOffset={6} >
                   <Row>
-                    <Col md={12}>
+                    <Col md={11} >
                       <h2>Start paying your employees with Daipay</h2>
                     </Col>
-                    <Col md={12}>
+                    <Col md={11} mdOffset={2}  style={{textAlign: 'left'}}>
                       <Link to="/signup">
-                        <Button appearance="primary" color="green" className="spread-button tight-border">
+                        <Button appearance="primary" color="green" className="spread-button-2x tight-border">
                           Create a free account
                         </Button>
                       </Link>
