@@ -7,13 +7,9 @@ import { HashRouter, BrowserRouter /*, Router*/, Route } from 'react-router-dom'
 import { IntlProvider } from 'react-intl';
 import { IntlProvider as RSIntlProvider } from 'rsuite';
 
-import { DrizzleProvider } from 'drizzle-react';
-import { Provider } from 'react-redux';
 import enGB from 'rsuite/lib/IntlProvider/locales/en_GB';
 import locales from './locales';
 import routes from './routes';
-import { store } from './store';
-import drizzleOptions from './drizzleOptions';
 
 import Frame from './components/Frame';
 
@@ -44,7 +40,15 @@ const extractAppRoute = (route, parent) => {
 }
 
 const AdvancedRoutes = props => {
-  return props.routes.map( route => <Route exact={route.exact} key={route.path} path={route.path} component={route.component} />) || <div></div>;
+  return props.routes.map( route => {
+    const props = {
+      key: route.path,
+      path: route.path,
+      component: route.component 
+    };
+    route.exact ? props.exact = route.exact : null;
+    return <Route  {...props} />
+  }) || <div></div>;
 }
 
 const extractedRoute = extractAppRoute(routes);
@@ -52,9 +56,6 @@ const extractedRoute = extractAppRoute(routes);
 class App extends React.Component<Props> {
   render() {
     return (
-      <DrizzleProvider  options={drizzleOptions}>
-        <Provider store={store}>
-
           <HashRouter>
               <div>
                 <Switch>
@@ -64,15 +65,12 @@ class App extends React.Component<Props> {
                 <Route path='/app' render= { props =>
                   <Frame {...props} >
                     {
-                      <AdvancedRoutes routes={extractedRoute} store={store} />
+                      <AdvancedRoutes routes={extractedRoute} />
                     }
                   </Frame>
                 } />
               </div>
           </HashRouter>
-        </Provider>
-      </DrizzleProvider>
-
     );
   }
 }
