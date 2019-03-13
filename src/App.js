@@ -12,7 +12,7 @@ import { Provider } from 'react-redux';
 import enGB from 'rsuite/lib/IntlProvider/locales/en_GB';
 import locales from './locales';
 import routes from './routes';
-import { store } from './store';
+import { store } frogm './store';
 import drizzleOptions from './drizzleOptions';
 
 import Frame from './components/Frame';
