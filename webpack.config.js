@@ -4,7 +4,6 @@ const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const { NODE_ENV, DEPLOY_BUILD, STYLE_DEBUG, ENV_LOCALE } = process.env;
 const __PRO__ = NODE_ENV === 'production';
@@ -99,9 +98,6 @@ const PROD_CONFIG = {
   plugins: [
     new webpack.DefinePlugin({
       "HOT_PATCH_REQUIRED": false
-    }),
-    new UglifyJSPlugin({
-      sourceMap: true
     })
   ]
 
