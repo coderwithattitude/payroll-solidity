@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 //import { handleAddOrg } from '../../actions/org';
-
+import { FlexboxGrid } from 'rsuite';
 class SignUp extends React.Component<Props, State> {
 
     constructor(props: Props) {
@@ -31,10 +31,15 @@ class SignUp extends React.Component<Props, State> {
 
 render () {
     return(
-        <div className="split-container">
-        <p>Hello!!</p>
-            <div className="split-item split-left"></div>
-            <div className="split-item split-right"></div>
+        <div className='show-grid'>
+            <FlexboxGrid>
+                <FlexboxGrid.Item className='split-item split-left' colspan={12}>
+                    <h1><strong>Alkpay</strong></h1>
+                    <br/>
+                    <h2>Welcome aboard.</h2>
+                </FlexboxGrid.Item>
+                <FlexboxGrid.Item justify='center' className='split-item split-right' colspan={12}><div>form</div></FlexboxGrid.Item>
+            </FlexboxGrid>
         </div>
     );
 }
