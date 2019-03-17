@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
@@ -11,11 +10,7 @@ import {
   Container,
   Content,
   FlexboxGrid,
-  Sidebar,
-  Sidenav,
   Icon,
-  Header,
-  Dropdown,
   Grid,
   Nav,
   Navbar,
