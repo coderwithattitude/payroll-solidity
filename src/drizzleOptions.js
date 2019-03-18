@@ -1,4 +1,4 @@
-import daipay from './../build/contracts/daipay.json';
+import daipay from './../build/contracts/DAIPay.json';
 
 const drizzleOptions = {
   web3: {
