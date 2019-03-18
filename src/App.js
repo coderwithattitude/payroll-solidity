@@ -17,6 +17,7 @@ import drizzleOptions from './drizzleOptions';
 
 import Frame from './components/Frame';
 import SignUp from './components/SignUp';
+import Home from './components/Home';
 
 type Props = {};
 
@@ -58,10 +59,11 @@ class App extends React.Component<Props> {
           <HashRouter>
               <div>
                 <Switch>
-                  <Redirect exact from='/' to='/app/list/members' />
+                  <Redirect exact from='/' to='/home' />
                   <Redirect exact from='/app' to='/app/list/members' />
                 </Switch>
               <Route path='/signup' component={SignUp} />
+                <Route path='/home' component={Home} />
                 <Route path='/app' render= { props =>
                   <Frame {...props} >
                     {
