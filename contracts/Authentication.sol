@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.4.24;
 
 import "./zeppelin/lifecycle/Killable.sol";
 
@@ -10,7 +10,7 @@ contract Authentication is Killable {
 
 
     function login() public view onlyExistingUser returns (bytes32) {
-        return (users[msg.sender].name);
+        return (users[msg.sender]);
     }
 
     function signup(bytes32 name, bytes32 salt) public onlyValidName(name) returns (bytes32) {
@@ -35,7 +35,7 @@ contract Authentication is Killable {
     }
 
     modifier onlyExistingUser {
-        require(!(user[msg.sender] == 0x0), "User does not exist");
+        require(!(users[msg.sender] == 0x0), "User does not exist");
         _;
     }
 

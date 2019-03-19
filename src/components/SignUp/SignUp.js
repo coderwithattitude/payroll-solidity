@@ -9,7 +9,8 @@ import {
     FormGroup,
     ControlLabel,
     Panel,
-    Input
+    Input,
+    Button
  } from 'rsuite';
 
 const { Item } = FlexboxGrid;
@@ -46,16 +47,17 @@ render () {
         <div className='show-grid'>
             <FlexboxGrid  justify='center'>
                 <Item className='split-item split-left' colspan={12}>
-                    <h1><strong>Alkpay</strong></h1>
-                    <br/>
-                    <h2>Welcome aboard.</h2>
+                <div>
+                    <h1 className='split-header1'>Alkpay</h1>
+                    <h1>Welcome aboard.</h1>
+                </div>
                 </Item>
                 <Item className='split-item split-right' colspan={12}>
                    <FlexboxGrid  justify='center' align='middle'>
                    <Item colspan={12}>
                          <Container>
                         <Content>
-                            <Panel header={<h1> Create a free Account </h1>}>
+                            <Panel header={<h1 className='form-header'> Create a free Account </h1>}>
                                  <Form fluid>
                                     <FormGroup>
                                          <ControlLabel>Organisation</ControlLabel>
@@ -71,7 +73,10 @@ render () {
                                         <Input className= 'form-input' disabled={true} onChange={this.handleInputChange} value={ wallet } placeholder="enter your ethereum wallet address" name="wallet" />
                                     </FormGroup>
                                     <FormGroup>
-                                        <Input className= 'form-tc' type='checkbox'/>
+                                        <Input className='form-tc' type='checkbox' /><span className='tc'>Terms & Condition</span>  
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Button color='green' style={{width: '361px', height: '52px'}}>CREATE ACCOUNT</Button>
                                     </FormGroup>
                                 </Form>
                             </Panel>
