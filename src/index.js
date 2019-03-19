@@ -1,23 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route } from 'react-router'
-import { DrizzleProvider } from 'drizzle-react'
+import { hot } from 'react-hot-loader';
+import ready from './ready';
+import App from './App';
 
-// Layouts
-import App from './App'
-import { LoadingContainer } from 'drizzle-react-components'
+import './styles/index.less';
 
-import { history, store } from './store'
-import drizzleOptions from './drizzleOptions'
+const render = Component => {
+  ReactDOM.render(<Component />, document.getElementById('root'));
+};
 
-ReactDOM.render((
-    <DrizzleProvider options={drizzleOptions} store={store}>
-      <LoadingContainer>
-        <Router history={history} store={store}>
-          <Route exact path="/" component={App} />
-        </Router>
-      </LoadingContainer>
-    </DrizzleProvider>
-  ),
-  document.getElementById('root')
-);
+if (HOT_PATCH_REQUIRED) {
+  ready(() => {
+    render(hot(module)(App));
+  });
+} else {
+  ready(() => {
+    render(App);
+  });  
+}
+

@@ -23,6 +23,7 @@ contract ERC20 is ERC20Basic {
 contract daipay {
     event DisbursePayment(address[50] employees, uint256[50] wages);
     address public DAI;
+    uint public totalPayout;
     constructor(address _dai) {
         DAI = _dai;
     }
@@ -30,6 +31,7 @@ contract daipay {
         ERC20 daiToken = ERC20(DAI);
         for(uint i = 0; i < employees.length; i++) {
             daiToken.transferFrom(msg.sender, employees[i], wages[i]);
+            totalPayout += wages[i];
         }
         emit DisbursePayment(employees, wages);
     }
