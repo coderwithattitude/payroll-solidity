@@ -2,10 +2,16 @@ import React from 'react';
 import { Button, Col, FlexboxGrid, Grid, Row } from 'rsuite';
 import Metamasksvg from '../../images/metamask-fox.svg';
 
+const hasWeb3 = props => {
+    return props.web3 || (props.drizzle && props.drizzle.web3);
+}
+
+const hasWeb3Account = props => {
+    return (props.web3 && props.web3.eth.accounts.length > 0) || (props.drizzle && props.drizzle.accounts && props.drizzle.accounts.length > 0);
+}
 
 const EthereumComponent = (WrappedComponent) => props => {
-    console.log(props)
-    if (props.web3) {
+    if (hasWeb3(props) && hasWeb3Account(props)) {
         return (<WrappedComponent {...props} />);
     } else {
         return(
@@ -23,9 +29,16 @@ const EthereumComponent = (WrappedComponent) => props => {
 
                     <div className="details">
                         <h3>Install Metamask or Ethereum provider to continue</h3>
-                        <p>
-                            You need to install Metamask or visit from an Ethereum enabled browser to pay your workers with Daipay
-                        </p>
+                        { !hasWeb3(props) &&
+                            <p>
+                                You need to install Metamask or visit from an Ethereum enabled browser to pay your workers with Daipay
+                            </p>
+                        }
+                        { hasWeb3(props) && !hasWeb3Account(props) &&
+                            <p>
+                                You need to unlock Metamask or connect your account to pay your workers with Daipay
+                            </p>
+                        }
                     </div>
                     <Grid fluid className="buttonRow">
                         <Row>
