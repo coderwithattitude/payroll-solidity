@@ -14,12 +14,10 @@ function addOrg(org) {
 
 export function handleAddOrg(org) {
     return (dispatch, getState) => {
-        const { authedUser } = getState();
 
         dispatch(showLoading());
         return addOrganisation({
-            ...org,
-            author: authedUser
+            ...org
         }).then((org) => dispatch(addOrg(org)))
           .then(() => dispatch(hideLoading()));
 
@@ -34,13 +32,12 @@ function delOrg(org) {
 }
 
 export function handleDelOrg(org) {
-    return (dispatch, getState) {
+    return (dispatch, getState) => {
         const { authedUser } = getState();
 
         dispatch(showLoading());
         return deleteOrganisation({
-            ...org,
-            author: authedUser
+            ...org
         }).then((org) => dispatch(delOrg(org)))
           .then(() => dispatch(hideLoading()));
     }
@@ -54,7 +51,7 @@ function getOrg(org) {
 }
 
 function handleGetOrg(org) {
-    return (dispatch, getState) {
+    return (dispatch, getState) => {
         const { authedUser } = getState();
 
         dispatch(showLoading());
@@ -62,6 +59,6 @@ function handleGetOrg(org) {
             ...org,
             author: authedUser
         }).then((org) => dispatch(getOrg(org)))
-          .then(() => dispatch(hideLoading)));
+          .then(() => dispatch(hideLoading()));
     }
 }

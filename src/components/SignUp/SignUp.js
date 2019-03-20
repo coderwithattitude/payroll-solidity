@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-//import { handleAddOrg } from '../../actions/org';
+import { handleAddOrg } from '../../actions/org';
 import {
     FlexboxGrid, 
     Container, 
@@ -76,7 +76,7 @@ render () {
                                         <Input className='form-tc' type='checkbox' /><span className='tc'>Terms & Condition</span>  
                                     </FormGroup>
                                     <FormGroup>
-                                        <Button color='green' style={{width: '361px', height: '52px'}}>CREATE ACCOUNT</Button>
+                                        <Button color='green' onClick={this.handleSubmit} style={{width: '361px', height: '52px'}}>CREATE ACCOUNT</Button>
                                     </FormGroup>
                                 </Form>
                             </Panel>
@@ -92,4 +92,8 @@ render () {
 }
 }
 
-export default SignUp;
+function mapStateToProps(state, ownProps) {
+  return {};
+}
+
+export default connect(mapStateToProps)(SignUp);
