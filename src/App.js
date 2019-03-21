@@ -8,6 +8,7 @@ import { IntlProvider } from 'react-intl';
 import { IntlProvider as RSIntlProvider } from 'rsuite';
 
 import { DrizzleProvider } from 'drizzle-react';
+import { LoadingContainer } from 'drizzle-react-components';
 import { Provider } from 'react-redux';
 import enGB from 'rsuite/lib/IntlProvider/locales/en_GB';
 import locales from './locales';
@@ -55,8 +56,9 @@ class App extends React.Component<Props> {
   render() {
     return (
       <DrizzleProvider  options={drizzleOptions}>
-       <Provider store={store}>
-          <HashRouter>
+        <LoadingContainer>
+          <Provider store={store}>
+            <HashRouter>
               <div>
                 <Switch>
                   <Redirect exact from='/' to='/home' />
@@ -74,6 +76,7 @@ class App extends React.Component<Props> {
               </div>
           </HashRouter>
         </Provider>
+        </LoadingContainer>
       </DrizzleProvider>
 
     );

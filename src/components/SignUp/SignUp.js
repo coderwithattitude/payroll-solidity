@@ -21,7 +21,7 @@ import {
 const { Item } = FlexboxGrid;
 class SignUp extends React.Component<Props, State> {
 
-    constructor(props: Props) {
+    constructor(props: Props,context) {
         super(props);
         this.state = {
             drizzle: context.drizzle,
@@ -30,6 +30,7 @@ class SignUp extends React.Component<Props, State> {
             email: ''
 
         }
+        console.log('drizzle',context.drizzle.web3.accounts);
 
     this.web3Provider = new Web3.providers.HttpProvider('http://localhost:9545')
     this.web3 = new Web3(this.web3Provider)
@@ -53,7 +54,7 @@ class SignUp extends React.Component<Props, State> {
     componentDidMount(){
     
      
-       console.log('_wallet',this.state.drizzle.web3.eth.accounts[0]);
+       console.log('_wallet',this.state.drizzle.web3.eth);
         this.setState(() => {
             wallet: store.getState().web3.web3Instance;
         });
