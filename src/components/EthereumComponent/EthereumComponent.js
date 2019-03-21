@@ -7,7 +7,16 @@ const hasWeb3 = props => {
 }
 
 const hasWeb3Account = props => {
-    return (props.web3 && props.web3.eth.accounts.length > 0) || (props.drizzle && props.drizzle.accounts && props.drizzle.accounts.length > 0);
+    return (props.web3 && props.web3.eth.accounts.length > 0) || (props.accounts && props.accounts.length > 0) || (props.drizzle && props.drizzle.accounts && props.drizzle.accounts.length > 0);
+}
+
+const enableProvider = props => e => {
+    const web3 = props.web3 || (props.drizzle && props.drizzle.web3);
+    if (web3 && web3.currentProvider) {
+        web3.currentProvider.enable();
+    } else {
+        window && window.reload();
+    }
 }
 
 const EthereumComponent = (WrappedComponent) => props => {
@@ -43,11 +52,18 @@ const EthereumComponent = (WrappedComponent) => props => {
                     <Grid fluid className="buttonRow">
                         <Row>
                             <Col xs={16} xsOffset={4}>
-                                <a href="https://metamask.io" target="_blank">
-                                    <Button block appearance="primary" color="green" className="tight-border">
-                                        INSTALL METAMASK
+                                { !hasWeb3(props) &&
+                                    <a href="https://metamask.io" target="_blank">
+                                        <Button block appearance="primary" color="green" className="tight-border">
+                                            INSTALL METAMASK
+                                        </Button>
+                                    </a>
+                                }
+                                { hasWeb3(props) && !hasWeb3Account(props) &&
+                                    <Button block appearance="primary" color="green" className="tight-border" onClick={enableProvider(props)}>
+                                        UNLOCL ACCOUNTS
                                     </Button>
-                                </a>
+                                }
                             </Col>
                         </Row>
                     </Grid>
