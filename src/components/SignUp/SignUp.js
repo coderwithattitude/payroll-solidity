@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { handleAddOrg } from '../../actions/org';
 import { drizzleConnect } from "drizzle-react";
-import Web3 from 'web3';
 import PropTypes from 'prop-types';
 import {
     FlexboxGrid, 
@@ -26,11 +25,11 @@ class SignUp extends React.Component<Props, State> {
         this.state = {
             drizzle: context.drizzle,
             orgName: '',
-            wallet: '',
+            wallet: props.accounts[0],
             email: ''
 
         }
-        console.log('drizzle',context.drizzle.web3.accounts);
+        console.log('drizzle',props.accounts);
 
     this.web3Provider = new Web3.providers.HttpProvider('http://localhost:9545')
     this.web3 = new Web3(this.web3Provider)
@@ -50,14 +49,20 @@ class SignUp extends React.Component<Props, State> {
         this.props.dispatch(handleAddOrg(this.state));
     }
 
-    
-    componentDidMount(){
-    
-     
-       console.log('_wallet',this.state.drizzle.web3.eth);
-        this.setState(() => {
-            wallet: store.getState().web3.web3Instance;
-        });
+   
+    componentDidUpdate() {
+        const {wallet} = this.state;
+        const _wallet = this.props.accounts[0];
+            if(wallet !== _wallet) {
+                this.setState(() => {
+                    wallet: _wallet
+                });
+                console.log('wall',_wallet);
+                return true;
+            }
+            return false;
+         
+       
     }
 
     
@@ -93,7 +98,7 @@ render () {
                                     </FormGroup>  
                                     <FormGroup>
                                         <ControlLabel>Wallet Address</ControlLabel>
-                                        <Input className= 'form-input' onChange={this.handleInputChange} value={ wallet } placeholder="Enter wallet address" name="wallet"/>
+                                        <Input className= 'form-input' disabled={true} value={ wallet } placeholder="Enter wallet address" name="wallet"/>
                                     </FormGroup>
                                     <FormGroup>
                                         <Input className='form-tc' type='checkbox' /><span className='tc'>Terms & Condition</span>  
