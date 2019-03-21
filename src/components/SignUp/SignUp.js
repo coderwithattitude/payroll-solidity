@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { handleAddOrg } from '../../actions/org';
+import { drizzleConnect } from "drizzle-react";
+import Web3 from 'web3';
+import PropTypes from 'prop-types';
 import {
     FlexboxGrid, 
     Container, 
@@ -13,17 +16,23 @@ import {
     Button
  } from 'rsuite';
 
+ import store from '../../store';
+
 const { Item } = FlexboxGrid;
 class SignUp extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
         this.state = {
+            drizzle: context.drizzle,
             orgName: '',
             wallet: '',
             email: ''
 
         }
+
+    this.web3Provider = new Web3.providers.HttpProvider('http://localhost:9545')
+    this.web3 = new Web3(this.web3Provider)
     }
 
     handleInputChange = (e) => {
@@ -40,10 +49,23 @@ class SignUp extends React.Component<Props, State> {
         this.props.dispatch(handleAddOrg(this.state));
     }
 
+    
+    componentDidMount(){
+    
+     
+       console.log('_wallet',this.state.drizzle.web3.eth.accounts[0]);
+        this.setState(() => {
+            wallet: store.getState().web3.web3Instance;
+        });
+    }
+
+    
+
 
 render () {
     const { orgName, wallet, email } = this.state;
     return(
+       
         <div className='show-grid'>
             <FlexboxGrid  justify='center'>
                 <Item className='split-item split-left' colspan={12}>
@@ -70,7 +92,7 @@ render () {
                                     </FormGroup>  
                                     <FormGroup>
                                         <ControlLabel>Wallet Address</ControlLabel>
-                                        <Input className= 'form-input' disabled={true} onChange={this.handleInputChange} value={ wallet } placeholder="enter your ethereum wallet address" name="wallet" />
+                                        <Input className= 'form-input' onChange={this.handleInputChange} value={ wallet } placeholder="Enter wallet address" name="wallet"/>
                                     </FormGroup>
                                     <FormGroup>
                                         <Input className='form-tc' type='checkbox' /><span className='tc'>Terms & Condition</span>  
@@ -88,12 +110,20 @@ render () {
                 </Item>
             </FlexboxGrid>
         </div>
+        
     );
 }
 }
 
-function mapStateToProps(state, ownProps) {
-  return {};
+SignUp.contextTypes = {
+    drizzle: PropTypes.object
 }
 
-export default connect(mapStateToProps)(SignUp);
+const mapStateToProps = state => {
+  return {
+      accounts: state.accounts
+  };
+}
+const SignUpContainer = drizzleConnect(SignUp, mapStateToProps);
+export default SignUpContainer;
+//export default connect(mapStateToProps)(SignUp);
