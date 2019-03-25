@@ -15,4 +15,4 @@ deploy:
   keep-history: true
   local-dir: "dist"
   on:
-    branch: "travis/why"
+    branch: "master"
