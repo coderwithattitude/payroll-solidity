@@ -4,9 +4,6 @@ group: beta
 language: node_js
 node_js:
   - "8"
-cache:
-  directories:
-    - node_modules
 install: npm install
 script:
   # - npm run test
@@ -18,4 +15,4 @@ deploy:
   keep-history: true
   local-dir: "dist"
   on:
-    branch: "master"
+    branch: "travis/why"
