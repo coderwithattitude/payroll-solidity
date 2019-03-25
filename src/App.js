@@ -12,6 +12,7 @@ import locales from './locales';
 import routes from './routes';
 
 import Frame from './components/Frame';
+import Home from './components/Home';
 
 type Props = {};
 
@@ -59,9 +60,10 @@ class App extends React.Component<Props> {
           <HashRouter>
               <div>
                 <Switch>
-                  <Redirect exact from='/' to='/app/list/members' />
+                  <Redirect exact from='/' to='/home' />
                   <Redirect exact from='/app' to='/app/list/members' />
                 </Switch>
+                <Route path='/home' component={Home} />
                 <Route path='/app' render= { props =>
                   <Frame {...props} >
                     {
