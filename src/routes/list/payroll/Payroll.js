@@ -20,6 +20,7 @@ import {
 import data from '../members/users';
 import DrawerView from '../members/DrawerView';
 import SearchBar from '../../../components/SearchBar';
+import EthereumComponent from '../../../components/EthereumComponent';
 import FooterCell from '../../../components/FooterCell';
 import { FooterActionCell, FooterEditCell } from '../../../components/FooterCell';
 
@@ -195,5 +196,5 @@ class Payroll extends React.Component<Props, State> {
     }
 }
 
-export default Payroll;
+export default EthereumComponent(Payroll);
 
