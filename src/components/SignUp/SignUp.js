@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { handleAddOrg } from '../../actions/org';
-import { drizzleConnect } from "drizzle-react";
-import PropTypes from 'prop-types';
+import Web3 from 'web3';
 import {
     FlexboxGrid, 
     Container, 
@@ -15,24 +14,22 @@ import {
     Button
  } from 'rsuite';
 
- import store from '../../store';
+
 
 const { Item } = FlexboxGrid;
 class SignUp extends React.Component<Props, State> {
 
-    constructor(props: Props,context) {
+    constructor(props: Prop) {
         super(props);
+
+        
         this.state = {
-            drizzle: context.drizzle,
             orgName: '',
-            wallet: props.accounts[0],
-            email: ''
-
+            email: '',
+            wallet: ''
         }
-        console.log('drizzle',props.accounts);
+        
 
-    this.web3Provider = new Web3.providers.HttpProvider('http://localhost:9545')
-    this.web3 = new Web3(this.web3Provider)
     }
 
     handleInputChange = (e) => {
@@ -50,19 +47,9 @@ class SignUp extends React.Component<Props, State> {
     }
 
    
-    componentDidUpdate() {
-        const {wallet} = this.state;
-        const _wallet = this.props.accounts[0];
-            if(wallet !== _wallet) {
-                this.setState(() => {
-                    wallet: _wallet
-                });
-                console.log('wall',_wallet);
-                return true;
-            }
-            return false;
-         
-       
+   componentDidMount() {
+       const { web3 } = window;
+       web3.eth.getAccounts((err, accounts) => this.setState({wallet: accounts[0]}));
     }
 
     
@@ -121,15 +108,7 @@ render () {
 }
 }
 
-SignUp.contextTypes = {
-    drizzle: PropTypes.object
-}
 
-const mapStateToProps = state => {
-  return {
-      accounts: state.accounts
-  };
-}
-const SignUpContainer = drizzleConnect(SignUp, mapStateToProps);
-export default SignUpContainer;
-//export default connect(mapStateToProps)(SignUp);
+//const SignUpContainer = drizzleConnect(SignUp, mapStateToProps);
+//export default connect(SignUpContainer);
+export default SignUp;

@@ -56,7 +56,7 @@
     "redux-thunk": "^2.3.0",
     "rsuite": "^3.2.2",
     "rsuite-utils": "^1.0.0",
-    "web3": "^1.0.0-beta.50"
+    "web3": "^0.20.3"
   },
   "peerDependencies": {
     "react": "^0.14.9 || >=15.3.0",
