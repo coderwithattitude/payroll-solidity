@@ -23,6 +23,7 @@ import {
 
 //import data from './users';
 
+import EthereumComponent from '../../../components/EthereumComponent';
 import SearchBar from '../../../components/SearchBar';
 import EditCell from '../../../components/EditCell';
 import ActionCell from '../../../components/ActionCell';
@@ -131,4 +132,4 @@ function mapStateToProps(state, ownProps) {
     employees: state.employees
   };
 }
-export default connect(mapStateToProps)(DataList);
+export default connect(mapStateToProps)(EthereumComponent(DataList));

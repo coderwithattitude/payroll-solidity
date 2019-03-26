@@ -20,6 +20,10 @@ import {
 
 import { pageview } from '../../tracker';
 
+import save_time_icon from '../../images/home/save_time_icon.png';
+import zero_volatility_icon from '../../images/home/zero_volatility_icon.png';
+import work_time_calculator_icon from '../../images/home/work_time_calculator_icon.png';
+
 const { getHeight, on } = DOMHelper;
 const contactNumber = '+2348056556566';
 const contactEmail = 'hello@daipay.com';
@@ -68,8 +72,6 @@ class Home extends React.Component<Props, State> {
   }
 
   render() {
-    const { children } = this.props;
-    const { windowHeight } = this.state;
 
     return (
       <div className="home">
@@ -110,21 +112,21 @@ class Home extends React.Component<Props, State> {
             <Grid fluid className="features">
               <Row>
                 <Col xs={24} sm={24} md={7} className="box tight-border">
-                  <Icon icon="clock-o" size="3x"/>
+                  <img src={save_time_icon} />
                   <h3>Save Time</h3>
                   <p>
                     Pay multiple addresses at once with no hassle
                   </p>
                 </Col>
                 <Col xs={24} sm={24} md={7}  mdOffset={1} className="box tight-border">
-                  <Icon icon="bars" size="3x"/>
+                  <img src={zero_volatility_icon} />
                   <h3>Zero Volatility</h3>
                   <p>
                     Pay employees with stable coins
                   </p>
                 </Col>
                 <Col xs={24} sm={24} md={7}  mdOffset={1} className="box tight-border">
-                  <Icon icon="th-list" size="3x"/>
+                  <img src={work_time_calculator_icon} />
                   <h3>Work Time calculator</h3>
                   <p>
                     Calculate and pay for hours worked
