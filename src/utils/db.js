@@ -29,8 +29,7 @@ export function addOrganization(name, admin, email, employees={}) {
     // Add organisation to payrolldb in orbitdb
     orbitdb.docstore('payroll-db').then((docstore) => {
     docstore.put({ _id: admin, orgName: name, 
-                 email: email, employees: employees })
-                 .then((hash)=>console.log('org added', hash))
+                 email: email, employees: employees }).then((hash)=>console.log('org added', hash))
                  .catch((e)=>console.error('error adding organisation',e));
     });
     

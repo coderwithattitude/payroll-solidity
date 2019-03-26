@@ -1,4 +1,4 @@
-import { addOrganisation, deleteOrganisation, getOrganisation} from '../utils';
+import { addOrganization, deleteOrganisation, getOrganisation} from '../utils';
 import { showLoading, hideLoading } from 'react-redux-loading';
 
 export const ADD_ORGANISATION = 'ADD_ORGANISATION';
@@ -16,7 +16,7 @@ export function handleAddOrg(org) {
     return (dispatch, getState) => {
 
         dispatch(showLoading());
-        return addOrganisation({
+        return addOrganization({
             ...org
         }).then((org) => dispatch(addOrg(org)))
           .then(() => dispatch(hideLoading()));

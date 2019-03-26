@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { handleAddOrg } from '../../actions/org';
-import Web3 from 'web3';
 import {
     FlexboxGrid, 
     Container, 
@@ -10,7 +9,6 @@ import {
     FormGroup,
     ControlLabel,
     Panel,
-    Input,
     Button
  } from 'rsuite';
 
@@ -21,22 +19,20 @@ class SignUp extends React.Component<Props, State> {
 
     constructor(props: Prop) {
         super(props);
-
         
         this.state = {
             orgName: '',
             email: '',
             wallet: ''
-        }
+        };
         
 
     }
 
     handleInputChange = (e) => {
         const { value, name } = e.target;
-
         this.setState(() => ({
-            [name]: value
+          [name]: value
         }));
     }
 
@@ -49,6 +45,7 @@ class SignUp extends React.Component<Props, State> {
    
    componentDidMount() {
        const { web3 } = window;
+       let _wallet;
        web3.eth.getAccounts((err, accounts) => this.setState({wallet: accounts[0]}));
     }
 
@@ -56,7 +53,7 @@ class SignUp extends React.Component<Props, State> {
 
 
 render () {
-    const { orgName, wallet, email } = this.state;
+    const { orgName, email, wallet } = this.state;
     return(
        
         <div className='show-grid'>
@@ -76,19 +73,19 @@ render () {
                                  <Form fluid>
                                     <FormGroup>
                                          <ControlLabel>Organisation</ControlLabel>
-                                         <Input className= 'form-input'  onChange={this.handleInputChange}  value={ orgName } placeholder="Enter organisation name" name="Organisation" />
+                                         <input className= 'form-input'  onChange={this.handleInputChange}  value={ orgName } placeholder="Enter organisation name" name="orgName" />
                                     </FormGroup>
 
                                     <FormGroup>
                                         <ControlLabel>Email</ControlLabel>
-                                        <Input className= 'form-input' onChange={this.handleInputChange} value={ email } placeholder="Enter email address" name="email"/>
+                                        <input className= 'form-input' onChange={this.handleInputChange} value={ email } placeholder="Enter email address" name="email"/>
                                     </FormGroup>  
                                     <FormGroup>
                                         <ControlLabel>Wallet Address</ControlLabel>
-                                        <Input className= 'form-input' disabled={true} value={ wallet } placeholder="Enter wallet address" name="wallet"/>
+                                        <input className= 'form-input' disabled={true} value={ wallet } placeholder="Enter wallet address" name="wallet"/>
                                     </FormGroup>
                                     <FormGroup>
-                                        <Input className='form-tc' type='checkbox' /><span className='tc'>Terms & Condition</span>  
+                                        <input className='form-tc' type='checkbox' /><span className='tc'>Terms & Condition</span>  
                                     </FormGroup>
                                     <FormGroup>
                                         <Button color='green' onClick={this.handleSubmit} style={{width: '361px', height: '52px'}}>CREATE ACCOUNT</Button>
@@ -108,7 +105,10 @@ render () {
 }
 }
 
+function mapStateToProps(state, ownProps) {
+  return {};
+}
 
 //const SignUpContainer = drizzleConnect(SignUp, mapStateToProps);
 //export default connect(SignUpContainer);
-export default SignUp;
+export default connect(mapStateToProps)(SignUp);

@@ -43,6 +43,9 @@
     .form-input {
         width: 361px;
         height: 45px;
+        border: 1.1px solid rgba(224, 224, 224, 0.8);
+        border-radius: 3px;
+        box-sizing: border-box;
     }
     .form-tc {
        width: 16px;
@@ -56,6 +59,52 @@
         padding-left: 10px;
         padding-top: -10px;
     }
+
+    ._placeholder(...) {
+    &::-webkit-input-placeholder {
+          position: absolute;
+        width: 137px;
+        height: 18px;
+        left: 915px;
+        top: 244px;
+        font-size: 14px;
+        line-height: normal;
+        letter-spacing: 0.02em;
+        color: #D2D8DE;
+
+ // Chrome, Safari, Opera
+    }
+    &::-moz-placeholder {
+          position: absolute;
+        width: 137px;
+        height: 18px;
+        left: 915px;
+        top: 244px;
+        font-size: 14px;
+        line-height: normal;
+        letter-spacing: 0.02em;
+        color: #D2D8DE;
+
+ // Firefox 19+
+    }
+    &:-ms-input-placeholder {
+          position: absolute;
+        width: 137px;
+        height: 18px;
+        left: 915px;
+        top: 244px;
+        font-size: 14px;
+        line-height: normal;
+        letter-spacing: 0.02em;
+        color: #D2D8DE;
+
+ // IE 10+
+    }
+}
+
+    .placeholder(...) {
+      
+        }
 
 }
 
