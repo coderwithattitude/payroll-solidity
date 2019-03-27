@@ -15,6 +15,7 @@ import locales from './locales';
 import routes from './routes';
 import { store } from './store';
 import drizzleOptions from './drizzleOptions';
+import LoadingBar from 'react-redux-loading-bar';
 
 import Frame from './components/Frame';
 import SignUp from './components/SignUp';
@@ -60,6 +61,7 @@ class App extends React.Component<Props> {
           <Provider store={store}>
             <HashRouter>
               <div>
+                <LoadingBar scope='first'/>
                 <Switch>
                   <Redirect exact from='/' to='/home' />
                   <Redirect exact from='/app' to='/app/list/members' />

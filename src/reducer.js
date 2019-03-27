@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { drizzleReducers } from 'drizzle';
-import web3Reducer from './utils/web3/web3Reducer';
+import { loadingBarReducer } from 'react-redux-loading-bar';
 const reducer = combineReducers({
-    routing: routerReducer,
-    ...drizzleReducers,
-    web3: web3Reducer
+  routing: routerReducer,
+  ...drizzleReducers,
+  loadingBar: loadingBarReducer
 });
 
 export default reducer;

@@ -1,5 +1,5 @@
 import { addEmployee, getEmployees, deleteEmployee } from '../utils';
-import { showLoading, hideLoading } from 'react-redux-loading';
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 export const ADD_EMPLOYEE = 'ADD_EMPLOYEE';
 export const GET_EMPLOYEES = 'GET_EMPLOYEES';
