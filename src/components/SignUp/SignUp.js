@@ -17,43 +17,51 @@ import {
 const { Item } = FlexboxGrid;
 class SignUp extends React.Component<Props, State> {
 
-    constructor(props: Prop) {
-        super(props);
+  constructor(props: Prop) {
+    super(props);
         
-        this.state = {
-            orgName: '',
-            email: '',
-            wallet: ''
-        };
+    this.state = {
+      orgName: '',
+      admin: '',
+      email: ''
+    };
         
 
-    }
+  }
 
-    handleInputChange = (e) => {
-        const { value, name } = e.target;
-        this.setState(() => ({
-          [name]: value
-        }));
-    }
+  handleInputChange = (e) => {
+    const { value, name } = e.target;
+    this.setState(() => ({
+      [name]: value
+    }));
+  }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
+  handleSubmit = (e) => {
+    e.preventDefault();
 
-        this.props.dispatch(handleAddOrg(this.state));
-    }
+    this.props.dispatch(handleAddOrg(this.state));
+  }
+
+  isDisabled = () => {
+    const { orgName, admin, email } = this.state;
+    return (orgName === '' ||
+                admin === '' ||
+                email === ''
+                );
+  }
 
    
-   componentDidMount() {
-       const { web3 } = window;
-       let _wallet;
-       web3.eth.getAccounts((err, accounts) => this.setState({wallet: accounts[0]}));
-    }
+  componentDidMount() {
+    const { web3 } = window;
+    let _admin;
+    web3.eth.getAccounts((err, accounts) => this.setState({admin: accounts[0]}));
+  }
 
     
 
 
-render () {
-    const { orgName, email, wallet } = this.state;
+  render () {
+    const { orgName, email, admin } = this.state;
     return(
        
         <div className='show-grid'>
@@ -82,13 +90,13 @@ render () {
                                     </FormGroup>  
                                     <FormGroup>
                                         <ControlLabel>Wallet Address</ControlLabel>
-                                        <input className= 'form-input' disabled={true} value={ wallet } placeholder="Enter wallet address" name="wallet"/>
+                                        <input className= 'form-input' disabled={true} value={ admin } placeholder="Enter wallet address" name="admin"/>
                                     </FormGroup>
                                     <FormGroup>
                                         <input className='form-tc' type='checkbox' /><span className='tc'>Terms & Condition</span>  
                                     </FormGroup>
                                     <FormGroup>
-                                        <Button color='green' onClick={this.handleSubmit} style={{width: '361px', height: '52px'}}>CREATE ACCOUNT</Button>
+                                        <Button disabled={this.isDisabled()} color='green' onClick={this.handleSubmit} style={{width: '361px', height: '52px'}}>CREATE ACCOUNT</Button>
                                     </FormGroup>
                                 </Form>
                             </Panel>
@@ -102,7 +110,7 @@ render () {
         </div>
         
     );
-}
+  }
 }
 
 function mapStateToProps(state, ownProps) {

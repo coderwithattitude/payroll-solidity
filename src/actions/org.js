@@ -6,6 +6,7 @@ export const DELETE_ORGANISATION = 'DELETE_ORGANISATION';
 export const GET_ORGANISATION = 'GET_ORGANISATION';
 
 function addOrg(org) {
+    console.log('addOrg',org)
   return {
     type: ADD_ORGANISATION,
     org,
@@ -14,14 +15,16 @@ function addOrg(org) {
 
 export function handleAddOrg(org) {
   return (dispatch, getState) => {
-
+    const { authedUser } = getState();
+    
     dispatch(showLoading());
-    return addOrganization(
-            org.orgName,
-            org.wallet,
-            org.email
-        ).then((org) => dispatch(addOrg(org)))
-          .then(() => dispatch(hideLoading()));
+    addOrganization(
+        org.orgName,
+        org.admin,
+        org.email
+    );
+      dispatch(addOrg(org));
+      dispatch(hideLoading());
 
   };
 }

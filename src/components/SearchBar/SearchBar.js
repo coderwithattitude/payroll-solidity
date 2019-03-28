@@ -21,65 +21,65 @@ const { Header, Body, Title, Footer } = Modal;
 
 
 class SearchBar extends React.Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            show: false,
-            firstName: '',
-            lastName: '',
-            wallet: '',
-            department: 'Software Engineering',
-            hourlyRate: 0,
-        };
-    }
+  constructor (props) {
+    super(props);
+    this.state = {
+        show: false,
+        firstName: '',
+        lastName: '',
+        wallet: '',
+        department: 'Software Engineering',
+        hourlyRate: 0,
+      };
+  }
 
-    handleShowModal = () => {
-        this.setState({
+  handleShowModal = () => {
+    this.setState({
         show: true
-        });
-    };
+      });
+  };
 
-    handleCloseModal = () => {
-        this.setState({
+  handleCloseModal = () => {
+    this.setState({
         show: false
-        });
-    };
+      });
+  };
 
-    handleInputChange = (e) => {
-      const { value, name} = e.target;
+  handleInputChange = (e) => {
+    const { value, name} = e.target;
 
-      this.setState(() => ({
+    this.setState(() => ({
         [name] : value
       }));
-    }
+  }
 
-    handleSelectMenu = (eventKey, event) => {
-      console.log('ek',eventKey);
-      this.setState(() => ({
+  handleSelectMenu = (eventKey, event) => {
+    console.log('ek',eventKey);
+    this.setState(() => ({
         department: eventKey
       }));
-    }
+  }
 
-    isDisabled = () => {
-      const { firstName, lastName, department, hourlyRate, wallet } = this.state;
-      return (firstName === '' ||
+  isDisabled = () => {
+    const { firstName, lastName, department, hourlyRate, wallet } = this.state;
+    return (firstName === '' ||
               lastName === '' ||
               department === '' ||
               hourlyRate === 0 ||
               wallet === '' 
               );
-    }
+  }
 
-    handleSubmit = (e) => {
-      e.preventDefault();
+  handleSubmit = (e) => {
+    e.preventDefault();
 
-      this.props.dispatch(handleAddEmployee(this.state));
-    }
+    this.props.dispatch(handleAddEmployee(this.state));
+  }
 
-    render () {
-      const { firstName, lastName, department, hourlyRate, wallet } = this.state;
+  render () {
+    const { firstName, lastName, department, hourlyRate, wallet } = this.state;
         
-      return (
+    return (
             <div className="table-toolbar search-bar">
     <Modal size={'xs'} show={this.state.show} onHide={this.handleCloseModal} backdrop={'static'}>
             <Header>
@@ -141,7 +141,7 @@ class SearchBar extends React.Component {
                 </div>
             </div>
         );
-    }
+  }
 }
 
 function mapStateToProps(state, ownProps) {
