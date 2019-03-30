@@ -1,4 +1,4 @@
-import daipay from './../build/contracts/daipay.json';
+import DAIPay from '../build/contracts/DAIPay.json';
 
 const drizzleOptions = {
   web3: {
@@ -9,10 +9,10 @@ const drizzleOptions = {
     }
   },
   contracts: [
-    daipay
+    DAIPay
   ],
   events: {
-    daipay: ['DisbursePayment']
+    DAIPay: ['DisbursePayment']
   },
   polls: {
     accounts: 1500
