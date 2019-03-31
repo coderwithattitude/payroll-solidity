@@ -1,4 +1,4 @@
-pragma solidity ^0.5.2;
+pragma solidity ^0.4.24;
 
 /**
  * @title Ownable
@@ -6,7 +6,7 @@ pragma solidity ^0.5.2;
  * functions, this simplifies the implementation of "user permissions".
  */
 contract Ownable {
-    address private _owner;
+    address public _owner;
 
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 

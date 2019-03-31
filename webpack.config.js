@@ -52,13 +52,13 @@ const BASE_CONFIG = {
           {
             loader: 'url-loader',
             options: {
-              limit: 8192,
+              limit: 10000,
             }
           }
         ]
       },
       {
-        test: /\.(woff|woff2|eot|ttf|svg)($|\?)/,
+        test: /\.(woff|woff2|eot|ttf)($|\?)/,
         include: [rsuiteStylePath, path.resolve(__dirname, 'src')],
         use: [
           {

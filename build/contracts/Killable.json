@@ -1,0 +1,554 @@
+{
+  "contractName": "Killable",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isOwner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "_owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "kill",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6080604052336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16600073ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a36104d2806100cf6000396000f300608060405260043610610078576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806341c0e1b51461007d578063715018a6146100945780638da5cb5b146100ab5780638f32d59b14610102578063b2bdfa7b14610131578063f2fde38b14610188575b600080fd5b34801561008957600080fd5b506100926101cb565b005b3480156100a057600080fd5b506100a9610219565b005b3480156100b757600080fd5b506100c06102eb565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34801561010e57600080fd5b50610117610311565b604051808215151515815260200191505060405180910390f35b34801561013d57600080fd5b50610146610368565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34801561019457600080fd5b506101c9600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061038d565b005b6101d3610311565b15156101de57600080fd5b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b610221610311565b151561022c57600080fd5b600073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a360008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614905090565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b610395610311565b15156103a057600080fd5b6103a9816103ac565b50565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156103e857600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505600a165627a7a72305820b6727f93cdc4610f191ea8e84a04563228d5e062b327a5a9dbc4565a3f70c9c60029",
+  "deployedBytecode": "0x608060405260043610610078576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806341c0e1b51461007d578063715018a6146100945780638da5cb5b146100ab5780638f32d59b14610102578063b2bdfa7b14610131578063f2fde38b14610188575b600080fd5b34801561008957600080fd5b506100926101cb565b005b3480156100a057600080fd5b506100a9610219565b005b3480156100b757600080fd5b506100c06102eb565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34801561010e57600080fd5b50610117610311565b604051808215151515815260200191505060405180910390f35b34801561013d57600080fd5b50610146610368565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34801561019457600080fd5b506101c9600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061038d565b005b6101d3610311565b15156101de57600080fd5b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b610221610311565b151561022c57600080fd5b600073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a360008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614905090565b6000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b610395610311565b15156103a057600080fd5b6103a9816103ac565b50565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16141515156103e857600080fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550505600a165627a7a72305820b6727f93cdc4610f191ea8e84a04563228d5e062b327a5a9dbc4565a3f70c9c60029",
+  "sourceMap": "179:116:4:-;;;524:10:5;515:6;;:19;;;;;;;;;;;;;;;;;;582:6;;;;;;;;;;;549:40;;578:1;549:40;;;;;;;;;;;;179:116:4;;;;;;",
+  "deployedSourceMap": "179:116:4:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;237:56;;8:9:-1;5:2;;;30:1;27;20:12;5:2;237:56:4;;;;;;1347:137:5;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1347:137:5;;;;;;212:20:4;;8:9:-1;5:2;;;30:1;27;20:12;5:2;212:20:4;;;;;;;;;;;;;;;;;;;;;;;;;;;979:90:5;;8:9:-1;5:2;;;30:1;27;20:12;5:2;979:90:5;;;;;;;;;;;;;;;;;;;;;;;;;;;239:21;;8:9:-1;5:2;;;30:1;27;20:12;5:2;239:21:5;;;;;;;;;;;;;;;;;;;;;;;;;;;1655:107;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1655:107:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;237:56:4;863:9:5;:7;:9::i;:::-;855:18;;;;;;;;282:5:4;;;;;;;;;;;269:19;;;1347:137:5;863:9;:7;:9::i;:::-;855:18;;;;;;;;1445:1;1408:40;;1429:6;;;;;;;;;;;1408:40;;;;;;;;;;;;1475:1;1458:6;;:19;;;;;;;;;;;;;;;;;;1347:137::o;212:20:4:-;;;;;;;;;;;;;:::o;979:90:5:-;1019:4;1056:6;;;;;;;;;;;1042:20;;:10;:20;;;1035:27;;979:90;:::o;239:21::-;;;;;;;;;;;;;:::o;1655:107::-;863:9;:7;:9::i;:::-;855:18;;;;;;;;1727:28;1746:8;1727:18;:28::i;:::-;1655:107;:::o;1906:183::-;1999:1;1979:22;;:8;:22;;;;1971:31;;;;;;;;2046:8;2017:38;;2038:6;;;;;;;;;;;2017:38;;;;;;;;;;;;2074:8;2065:6;;:17;;;;;;;;;;;;;;;;;;1906:183;:::o",
+  "source": "pragma solidity ^0.4.4;\n\n\nimport \"./../ownership/Ownable.sol\";\n\n\n/*\n * Killable\n * Base contract that can be killed by owner. All funds in contract will be sent to the owner.\n */\ncontract Killable is Ownable {\n  address public owner;\n\n  function kill() onlyOwner {\n    selfdestruct(owner);\n  }\n}",
+  "sourcePath": "/home/coderwithattitude/dai-payroll/contracts/zeppelin/lifecycle/Killable.sol",
+  "ast": {
+    "absolutePath": "/home/coderwithattitude/dai-payroll/contracts/zeppelin/lifecycle/Killable.sol",
+    "exportedSymbols": {
+      "Killable": [
+        451
+      ]
+    },
+    "id": 452,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 435,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".4"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:4"
+      },
+      {
+        "absolutePath": "/home/coderwithattitude/dai-payroll/contracts/zeppelin/ownership/Ownable.sol",
+        "file": "./../ownership/Ownable.sol",
+        "id": 436,
+        "nodeType": "ImportDirective",
+        "scope": 452,
+        "sourceUnit": 561,
+        "src": "26:36:4",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 437,
+              "name": "Ownable",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 560,
+              "src": "200:7:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Ownable_$560",
+                "typeString": "contract Ownable"
+              }
+            },
+            "id": 438,
+            "nodeType": "InheritanceSpecifier",
+            "src": "200:7:4"
+          }
+        ],
+        "contractDependencies": [
+          560
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 451,
+        "linearizedBaseContracts": [
+          451,
+          560
+        ],
+        "name": "Killable",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 440,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "scope": 451,
+            "src": "212:20:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 439,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "212:7:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 449,
+              "nodeType": "Block",
+              "src": "263:30:4",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 446,
+                        "name": "owner",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [
+                          440
+                        ],
+                        "referencedDeclaration": 440,
+                        "src": "282:5:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 445,
+                      "name": "selfdestruct",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 583,
+                      "src": "269:12:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_selfdestruct_nonpayable$_t_address_$returns$__$",
+                        "typeString": "function (address)"
+                      }
+                    },
+                    "id": 447,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "269:19:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 448,
+                  "nodeType": "ExpressionStatement",
+                  "src": "269:19:4"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 450,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 443,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 442,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 494,
+                  "src": "253:9:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "253:9:4"
+              }
+            ],
+            "name": "kill",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 441,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "250:2:4"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 444,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "263:0:4"
+            },
+            "scope": 451,
+            "src": "237:56:4",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 452,
+        "src": "179:116:4"
+      }
+    ],
+    "src": "0:295:4"
+  },
+  "legacyAST": {
+    "absolutePath": "/home/coderwithattitude/dai-payroll/contracts/zeppelin/lifecycle/Killable.sol",
+    "exportedSymbols": {
+      "Killable": [
+        451
+      ]
+    },
+    "id": 452,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 435,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".4"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:4"
+      },
+      {
+        "absolutePath": "/home/coderwithattitude/dai-payroll/contracts/zeppelin/ownership/Ownable.sol",
+        "file": "./../ownership/Ownable.sol",
+        "id": 436,
+        "nodeType": "ImportDirective",
+        "scope": 452,
+        "sourceUnit": 561,
+        "src": "26:36:4",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "baseContracts": [
+          {
+            "arguments": null,
+            "baseName": {
+              "contractScope": null,
+              "id": 437,
+              "name": "Ownable",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 560,
+              "src": "200:7:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Ownable_$560",
+                "typeString": "contract Ownable"
+              }
+            },
+            "id": 438,
+            "nodeType": "InheritanceSpecifier",
+            "src": "200:7:4"
+          }
+        ],
+        "contractDependencies": [
+          560
+        ],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 451,
+        "linearizedBaseContracts": [
+          451,
+          560
+        ],
+        "name": "Killable",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 440,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "scope": 451,
+            "src": "212:20:4",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 439,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "212:7:4",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 449,
+              "nodeType": "Block",
+              "src": "263:30:4",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 446,
+                        "name": "owner",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [
+                          440
+                        ],
+                        "referencedDeclaration": 440,
+                        "src": "282:5:4",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 445,
+                      "name": "selfdestruct",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 583,
+                      "src": "269:12:4",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_selfdestruct_nonpayable$_t_address_$returns$__$",
+                        "typeString": "function (address)"
+                      }
+                    },
+                    "id": 447,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "269:19:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 448,
+                  "nodeType": "ExpressionStatement",
+                  "src": "269:19:4"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 450,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 443,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 442,
+                  "name": "onlyOwner",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 494,
+                  "src": "253:9:4",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "253:9:4"
+              }
+            ],
+            "name": "kill",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 441,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "250:2:4"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 444,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "263:0:4"
+            },
+            "scope": 451,
+            "src": "237:56:4",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 452,
+        "src": "179:116:4"
+      }
+    ],
+    "src": "0:295:4"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.1",
+  "updatedAt": "2019-03-20T09:27:45.822Z",
+  "devdoc": {
+    "methods": {
+      "isOwner()": {
+        "return": "true if `msg.sender` is the owner of the contract."
+      },
+      "renounceOwnership()": {
+        "details": "Allows the current owner to relinquish control of the contract."
+      },
+      "transferOwnership(address)": {
+        "details": "Allows the current owner to transfer control of the contract to a newOwner.",
+        "params": {
+          "newOwner": "The address to transfer ownership to."
+        }
+      }
+    }
+  },
+  "userdoc": {
+    "methods": {
+      "renounceOwnership()": {
+        "notice": "Renouncing to ownership will leave the contract without an owner. It will not be possible to call the functions with the `onlyOwner` modifier anymore."
+      }
+    }
+  }
+}
