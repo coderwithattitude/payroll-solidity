@@ -7,14 +7,11 @@ import { HashRouter, BrowserRouter /*, Router*/, Route } from 'react-router-dom'
 import { IntlProvider } from 'react-intl';
 import { IntlProvider as RSIntlProvider } from 'rsuite';
 
-import { DrizzleProvider } from 'drizzle-react';
 import { LoadingContainer } from 'drizzle-react-components';
 import { Provider } from 'react-redux';
 import enGB from 'rsuite/lib/IntlProvider/locales/en_GB';
 import locales from './locales';
 import routes from './routes';
-import { store } from './store';
-import drizzleOptions from './drizzleOptions';
 import LoadingBar from 'react-redux-loading-bar';
 
 import Frame from './components/Frame';
@@ -64,9 +61,7 @@ const extractedRoute = extractAppRoute(routes);
 class App extends React.Component<Props> {
   render() {
     return (
-      <DrizzleProvider  options={drizzleOptions}>
         <LoadingContainer>
-          <Provider store={store}>
             <HashRouter>
               <div>
                 <LoadingBar scope='first'/>
@@ -74,7 +69,7 @@ class App extends React.Component<Props> {
                   <Redirect exact from='/' to='/home' />
                   <Redirect exact from='/app' to='/app/list/members' />
                 </Switch>
-              <Route path='/signup' component={SignUp} />
+                <Route path='/signup' component={SignUp} />
                 <Route path='/home' component={Home} />
                 <Route path='/app' render= { props =>
                   <Frame {...props} >
@@ -85,9 +80,7 @@ class App extends React.Component<Props> {
                 } />
               </div>
           </HashRouter>
-        </Provider>
         </LoadingContainer>
-      </DrizzleProvider>
 
     );
   }
