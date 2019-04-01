@@ -3,7 +3,7 @@ import {
     GET_ORGANISATION, 
     DELETE_ORGANISATION} from '../actions/org';
 
-export default function orgs (state, action) {
+export default function orgs (state = {}, action) {
   switch(action.type) {
     case ADD_ORGANISATION:
       return Object.assign(state, action.payload);
@@ -11,5 +11,7 @@ export default function orgs (state, action) {
       return state;
     case DELETE_ORGANISATION:
       return delete state.orgs; 
+    default :
+      return state;
   }
 }
