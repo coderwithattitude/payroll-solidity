@@ -12,7 +12,8 @@ import enGB from 'rsuite/lib/IntlProvider/locales/en_GB';
 import locales from './locales';
 import routes from './routes';
 
-import Frame from './components/Frame';
+ import DrizzleComponent from './components/DrizzleComponent';
+ import Frame from './components/Frame';
 import SignUp from './components/SignUp';
 import Home from './components/Home';
 
@@ -57,7 +58,26 @@ const AdvancedRoutes = props => {
 const extractedRoute = extractAppRoute(routes);
 
 class App extends React.Component<Props> {
+
+  constructor (props) {
+    super(props);
+    this.state = {
+      Signup:
+        <div>
+          <Route path='/signup' render= { props =>
+              <div>
+                {
+                  DrizzleComponent(SignUp)(props)
+                }
+              </div>
+            }
+          />
+        </div>
+    };
+  }
+
   render() {
+    const { Signup } = this.state; 
     return (
       <HashRouter>
         <div>
