@@ -78,14 +78,14 @@ class Home extends React.Component<Props, State> {
         <Container className="top">
           <Navbar className="navbar">
             <Navbar.Header>
-              <a href="/" className="navbar-brand logo">
+              <Link to="/" className="navbar-brand logo">
                 <h2>Daipay</h2>
-              </a>
+              </Link>
             </Navbar.Header>
             <Navbar.Body>
               <Nav pullRight>
                 <Nav.Item >Contact Us</Nav.Item>
-                <Nav.Item className="call2action" href="/signup">
+                <Nav.Item className="call2action" href="/#/signup">
                     <Button appearance="primary" color="green" className="spread-button tight-border">
                       Create a free account
                     </Button>

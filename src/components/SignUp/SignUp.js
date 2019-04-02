@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleAddOrg } from '../../actions/org';
 import {
@@ -68,8 +69,10 @@ class SignUp extends React.Component<Props, State> {
             <FlexboxGrid  justify='center'>
                 <Item className='split-item split-left' colspan={12}>
                 <div>
+                  <Link to='/' style={{ color: 'white' }}>
                     <h1 className='split-header1'>Alkpay</h1>
-                    <h1>Welcome aboard.</h1>
+                  </Link> 
+                  <h1>Welcome aboard.</h1>
                 </div>
                 </Item>
                 <Item className='split-item split-right' colspan={12}>

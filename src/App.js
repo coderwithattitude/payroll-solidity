@@ -7,16 +7,12 @@ import { HashRouter, BrowserRouter /*, Router*/, Route } from 'react-router-dom'
 import { IntlProvider } from 'react-intl';
 import { IntlProvider as RSIntlProvider } from 'rsuite';
 
-import { DrizzleProvider } from 'drizzle-react';
-import { LoadingContainer } from 'drizzle-react-components';
 import { Provider } from 'react-redux';
 import enGB from 'rsuite/lib/IntlProvider/locales/en_GB';
 import locales from './locales';
 import routes from './routes';
-import { store } from './store';
-import drizzleOptions from './drizzleOptions';
-import LoadingBar from 'react-redux-loading-bar';
 
+import DrizzleComponent from './components/DrizzleComponent';
 import Frame from './components/Frame';
 import SignUp from './components/SignUp';
 import Home from './components/Home';
@@ -48,7 +44,15 @@ const extractAppRoute = (route, parent) => {
 }
 
 const AdvancedRoutes = props => {
-  return props.routes.map( route => <Route exact={route.exact} key={route.path} path={route.path} component={route.component} />) || <div></div>;
+  return props.routes.map( route => {
+    const props = {
+      key: route.path,
+      path: route.path,
+      component: route.component 
+    };
+    route.exact ? props.exact = route.exact : null;
+    return <Route  {...props} />
+  }) || <div></div>;
 }
 
 const extractedRoute = extractAppRoute(routes);
@@ -56,31 +60,26 @@ const extractedRoute = extractAppRoute(routes);
 class App extends React.Component<Props> {
   render() {
     return (
-      <DrizzleProvider  options={drizzleOptions}>
-        <LoadingContainer>
-          <Provider store={store}>
-            <HashRouter>
-              <div>
-                <LoadingBar scope='first'/>
-                <Switch>
-                  <Redirect exact from='/' to='/home' />
-                  <Redirect exact from='/app' to='/app/list/members' />
-                </Switch>
-              <Route path='/signup' component={SignUp} />
-                <Route path='/home' component={Home} />
-                <Route path='/app' render= { props =>
-                  <Frame {...props} >
-                    {
-                      <AdvancedRoutes routes={extractedRoute} store={store} />
-                    }
-                  </Frame>
-                } />
-              </div>
-          </HashRouter>
-        </Provider>
-        </LoadingContainer>
-      </DrizzleProvider>
-
+      <HashRouter>
+        <div>
+          <Switch>
+            <Redirect exact from='/' to='/home' />
+            <Redirect exact from='/app' to='/app/list/members' />
+          </Switch>
+          <Route path='/home' component={Home} />
+          <Route path='/signup' render= { props =>
+              DrizzleComponent(SignUp)(props)
+            }
+          />
+          <Route path='/app' render= { props =>
+            <Frame {...props} >
+              {
+                <AdvancedRoutes routes={extractedRoute} />
+              }
+            </Frame>
+          } />
+        </div>
+      </HashRouter>
     );
   }
 }
