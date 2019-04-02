@@ -3646,9 +3646,12 @@
   },
   "compiler": {
     "name": "solc",
-    "version": "0.4.25+commit.59dbf8f1.Emscripten.clang"
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "2.0.2",
-  "updatedAt": "2019-01-30T08:20:34.721Z"
+  "schemaVersion": "3.0.1",
+  "updatedAt": "2019-04-01T15:09:14.677Z",
+  "devdoc": {
+    "methods": {}
+  }
 }
