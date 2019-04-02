@@ -4207,10 +4207,16 @@
       "links": {},
       "address": "0x31a0Afc699457B8b170eD619d1864CbD9555444e",
       "transactionHash": "0x25e14bdec57d63675183e5379253d8bfc9b8b690e8bbd84d1e17113f0fc64bbd"
+    },
+    "1554131304747": {
+      "events": {},
+      "links": {},
+      "address": "0xB0c6A5eC0295eB087816fd4505325dE0f03D78e4",
+      "transactionHash": "0x6ab7e1fda9a5443e4f777326a20a708a203012e71d1a1c049342bc3375abfdf1"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2019-03-26T03:49:47.146Z",
+  "updatedAt": "2019-04-01T15:09:14.695Z",
   "devdoc": {
     "methods": {
       "isOwner()": {

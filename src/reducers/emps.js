@@ -11,6 +11,8 @@ export default function emps (state = {}, action) {
       return state.filter((emp) => emp.id !== action.id);
     case GET_EMPLOYEES :
       return action.emps;  
+    default :
+      return state;
   }
 }
     
