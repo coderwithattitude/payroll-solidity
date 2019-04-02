@@ -204,4 +204,4 @@ class Frame extends React.Component<Props, State> {
   }
 }
 
-export default DrizzleComponent(withRouter(Frame));
+export default withRouter(DrizzleComponent(Frame));
