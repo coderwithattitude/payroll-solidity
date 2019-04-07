@@ -23,7 +23,7 @@ const initialState = {
 
 const store = createStore(
     reducer,
-    initialState,
+    {},
     composeEnhancers(
       applyMiddleware(
         thunkMiddleware,

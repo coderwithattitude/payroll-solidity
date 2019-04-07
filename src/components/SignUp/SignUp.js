@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { drizzleConnect } from 'drizzle-react';
 import { handleAddOrg } from '../../actions/org';
 import {
     FlexboxGrid, 
@@ -40,7 +42,7 @@ class SignUp extends React.Component<Props, State> {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    this.props.dispatch(handleAddOrg(this.state));
+    this.props.reduxStore.dispatch(handleAddOrg(this.state));
   }
 
   isDisabled = () => {
@@ -116,10 +118,23 @@ class SignUp extends React.Component<Props, State> {
   }
 }
 
+SignUp.contextTypes = {
+  drizzle: PropTypes.object.isRequired
+}
+
 function mapStateToProps(state, ownProps) {
+  // console.log(state, ownProps)
   return {};
+}
+
+function drizzleMapStateToProps(state, ownProps) {
+  // console.log(state, ownProps)
+  return {
+    accounts: state.accounts,
+    drizzleStatus: state.drizzleStatus
+  };
 }
 
 //const SignUpContainer = drizzleConnect(SignUp, mapStateToProps);
 //export default connect(SignUpContainer);
-export default connect(mapStateToProps)(SignUp);
+export default connect(mapStateToProps)(drizzleConnect(SignUp, drizzleMapStateToProps));
