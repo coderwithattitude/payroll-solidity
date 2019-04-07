@@ -15,7 +15,7 @@ const DrizzleComponent = (WrappedComponent) => props => {
             <Provider store={store} >
               <div>
                 <LoadingBar scope='first'/>
-                <WrappedComponent {...props} />
+                <WrappedComponent {...props} reduxStore={store}/>
               </div>
             </Provider>
           </LoadingContainer>
