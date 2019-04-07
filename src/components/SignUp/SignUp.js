@@ -25,7 +25,6 @@ class SignUp extends React.Component<Props, State> {
         
     this.state = {
       orgName: '',
-      admin: '',
       email: ''
     };
         
@@ -42,29 +41,26 @@ class SignUp extends React.Component<Props, State> {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    this.props.reduxStore.dispatch(handleAddOrg(this.state));
+    this.props.reduxStore.dispatch(handleAddOrg(Object.assign({}, this.state, { admin: this.props.accounts[0] })));
   }
 
   isDisabled = () => {
-    const { orgName, admin, email } = this.state;
+    const { orgName, email } = this.state;
     return (orgName === '' ||
-                admin === '' ||
+                (!this.props.accounts || this.props.accounts[0] === '') ||
                 email === ''
                 );
   }
 
    
   componentDidMount() {
-    const { web3 } = window;
-    let _admin;
-    web3.eth.getAccounts((err, accounts) => this.setState({admin: accounts[0]}));
   }
 
     
 
 
   render () {
-    const { orgName, email, admin } = this.state;
+    const { orgName, email } = this.state;
     return(
        
         <div className='show-grid'>
@@ -95,7 +91,7 @@ class SignUp extends React.Component<Props, State> {
                                     </FormGroup>  
                                     <FormGroup>
                                         <ControlLabel>Wallet Address</ControlLabel>
-                                        <input className= 'form-input' disabled={true} value={ admin } placeholder="Enter wallet address" name="admin"/>
+                                        <input className= 'form-input' disabled={true} value={ this.props.accounts[0] } placeholder="Detected wallet address" name="admin"/>
                                     </FormGroup>
                                     <FormGroup>
                                         <input className='form-tc' type='checkbox' /><span className='tc'>Terms & Condition</span>  
