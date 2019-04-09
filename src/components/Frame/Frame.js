@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import { drizzleConnect } from 'drizzle-react';
 import {
   Button,
   Container,
@@ -18,6 +19,7 @@ import {
   DOMHelper
 } from 'rsuite';
 
+import EthereumComponent from '../EthereumComponent';
 import NavToggle from './NavToggle';
 import { pageview } from '../../tracker';
 import DrizzleComponent from '../DrizzleComponent';
@@ -204,4 +206,18 @@ class Frame extends React.Component<Props, State> {
   }
 }
 
-export default withRouter(DrizzleComponent(Frame));
+function mapStateToProps(state) {
+  return {
+    accounts: state.accounts,
+    drizzleStatus: state.drizzleStatus,
+    web3: state.web3
+  };
+}
+
+export default withRouter(
+  DrizzleComponent(
+    drizzleConnect(
+      EthereumComponent(Frame), mapStateToProps
+    )
+  )
+);

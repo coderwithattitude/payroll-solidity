@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router';
+import { drizzleConnect } from 'drizzle-react';
 import * as _ from 'lodash';
 import {
     Input,
@@ -196,5 +197,14 @@ class Payroll extends React.Component<Props, State> {
     }
 }
 
-export default EthereumComponent(Payroll);
+function mapStateToProps(state) {
+    return {
+      accounts: state.accounts,
+      drizzleStatus: state.drizzleStatus,
+      web3: state.web3
+    };
+}
+
+export default drizzleConnect(EthereumComponent(Payroll), mapStateToProps);
+
 

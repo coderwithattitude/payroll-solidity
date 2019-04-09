@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { drizzleConnect } from 'drizzle-react';
+import EthereumComponent from '../EthereumComponent';
 import { handleAddOrg } from '../../actions/org';
 import {
     FlexboxGrid, 
@@ -91,7 +92,7 @@ class SignUp extends React.Component<Props, State> {
                                     </FormGroup>  
                                     <FormGroup>
                                         <ControlLabel>Wallet Address</ControlLabel>
-                                        <input className= 'form-input' disabled={true} value={ this.props.accounts[0] } placeholder="Detected wallet address" name="admin"/>
+                                        <input className= 'form-input' disabled={true} type="text" value={ this.props.accounts[0] } placeholder="Detected wallet address" name="admin"/>
                                     </FormGroup>
                                     <FormGroup>
                                         <input className='form-tc' type='checkbox' /><span className='tc'>Terms & Condition</span>  
@@ -127,10 +128,15 @@ function drizzleMapStateToProps(state, ownProps) {
   // console.log(state, ownProps)
   return {
     accounts: state.accounts,
-    drizzleStatus: state.drizzleStatus
+    drizzleStatus: state.drizzleStatus,
+    web3: state.web3
   };
 }
 
 //const SignUpContainer = drizzleConnect(SignUp, mapStateToProps);
 //export default connect(SignUpContainer);
-export default connect(mapStateToProps)(drizzleConnect(SignUp, drizzleMapStateToProps));
+export default connect(mapStateToProps)(
+  drizzleConnect(
+    EthereumComponent(SignUp), drizzleMapStateToProps
+  )
+);
