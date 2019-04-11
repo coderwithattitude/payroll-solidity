@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Link } from 'react-router';
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
+import { drizzleConnect } from 'drizzle-react';
 import { handleGetEmployees } from '../../../actions/employee';
 import {
   Input,
@@ -127,9 +128,24 @@ class DataList extends React.Component<Props, State> {
     );
   }
 }
+
 function mapStateToProps(state, ownProps) {
   return {
     employees: state.employees
   };
 }
-export default connect(mapStateToProps)(EthereumComponent(DataList));
+
+function drizzleMapStateToProps(state, ownProps) {
+  // console.log(state, ownProps)
+  return {
+    accounts: state.accounts,
+    drizzleStatus: state.drizzleStatus,
+    web3: state.web3
+  };
+}
+
+export default connect(mapStateToProps)(
+  drizzleConnect(
+    EthereumComponent(DataList), drizzleMapStateToProps
+  )
+);

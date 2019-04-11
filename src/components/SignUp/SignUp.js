@@ -1,6 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { drizzleConnect } from 'drizzle-react';
+import EthereumComponent from '../EthereumComponent';
 import { handleAddOrg } from '../../actions/org';
 import {
     FlexboxGrid, 
@@ -23,7 +26,6 @@ class SignUp extends React.Component<Props, State> {
         
     this.state = {
       orgName: '',
-      admin: '',
       email: ''
     };
         
@@ -40,29 +42,26 @@ class SignUp extends React.Component<Props, State> {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    this.props.dispatch(handleAddOrg(this.state));
+    this.props.reduxStore.dispatch(handleAddOrg(Object.assign({}, this.state, { admin: this.props.accounts[0] })));
   }
 
   isDisabled = () => {
-    const { orgName, admin, email } = this.state;
+    const { orgName, email } = this.state;
     return (orgName === '' ||
-                admin === '' ||
+                (!this.props.accounts || this.props.accounts[0] === '') ||
                 email === ''
                 );
   }
 
    
   componentDidMount() {
-    const { web3 } = window;
-    let _admin;
-    web3.eth.getAccounts((err, accounts) => this.setState({admin: accounts[0]}));
   }
 
     
 
 
   render () {
-    const { orgName, email, admin } = this.state;
+    const { orgName, email } = this.state;
     return(
        
         <div className='show-grid'>
@@ -93,7 +92,7 @@ class SignUp extends React.Component<Props, State> {
                                     </FormGroup>  
                                     <FormGroup>
                                         <ControlLabel>Wallet Address</ControlLabel>
-                                        <input className= 'form-input' disabled={true} value={ admin } placeholder="Enter wallet address" name="admin"/>
+                                        <input className= 'form-input' disabled={true} type="text" value={ this.props.accounts[0] } placeholder="Detected wallet address" name="admin"/>
                                     </FormGroup>
                                     <FormGroup>
                                         <input className='form-tc' type='checkbox' /><span className='tc'>Terms & Condition</span>  
@@ -116,10 +115,28 @@ class SignUp extends React.Component<Props, State> {
   }
 }
 
+SignUp.contextTypes = {
+  drizzle: PropTypes.object.isRequired
+}
+
 function mapStateToProps(state, ownProps) {
+  // console.log(state, ownProps)
   return {};
+}
+
+function drizzleMapStateToProps(state, ownProps) {
+  // console.log(state, ownProps)
+  return {
+    accounts: state.accounts,
+    drizzleStatus: state.drizzleStatus,
+    web3: state.web3
+  };
 }
 
 //const SignUpContainer = drizzleConnect(SignUp, mapStateToProps);
 //export default connect(SignUpContainer);
-export default connect(mapStateToProps)(SignUp);
+export default connect(mapStateToProps)(
+  drizzleConnect(
+    EthereumComponent(SignUp), drizzleMapStateToProps
+  )
+);

@@ -11,14 +11,12 @@ const DrizzleComponent = (WrappedComponent) => props => {
 
   return (
         <DrizzleProvider  options={drizzleOptions}>
-          <LoadingContainer>
             <Provider store={store} >
               <div>
                 <LoadingBar scope='first'/>
-                <WrappedComponent {...props} />
+                <WrappedComponent {...props} reduxStore={store}/>
               </div>
             </Provider>
-          </LoadingContainer>
         </DrizzleProvider>
   );
 }

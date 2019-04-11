@@ -3,15 +3,15 @@ import { Button, Col, FlexboxGrid, Grid, Row } from 'rsuite';
 import Metamasksvg from '../../images/metamask-fox.svg';
 
 const hasWeb3 = props => {
-    return props.web3 || (props.drizzle && props.drizzle.web3);
+    return (props.drizzleStatus && props.drizzleStatus.initialized) || (props.web3 && props.web3.networkId) || (props.drizzle && props.drizzle.web3);
 }
 
 const hasWeb3Account = props => {
-    return (props.web3 && props.web3.eth.accounts.length > 0) || (props.accounts && props.accounts.length > 0) || (props.drizzle && props.drizzle.accounts && props.drizzle.accounts.length > 0);
+    return (props.accounts && Object.keys(props.accounts).length > 0);
 }
 
 const enableProvider = props => e => {
-    const web3 = props.web3 || (props.drizzle && props.drizzle.web3);
+    const web3 = (props.drizzle && props.drizzle.web3) || props.web3;
     if (web3 && web3.currentProvider) {
         web3.currentProvider.enable();
     } else {
@@ -61,7 +61,7 @@ const EthereumComponent = (WrappedComponent) => props => {
                                 }
                                 { hasWeb3(props) && !hasWeb3Account(props) &&
                                     <Button block appearance="primary" color="green" className="tight-border" onClick={enableProvider(props)}>
-                                        UNLOCL ACCOUNTS
+                                        UNLOCK ACCOUNTS
                                     </Button>
                                 }
                             </Col>
