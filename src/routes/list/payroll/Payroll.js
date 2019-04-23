@@ -205,6 +205,6 @@ function mapStateToProps(state) {
     };
 }
 
-export default drizzleConnect(EthereumComponent(Payroll), mapStateToProps);
+export default drizzleConnect(Payroll, mapStateToProps);
 
 

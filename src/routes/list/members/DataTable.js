@@ -146,6 +146,6 @@ function drizzleMapStateToProps(state, ownProps) {
 
 export default connect(mapStateToProps)(
   drizzleConnect(
-    EthereumComponent(DataList), drizzleMapStateToProps
+    DataList, drizzleMapStateToProps
   )
 );
