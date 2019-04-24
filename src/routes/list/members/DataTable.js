@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { Link } from 'react-router';
+import { Route } from 'react-router-dom';
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
 import { drizzleConnect } from 'drizzle-react';
@@ -24,7 +24,7 @@ import {
 
 //import data from './users';
 
-import EthereumComponent from '../../../components/EthereumComponent';
+import NoEmployees from '../../noemps';
 import SearchBar from '../../../components/SearchBar';
 import EditCell from '../../../components/EditCell';
 import ActionCell from '../../../components/ActionCell';
@@ -72,58 +72,64 @@ class DataList extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        <Panel header={
-          <div>
+        {
+          (!this.props.employees || (!this.props.employees.length && !Object.keys(this.props.employees).length)) &&
+          <Route render = { props => < NoEmployees.component {...props} /> } />
+        }
+        {
+          this.props.employees && (this.props.employees.length || Object.keys(this.props.employees).length) &&
+          <Panel header={
+            <div>
               <span style= {{ display: 'inline-block', marginRight: '30px'}}>
                   <h1>Payroll</h1>
               </span>
               <Button appearance="primary" className="tight-border spread-button bold-font" color="green" placement="left" style={{ verticalAlign: '6px', fontSize: '12px' }}>
                   PAY EMPLOYEES
               </Button>
-          </div>}
-        >
-
-          <SearchBar/>
-
-          <Table
-            height={getHeight(window) - 216}
-            data={this.state.data}
-            onRowClick={data => {
-              console.log(data);
-            }}
-            
+            </div>}
           >
-            <Column width={70} align="center" fixed>
-              <HeaderCell>Id</HeaderCell>
-              <Cell dataKey="id" />
-            </Column>
 
-            <Column width={200} fixed>
-              <HeaderCell>Full Name</HeaderCell>
-              <EditCell onChange={this.handleChange} dataKey="name" />
-            </Column>
+            <SearchBar/>
 
-            <Column width={200}>
-              <HeaderCell>Wallet</HeaderCell>
-              <EditCell onChange={this.handleChange} dataKey="street" />
-            </Column>
+            <Table
+              height={getHeight(window) - 216}
+              data={this.state.data}
+              onRowClick={data => {
+                console.log(data);
+              }}
+              
+            >
+              <Column width={70} align="center" fixed>
+                <HeaderCell>Id</HeaderCell>
+                <Cell dataKey="id" />
+              </Column>
 
-            <Column width={300}>
-              <HeaderCell>Hourly rate</HeaderCell>
-              <EditCell onChange={this.handleChange} dataKey="companyName" />
-            </Column>
+              <Column width={200} fixed>
+                <HeaderCell>Full Name</HeaderCell>
+                <EditCell onChange={this.handleChange} dataKey="name" />
+              </Column>
 
-            <Column width={300}>
-              <HeaderCell>Hours per week</HeaderCell>
-              <EditCell onChange={this.handleChange} dataKey="email" />
-            </Column>
-            <Column flexGrow={1}>
-            <HeaderCell>Edit</HeaderCell>
-            <ActionCell dataKey="id" onClick={this.handleEditState} />
-            </Column>
-          </Table>
-        </Panel>
-       
+              <Column width={200}>
+                <HeaderCell>Wallet</HeaderCell>
+                <EditCell onChange={this.handleChange} dataKey="street" />
+              </Column>
+
+              <Column width={300}>
+                <HeaderCell>Hourly rate</HeaderCell>
+                <EditCell onChange={this.handleChange} dataKey="companyName" />
+              </Column>
+
+              <Column width={300}>
+                <HeaderCell>Hours per week</HeaderCell>
+                <EditCell onChange={this.handleChange} dataKey="email" />
+              </Column>
+              <Column flexGrow={1}>
+              <HeaderCell>Edit</HeaderCell>
+              <ActionCell dataKey="id" onClick={this.handleEditState} />
+              </Column>
+            </Table>
+          </Panel>
+        }
       </div>
     );
   }
