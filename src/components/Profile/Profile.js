@@ -18,25 +18,43 @@ import {
 
 import { pageview } from '../../tracker';
 
-import save_time_icon from '../../images/home/save_time_icon.png';
-import zero_volatility_icon from '../../images/home/zero_volatility_icon.png';
-import work_time_calculator_icon from '../../images/home/work_time_calculator_icon.png';
-
-const { getHeight, on } = DOMHelper;
-const contactNumber = '+2348056556566';
-const contactEmail = 'hello@daipay.com';
-const contactSocial = {
-  twitter: '',
-  linkedin: '',
-  github: 'https://github.com/renown-fruit/dai-payroll',
-  reddit: ''
-}
-
 type State = {
   windowHeight: number
 };
 
 class Profile extends React.Component<Props, State> {
+
+    state = {
+        logo: ''
+    }
+
+    render () {
+        return (
+            <FlexboxGrid className="profile" align="middle" justify="center">
+                <div className="content tight-border">
+                    <Grid fluid className="inner-content">
+                        <Row className="head" >
+                            <Col xs={4}>
+                                <Icon icon="logo-analytics" size="lg" className="logo" />
+                            </Col>
+                            <Col xs={15} style={{ height: '100%' }}>
+                                <FlexboxGrid align="middle" justify="center"  style={{ height: '100%' }}>
+                                    <h2>Weeee</h2>
+                                </FlexboxGrid>
+                            </Col>
+                            <Col xs={5}>
+                                <Button>Weeee</Button>
+                            </Col>
+                        </Row>
+                        <Row className="bottom" gutter={1}>
+                            <Col xs={8} xsOffset={4}>
+                            </Col>
+                        </Row>
+                    </Grid>
+                </div>
+            </FlexboxGrid>
+        )
+    }
 }
 
 export default Profile;
