@@ -111,7 +111,7 @@ class Payroll extends React.Component<Props, State> {
                         <span style={{ display: 'inline-block', marginRight: '30px' }}>
                             <h1>Payment Information Preview</h1>
                         </span>
-                        <Button appearance="primary" className="tight-border spread-button bold-font" color="blue" placement="right" style={{ verticalAlign: '6px', fontSize: '12px' }} onClick={this.handleShowDrawer}>
+                        <Button appearance="primary" className="tight-border spread-button bold-font" placement="right" style={{ verticalAlign: '6px', fontSize: '12px' }} onClick={this.handleShowDrawer}>
                             ADD EMPLOYEE
               </Button>
                     </div>}
