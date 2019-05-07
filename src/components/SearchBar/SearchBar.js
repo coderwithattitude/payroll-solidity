@@ -134,7 +134,7 @@ class SearchBar extends React.Component {
                         </InputGroup>
                     </div>
 
-                    <Button appearance="primary" placement="left" onClick={this.handleShowModal} className="tight-border spread-button deep-blue bold-font">
+                    <Button appearance="primary" placement="left" onClick={this.handleShowModal} className="tight-border spread-button bold-font">
                         <Icon icon="plus" style={{ marginRight: '12px' }}  />
                         ADD EMPLOYEE
                     </Button>

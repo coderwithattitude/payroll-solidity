@@ -1,0 +1,69 @@
+@our-grey: #cdcfd1;
+
+.profile {
+    height: 100%;
+    background: transparent;
+
+    .top-flush {
+        margin-top: 0;
+    }
+
+    .content {
+        height: 30%;
+        width: 80%;
+        min-width: 480px;
+
+        .inner-content {
+            height: 100%;
+
+            .head {
+                height: 45%;
+                line-height: 10em;
+                border-bottom: 2px transparent;
+                background: white;
+                > div {
+                    height: 100%;
+                    .logo-container {
+                        width: 45%;
+                        height: 80%;
+                        margin: 5% auto;
+                        .logo {
+                            position: relative;
+                            top: -50%;
+                            max-width: 100%;
+                            max-height: 100%;
+                            background: white;
+                            border: 2px solid @our-grey;
+                            overflow: hidden;
+                            padding: 12px;
+                        }
+                    }
+                }
+            }
+            .bottom {
+                height: 55%;
+                line-height: 15em;
+                background: white;
+                * {
+                    text-align: left;
+                }
+                > div {
+                    height: 100%;
+                }
+                .border-top {
+                    border-top: 1px solid @our-grey;
+                }
+                .middle {
+                    border-left: 1px solid @our-grey;
+                    border-right: 1px solid @our-grey;
+                }
+                .bottom-content  {
+                    padding: 32px;
+                    h1, h2, h3 {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

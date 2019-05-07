@@ -52,7 +52,7 @@ const navs = [
     key: '3',
     text: 'Profile',
     icon: <Icon icon="user-o" />,
-    link: '/noemps'
+    link: '/profile'
   }
 ];
 
