@@ -1,15 +1,11 @@
 // @flow
 
 import * as React from 'react';
-import { Router, browserHistory, Redirect, Switch } from 'react-router';
-import { HashRouter, BrowserRouter /*, Router*/, Route } from 'react-router-dom';
+import { Redirect, Switch } from 'react-router';
+import { HashRouter,Route } from 'react-router-dom';
 
-import { IntlProvider } from 'react-intl';
-import { IntlProvider as RSIntlProvider } from 'rsuite';
 
 import { Provider } from 'react-redux';
-import enGB from 'rsuite/lib/IntlProvider/locales/en_GB';
-import locales from './locales';
 import routes from './routes';
 
 import DrizzleComponent from './components/DrizzleComponent';
@@ -24,13 +20,13 @@ const extractAppRoute = (route, parent) => {
 
   const one = {};
   let path = route.path;
-  path =path && path[0] !== '/' ? '/'+path : path;
+  path = path && path[0] !== '/' ? '/' + path : path;
   
   if (path && path !== '/') {
-    one.path = parent ? parent+path : path;
-    one.path = '/app'+one.path;
+    one.path = parent ? parent + path : path;
+    one.path = '/app' + one.path;
   }
-  route.component? one.component = route.component : '';
+  route.component ? one.component = route.component : '';
 
   if (one.path && one.component) {
     routes.push(one);
@@ -41,7 +37,7 @@ const extractAppRoute = (route, parent) => {
   }
   routes = routes.concat(children).flat();
   return routes;
-}
+};
 
 const AdvancedRoutes = props => {
   return props.routes.map( route => {
@@ -51,9 +47,9 @@ const AdvancedRoutes = props => {
       component: route.component 
     };
     route.exact ? props.exact = route.exact : null;
-    return <Route  {...props} />
+    return <Route  {...props} />;
   }) || <div></div>;
-}
+};
 
 const extractedRoute = extractAppRoute(routes);
 
@@ -72,11 +68,13 @@ class App extends React.Component<Props> {
             }
           />
           <Route path='/app' render= { props =>
-            <Frame {...props} >
-              {
-                <AdvancedRoutes routes={extractedRoute} />
-              }
-            </Frame>
+            localStorage.getItem('user')
+              ? <Frame {...props} >
+                {
+                  <AdvancedRoutes routes={extractedRoute} />
+                }
+               </Frame>
+              : <Redirect exact to={{ pathname: '/home', state: { from: props.location } }} />
           } />
         </div>
       </HashRouter>
