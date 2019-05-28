@@ -23,14 +23,6 @@ ipfs.on('ready', () => {
 //const orbitdb = new OrbitDB(ipfs); // connect orbitdb to ipfs instance
 //const docstore = orbitdb.docs('payroll-db'); // create new orbitdb document database
 
-export const db = {
-  addOrganization,
-  deleteOrganisation,
-  getOrganisation,
-  addEmployee,
-  deleteEmployee,
-  getEmployees
-};
 
 function addOrganization(orgName, admin, email) {
     // Add organisation to payrolldb in orbitdb
@@ -116,3 +108,11 @@ async function deleteEmployee(admin,employee) {
 
 }
 
+export const db = {
+  addOrganization,
+  deleteOrganisation,
+  getOrganisation,
+  addEmployee,
+  deleteEmployee,
+  getEmployees
+};
