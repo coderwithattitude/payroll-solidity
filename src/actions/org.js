@@ -35,25 +35,9 @@ function handleAddOrg(org) {
             }
         );
   };
-  function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-  function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-  function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
-}
-
-export function handleAddOr(org) {
-  return (dispatch, getState) => {
-    const { authedUser } = getState();
-    
-    dispatch(showLoading());
-    addOrganization(
-        org.orgName,
-        org.admin,
-        org.email
-    );
-      dispatch(addOrg(org));
-      dispatch(hideLoading());
-
-  };
+  function request(user) { return { type: userConstants.REGISTER_REQUEST, user }; }
+  function success(user) { return { type: userConstants.REGISTER_SUCCESS, user }; }
+  function failure(error) { return { type: userConstants.REGISTER_FAILURE, error }; }
 }
 
 function delOrg(org) {
