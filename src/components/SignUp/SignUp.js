@@ -33,8 +33,7 @@ class SignUp extends React.Component<Props, State> {
   }
 
   handleCheckbox = (e) => {
-    console.log(e)
-    const { value, name } = e.target;
+    const { name } = e.target;
     this.setState(() => ({
       [name]: !this.state[name]
     }));
