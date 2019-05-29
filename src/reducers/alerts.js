@@ -1,6 +1,6 @@
 import { alert } from '../constants';
 
-export function alerts(state = {}, action) {
+export default function alerts(state = {}, action) {
   switch (action.type) {
     case alert.SUCCESS:
       return {
