@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { drizzleConnect } from 'drizzle-react';
 import EthereumComponent from '../EthereumComponent';
 import { handleAddOrg } from '../../actions/org';
+
 import {
     FlexboxGrid, 
     Container, 
@@ -15,8 +16,6 @@ import {
     Panel,
     Button
  } from 'rsuite';
-
-
 
 const { Item } = FlexboxGrid;
 class SignUp extends React.Component<Props, State> {
@@ -105,7 +104,7 @@ class SignUp extends React.Component<Props, State> {
                                         <input className= 'form-input' disabled={true} type="text" value={ this.props.accounts[0] } placeholder="Detected wallet address" name="admin"/>
                                     </FormGroup>
                                     <FormGroup>
-                                        <input className='form-tc' type='checkbox' name='tnc' id='tnc' checked={this.state.tnc} onClick={this.handleCheckbox} /><label for='tnc'><span className='tc'>Terms & Condition</span></label>  
+                                        <input className='form-tc' type='checkbox' name='tnc' id='tnc' checked={this.state.tnc} onChange={this.handleCheckbox} /><label htmlFor='tnc'><span className='tc'>Terms & Condition</span></label>  
                                     </FormGroup>
                                     <FormGroup>
                                         <Button disabled={this.isDisabled()} color='green' onClick={this.handleSubmit} style={{width: '361px', height: '52px'}}>CREATE ACCOUNT</Button>

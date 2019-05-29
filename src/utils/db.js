@@ -26,7 +26,7 @@ ipfs.on('ready', () => {
 
 function addOrganization(orgName, admin, email) {
     // Add organisation to payrolldb in orbitdb
-  orbitdb.docstore('payroll-db').then((docstore) => {
+    return orbitdb.docstore('payroll-db').then((docstore) => {
     docstore.put({ _id: admin, orgName: orgName, 
                  email: email, employees: {} }).then((hash)=>{
                    console.log('org added', hash);
@@ -34,7 +34,6 @@ function addOrganization(orgName, admin, email) {
                 });
                  //.catch((e)=>console.error('error adding organisation',e));
   });
-  return true;
 }
 
 // Retrieve organisation from payrollDb

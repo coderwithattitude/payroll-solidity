@@ -3,12 +3,8 @@ import { db } from '../utils';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { Redirect } from 'react-router-dom';
 import { alerts } from './alerts';
+import { user as userConstants } from '../constants';
 
-export const orgActions = {
-  handleAddOrg,
-  handleDelOrg,
-  handleGetOrg
-};
 
 function addOrg(org) {
   console.log('addOrg',org);
@@ -19,17 +15,20 @@ function addOrg(org) {
 }
 
 function handleAddOrg(org) {
+  console.log(org)
   return dispatch => {
     dispatch(request(org));
 
-    db.addOrganization(org)
-        .then(
+    const addAction =  db.addOrganization(org);
+    console.log(addAction)
+        addAction.then(
             org => {
               dispatch(success());
               <Redirect to='/app/list/members'/>;
               dispatch(alerts.success('Registration successful'));
             },
             error => {
+              console.log(error)
               dispatch(failure(error));
               dispatch(alerts.error(error));
             }
@@ -47,7 +46,7 @@ function delOrg(org) {
   };
 }
 
-export function handleDelOrg(org) {
+function handleDelOrg(org) {
   return (dispatch, getState) => {
     const { authedUser } = getState();
 
@@ -78,3 +77,15 @@ function handleGetOrg(org) {
           .then(() => dispatch(hideLoading()));
   };
 }
+
+export const orgActions = {
+  handleAddOrg,
+  handleDelOrg,
+  handleGetOrg
+};
+
+export {
+  handleAddOrg,
+  handleDelOrg,
+  handleGetOrg
+};
