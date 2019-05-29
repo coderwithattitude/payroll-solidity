@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { drizzleConnect } from 'drizzle-react';
 import EthereumComponent from '../EthereumComponent';
 import { handleAddOrg } from '../../actions/org';
+
 import {
     FlexboxGrid, 
     Container, 
@@ -16,8 +17,6 @@ import {
     Button
  } from 'rsuite';
 
-
-
 const { Item } = FlexboxGrid;
 class SignUp extends React.Component<Props, State> {
 
@@ -26,10 +25,18 @@ class SignUp extends React.Component<Props, State> {
         
     this.state = {
       orgName: '',
-      email: ''
+      email: '',
+      tnc: false
     };
         
+    this.handleCheckbox = this.handleCheckbox.bind(this);
+  }
 
+  handleCheckbox = (e) => {
+    const { name } = e.target;
+    this.setState(() => ({
+      [name]: !this.state[name]
+    }));
   }
 
   handleInputChange = (e) => {
@@ -49,7 +56,8 @@ class SignUp extends React.Component<Props, State> {
     const { orgName, email } = this.state;
     return (orgName === '' ||
                 (!this.props.accounts || this.props.accounts[0] === '') ||
-                email === ''
+                email === '' ||
+                !this.state.tnc
                 );
   }
 
@@ -95,7 +103,7 @@ class SignUp extends React.Component<Props, State> {
                                         <input className= 'form-input' disabled={true} type="text" value={ this.props.accounts[0] } placeholder="Detected wallet address" name="admin"/>
                                     </FormGroup>
                                     <FormGroup>
-                                        <input className='form-tc' type='checkbox' /><span className='tc'>Terms & Condition</span>  
+                                        <input className='form-tc' type='checkbox' name='tnc' id='tnc' checked={this.state.tnc} onChange={this.handleCheckbox} /><label htmlFor='tnc'><span className='tc'>Terms & Condition</span></label>  
                                     </FormGroup>
                                     <FormGroup>
                                         <Button disabled={this.isDisabled()} color='green' onClick={this.handleSubmit} style={{width: '361px', height: '52px'}}>CREATE ACCOUNT</Button>
