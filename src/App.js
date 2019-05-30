@@ -5,7 +5,7 @@ import { Redirect, Switch } from 'react-router';
 import { HashRouter,Route } from 'react-router-dom';
 
 
-import { Provider } from 'react-redux';
+import { history } from './utils';
 import routes from './routes';
 
 import DrizzleComponent from './components/DrizzleComponent';
@@ -55,8 +55,9 @@ const extractedRoute = extractAppRoute(routes);
 
 class App extends React.Component<Props> {
   render() {
+    console.log('usere', localStorage.getItem('user'));
     return (
-      <HashRouter>
+      <HashRouter history={history}>
         <div>
           <Switch>
             <Redirect exact from='/' to='/home' />
@@ -71,6 +72,7 @@ class App extends React.Component<Props> {
             localStorage.getItem('user')
               ? <Frame {...props} >
                 {
+                  
                   <AdvancedRoutes routes={extractedRoute} />
                 }
                </Frame>

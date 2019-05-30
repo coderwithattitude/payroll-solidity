@@ -1,18 +1,10 @@
 /* eslint-disable brace-style */
-import { db } from '../utils';
+import { db,history } from '../utils';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
-import { Redirect } from 'react-router-dom';
+
 import { alerts } from './alerts';
 import { user as userConstants } from '../constants';
 
-
-function addOrg(org) {
-  console.log('addOrg',org);
-  return {
-    type: ADD_ORGANISATION,
-    org,
-  };
-}
 
 function handleAddOrg(org) {
   console.log(org)
@@ -21,10 +13,10 @@ function handleAddOrg(org) {
 
     const addAction =  db.addOrganization(org);
     console.log(addAction)
-        addAction.then(
+    addAction.then(
             org => {
               dispatch(success());
-              <Redirect to='/app/list/members'/>;
+              history.push('/#/app');
               dispatch(alerts.success('Registration successful'));
             },
             error => {
@@ -34,7 +26,7 @@ function handleAddOrg(org) {
             }
         );
   };
-  function request(user) { return { type: userConstants.REGISTER_REQUEST, user }; }
+  function request(user) { return { type: userConstants.REGISTER_ORGANIZAION, user }; }
   function success(user) { return { type: userConstants.REGISTER_SUCCESS, user }; }
   function failure(error) { return { type: userConstants.REGISTER_FAILURE, error }; }
 }

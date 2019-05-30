@@ -24,14 +24,15 @@ ipfs.on('ready', () => {
 //const docstore = orbitdb.docs('payroll-db'); // create new orbitdb document database
 
 
-function addOrganization(orgName, admin, email) {
+function addOrganization(org) {
     // Add organisation to payrolldb in orbitdb
-    return orbitdb.docstore('payroll-db').then((docstore) => {
-    docstore.put({ _id: admin, orgName: orgName, 
-                 email: email, employees: {} }).then((hash)=>{
-                   console.log('org added', hash);
-                   localStorage.setItem('user',admin);
-                });
+    console.log('org',org);
+  return orbitdb.docstore('payroll-db').then((docstore) => {
+    docstore.put({ _id: org.admin, orgName: org.orgName, 
+                 email: org.email, employees: {} }).then((hash)=>{
+                   console.log('org added', org.admin);
+                   localStorage.setItem('user',org.admin);
+                 }).catch((e)=> console.log('error adding organization',e));
                  //.catch((e)=>console.error('error adding organisation',e));
   });
 }

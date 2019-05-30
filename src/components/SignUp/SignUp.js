@@ -24,9 +24,10 @@ class SignUp extends React.Component<Props, State> {
     super(props);
         
     this.state = {
-      orgName: '',
-      email: '',
-      tnc: false
+        orgName: '',
+        email: '',
+        tnc: false,
+      submitted: false
     };
         
     this.handleCheckbox = this.handleCheckbox.bind(this);
@@ -49,7 +50,11 @@ class SignUp extends React.Component<Props, State> {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    this.props.reduxStore.dispatch(handleAddOrg(Object.assign({}, this.state, { admin: this.props.accounts[0] })));
+    this.setState({ submitted: true });
+    const { user } = this.state;
+    const { dispatch } = this.props.reduxStore;
+
+    dispatch(handleAddOrg(Object.assign({}, this.state, { admin: this.props.accounts[0] })));
   }
 
   isDisabled = () => {
@@ -125,11 +130,13 @@ class SignUp extends React.Component<Props, State> {
 
 SignUp.contextTypes = {
   drizzle: PropTypes.object.isRequired
-}
+};
 
 function mapStateToProps(state, ownProps) {
-  // console.log(state, ownProps)
-  return {};
+  const { orgs } = state.orgs;
+  return {
+    orgs
+  };
 }
 
 function drizzleMapStateToProps(state, ownProps) {
