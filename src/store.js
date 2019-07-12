@@ -5,37 +5,26 @@ import { routerMiddleware } from 'react-router-redux';
 import reducer from './reducer';
 //import rootSaga from './rootSaga';
 //import createSagaMiddleware from 'redux-saga';
-import { generateContractsInitialState } from 'drizzle';
-import drizzleOptions from './drizzleOptions';
 
-// instantiate redux devtools to visualize state
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+import loggerMiddleware from './middleware/logger';
+import monitorReducerEnhancer from './enhancers/monitorReducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-//const history = createHistory();
 
-// instantiate middleware objects "react-router": "3.2.0",
-const routingMiddleware = routerMiddleware(history);
-//const sagaMiddleware = createSagaMiddleware();
 
-const initialState = {
-  contracts: generateContractsInitialState(drizzleOptions)
-};
+export default function configureStore(preloadedState) {
+  const routingMiddleware = routerMiddleware(history);
+  const middlewares = [loggerMiddleware, routingMiddleware, thunkMiddleware];
+  const middlewareEnhancer = applyMiddleware(...middlewares);
 
-const store = createStore(
-    reducer,
-    {},
-    composeEnhancers(
-      applyMiddleware(
-        thunkMiddleware,
-        routingMiddleware
-      // sagaMiddleware
-    )
-  )
-);
-//sagaMiddleware.run(rootSaga);
+  const enhancers = [middlewareEnhancer, monitorReducerEnhancer];
+  const composedEnhancers = composeWithDevTools(...enhancers);
 
-//export { history };
-export { store };
+  const store = createStore(reducer, preloadedState, composedEnhancers);
 
-export default store;
+  return store;
+}
+
+
+
 

@@ -3,12 +3,18 @@ import { DrizzleProvider } from 'drizzle-react';
 import { LoadingContainer } from 'drizzle-react-components';
 import { Provider } from 'react-redux';
 import LoadingBar from 'react-redux-loading-bar';
-
-import { store } from '../../store';
+import configureStore from '../../store';
 import drizzleOptions from '../../drizzleOptions';
+import { generateContractsInitialState } from 'drizzle';
 
+const initialState = {
+  contracts: generateContractsInitialState(drizzleOptions)
+};
+
+const store = configureStore(initialState);
 const DrizzleComponent = (WrappedComponent) => props => {
 
+  
   return (
         <DrizzleProvider  options={drizzleOptions}>
             <Provider store={store} >
