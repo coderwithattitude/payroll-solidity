@@ -3,16 +3,19 @@ import { db,history } from '../utils';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 import { alerts } from './alerts';
-import { user as userConstants } from '../constants';
+import { org as orgConstants } from '../constants';
+
+
+export const ADD_ORGANIZATION = 'ADD_ORGANIZATION';
 
 
 function handleAddOrg(org) {
-  console.log(org)
+  //console.log(org)
   return dispatch => {
-    dispatch(request(org));
+    dispatch(request({org}));
 
     const addAction =  db.addOrganization(org);
-    console.log(addAction)
+    //console.log(addAction)
     addAction.then(
             org => {
               dispatch(success());
@@ -20,14 +23,14 @@ function handleAddOrg(org) {
               dispatch(alerts.success('Registration successful'));
             },
             error => {
-              console.log(error)
+             // console.log(error)
               dispatch(failure(error));
               dispatch(alerts.error(error));
             }
         );
   };
-  function request(user) { return { type: userConstants.REGISTER_ORGANIZAION, user }; }
-  function success(user) { return { type: userConstants.REGISTER_SUCCESS, user }; }
+  function request(org) { return { type: orgConstants.REGISTER_ORGANIZATION, org }; }
+  function success(org) { return { type: orgConstants.REGISTER_ORGANIZATION_SUCCESS, org }; }
   function failure(error) { return { type: userConstants.REGISTER_FAILURE, error }; }
 }
 

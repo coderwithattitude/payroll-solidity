@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Redirect, Switch } from 'react-router';
-import { HashRouter,Route } from 'react-router-dom';
+import { HashRouter,Route,Router } from 'react-router-dom';
 
 
 import { history } from './utils';
@@ -57,7 +57,7 @@ class App extends React.Component<Props> {
   render() {
     console.log('usere', localStorage.getItem('user'));
     return (
-      <HashRouter history={history}>
+      <Router history={history}>
         <div>
           <Switch>
             <Redirect exact from='/' to='/home' />
@@ -79,7 +79,7 @@ class App extends React.Component<Props> {
               : <Redirect exact to={{ pathname: '/home', state: { from: props.location } }} />
           } />
         </div>
-      </HashRouter>
+      </Router>
     );
   }
 }
