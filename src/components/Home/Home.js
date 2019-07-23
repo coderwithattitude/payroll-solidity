@@ -85,7 +85,7 @@ class Home extends React.Component<Props, State> {
             <Navbar.Body>
               <Nav pullRight>
                 <Nav.Item >Contact Us</Nav.Item>
-                <Nav.Item className="call2action" href="/#/signup">
+                <Nav.Item className="call2action" href="/signup">
                     <Button appearance="primary" color="green" className="spread-button tight-border">
                       Create a free account
                     </Button>

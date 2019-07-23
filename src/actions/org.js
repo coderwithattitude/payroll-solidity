@@ -18,8 +18,8 @@ function handleAddOrg(org) {
     //console.log(addAction)
     addAction.then(
             org => {
-              dispatch(success());
-              history.push('/#/app');
+              dispatch(success(org));
+              history.push('/app');
               dispatch(alerts.success('Registration successful'));
             },
             error => {
