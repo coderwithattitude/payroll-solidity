@@ -1,32 +1,37 @@
-import { addOrganization, deleteOrganisation, getOrganisation} from '../utils';
+/* eslint-disable brace-style */
+import { db,history } from '../utils';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
-export const ADD_ORGANISATION = 'ADD_ORGANISATION';
-export const DELETE_ORGANISATION = 'DELETE_ORGANISATION';
-export const GET_ORGANISATION = 'GET_ORGANISATION';
+import { alerts } from './alerts';
+import { org as orgConstants } from '../constants';
 
-function addOrg(org) {
-    console.log('addOrg',org)
-  return {
-    type: ADD_ORGANISATION,
-    org,
+
+export const ADD_ORGANIZATION = 'ADD_ORGANIZATION';
+
+
+function handleAddOrg(org) {
+  //console.log(org)
+  return dispatch => {
+    dispatch(request({org}));
+
+    const addAction =  db.addOrganization(org);
+    //console.log(addAction)
+    addAction.then(
+            org => {
+              dispatch(success(org));
+              history.push('/app');
+              dispatch(alerts.success('Registration successful'));
+            },
+            error => {
+             // console.log(error)
+              dispatch(failure(error));
+              dispatch(alerts.error(error));
+            }
+        );
   };
-}
-
-export function handleAddOrg(org) {
-  return (dispatch, getState) => {
-    const { authedUser } = getState();
-    
-    dispatch(showLoading());
-    addOrganization(
-        org.orgName,
-        org.admin,
-        org.email
-    );
-      dispatch(addOrg(org));
-      dispatch(hideLoading());
-
-  };
+  function request(org) { return { type: orgConstants.REGISTER_ORGANIZATION, org }; }
+  function success(org) { return { type: orgConstants.REGISTER_ORGANIZATION_SUCCESS, org }; }
+  function failure(error) { return { type: userConstants.REGISTER_FAILURE, error }; }
 }
 
 function delOrg(org) {
@@ -36,7 +41,7 @@ function delOrg(org) {
   };
 }
 
-export function handleDelOrg(org) {
+function handleDelOrg(org) {
   return (dispatch, getState) => {
     const { authedUser } = getState();
 
@@ -67,3 +72,15 @@ function handleGetOrg(org) {
           .then(() => dispatch(hideLoading()));
   };
 }
+
+export const orgActions = {
+  handleAddOrg,
+  handleDelOrg,
+  handleGetOrg
+};
+
+export {
+  handleAddOrg,
+  handleDelOrg,
+  handleGetOrg
+};

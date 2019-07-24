@@ -4,12 +4,14 @@ import { drizzleReducers } from 'drizzle';
 import { loadingBarReducer } from 'react-redux-loading-bar';
 import emps from './reducers/emps';
 import orgs from './reducers/orgs';
+import alert from './reducers/alerts';
 const reducer = combineReducers({
   routing: routerReducer,
   ...drizzleReducers,
   loadingBar: loadingBarReducer,
   emps,
-  orgs
+  orgs,
+  alert
 });
 
 export default reducer;

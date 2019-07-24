@@ -1,4 +1,5 @@
-export toThousands from './toThousands';
-export highlightValue from './highlightValue';
-export formatValue from './formatValue';
-export { addEmployee, addOrganization } from './db';
+export {default as toThousands} from './toThousands';
+export {default as highlightValue} from './highlightValue';
+export {default as formatValue} from './formatValue';
+export { db } from './db';
+export { history } from './history';
