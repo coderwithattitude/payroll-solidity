@@ -69,14 +69,14 @@ class App extends React.Component<Props> {
             }
           />
           <Route path='/app' render= { props =>
-            localStorage.getItem('user')
-              ? <Frame {...props} >
+            // localStorage.getItem('user') ?
+              <Frame {...props} >
                 {
                   
                   <AdvancedRoutes routes={extractedRoute} />
                 }
                </Frame>
-              : <Redirect exact to={{ pathname: '/home', state: { from: props.location } }} />
+              // : <Redirect exact to={{ pathname: '/home', state: { from: props.location } }} />
           } />
         </div>
       </Router>
