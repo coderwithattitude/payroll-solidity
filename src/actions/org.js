@@ -5,9 +5,7 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { alerts } from './alerts';
 import { org as orgConstants } from '../constants';
 
-
 export const ADD_ORGANIZATION = 'ADD_ORGANIZATION';
-
 
 function handleAddOrg(org) {
   //console.log(org)
@@ -73,14 +71,34 @@ function handleGetOrg(org) {
   };
 }
 
+function handleLoginOrg(address) {
+  return dispatch => {
+    dispatch(request({ address }));
+
+    const getOrg = db.getOrganisation(address);
+    getOrg.then(
+      org => {
+        dispatch(success(org));
+        history.push('/app');
+      },
+      error => {
+        dispatch(failure(error));
+        dispatch(alerts.error(error));
+      }
+    );
+  };
+}
+
 export const orgActions = {
   handleAddOrg,
   handleDelOrg,
-  handleGetOrg
+  handleGetOrg,
+  handleLoginOrg
 };
 
 export {
   handleAddOrg,
   handleDelOrg,
-  handleGetOrg
+  handleGetOrg,
+  handleLoginOrg
 };
